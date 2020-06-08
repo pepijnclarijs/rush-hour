@@ -1,1 +1,4 @@
-08/06/2020 - eerste versie random
+08/06/2020 - eerste versie random.
+Runs: 1000
+Average moves: 5574.437
+Least moves: 187

@@ -21,9 +21,10 @@ class Game:
         vehicles: This is a list containing the vehicles present in the game.
     """
 
-    def __init__(self, board, vehicles):
+    def __init__(self, board, vehicles, red_car):
         self.board = board
         self.vehicles = vehicles
+        self.red_car = red_car
 
         # Remember the taken boxes on the board.
         self.taken_boxes = []
@@ -54,18 +55,11 @@ class Game:
 			Boolean Indicating whether the game is won or not.
 		"""
 
-        # Loop over all vehicles.
-        # TODO: find a more efficient way to get access to the red car.
-        for vehicle in self.get_vehicles():
-            # Find the red car.
-            if vehicle.get_name() == 'X':
-                red_car = vehicle
-
         # Get the box that is in front of the exit.
         exit = self.get_board().get_exit()
 
         # Get the boxes between the exit and the red car.
-        box = red_car.get_position()[1]
+        box = self.red_car.get_position()[1]
         while box != exit:
             # Get the next spot
             next_row = box[0]
