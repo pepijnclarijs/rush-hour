@@ -8,9 +8,12 @@ import csv
 #   4) Move vehicles around and save the movement in the excel format (car, move)
 #   5) When the win condition is met, stop moving and print the list of moves.
 
-# Solve the game 10 times.
+# set amount of runs
+runs = 50
+
+# Solve the game
 solved_cases = {}
-for i in range(10):
+for i in range(runs):
     # Create the 6x6 game board.
     board = Board(6)
 
@@ -38,7 +41,7 @@ for i in range(10):
     moves = []
 
     # Move vehicles around randomly until the game is finished.
-    j = 0
+    tries = 0
     while not game.is_finished():
         # Get a random number of steps.
         steps = 0
@@ -64,9 +67,8 @@ for i in range(10):
         move = (random_vehicle.get_name(), steps)
         moves.append(move)
 
-        j += 1
-        if j > 1000:
-            moves = "oops! Something went wrong."
+        tries += 1
+        if tries > 100000:
             break
 
         solved_cases[f"{i}"] = moves
@@ -82,12 +84,17 @@ for case in solved_cases:
     if len(solved_cases[case]) < len(solved_cases[previous_case]):
         previous_case = case
 
-print(f"The case with the least number of moves is case {previous_case} with {len(solved_cases[previous_case])} moves.")
+# print(f"The case with the least number of moves is case {previous_case} with {len(solved_cases[previous_case])} moves.")
 # print(f"The moves are: {solved_cases[previous_case]}")
+print(f"Moves: {avg_moves}")
+print(f"Runs: {runs}")
 print(f"Average moves: {sum(avg_moves) / len(avg_moves)}")
+print(f"Least moves: {len(solved_cases[previous_case])}")
 
-# create output file with best result 
+# Create output file with best result 
 with open('output.csv', 'w+', newline='') as f:
     writer = csv.writer(f)
     writer.writerow(["car", "move"])
     writer.writerows(solved_cases[previous_case])
+
+# TODO: file schrijven met het beste resultaat ooit, of is dat nutteloos?
