@@ -10,7 +10,7 @@ import time
 #   5) When the win condition is met, stop moving and print the list of moves.
 
 # set amount of runs
-runs = 100
+runs = 10
 board_size = 6
 
 start_time = time.time()
@@ -38,7 +38,7 @@ for i in range(runs):
     # Create red car
     X = Vehicle('X', 2, [(3, 1), (3, 2)], 'horizontal')
 
-    vehicles = [A, B, C, D, E, F, G, H, I, J, K, L, X]
+    vehicles = [A, B, C, D, E, F, G, H, I, J, K, L]
 
     # Create the game.
     game = Game(board, vehicles, X)
@@ -79,7 +79,8 @@ for i in range(runs):
 
         solved_cases[f"{i}"] = moves
 
-end_time = time.time()
+end_time = time.time()        
+print(end_time - start_time)
 
 first_iter = True
 previous_case = None
@@ -95,7 +96,6 @@ for case in solved_cases:
 # print(f"The case with the least number of moves is case {previous_case} with {len(solved_cases[previous_case])} moves.")
 # print(f"The moves are: {solved_cases[previous_case]}")
 print(f"Moves: {avg_moves}")
-print(f"Runtime: {round((end_time - start_time))} seconds")
 print(f"Runs: {runs}")
 print(f"Average moves: {sum(avg_moves) / len(avg_moves)}")
 print(f"Least moves: {len(solved_cases[previous_case])}")
@@ -105,4 +105,5 @@ with open('output.csv', 'w+', newline='') as f:
     writer = csv.writer(f)
     writer.writerow(["car", "move"])
     writer.writerows(solved_cases[previous_case])
-    
+
+# TODO: file schrijven met het beste resultaat ooit, of is dat nutteloos?
