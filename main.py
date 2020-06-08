@@ -1,5 +1,6 @@
 from gameboard import Game, Board, Vehicle
 import random
+import csv
 
 # TODO: 1) Create a list of vehicles with the horizontal coordinates.
 #   2) Make an instance of the game class.
@@ -72,11 +73,21 @@ for i in range(10):
 
 first_iter = True
 previous_case = None
+avg_moves = []
 for case in solved_cases:
+    avg_moves.append(len(solved_cases[case]))
     if first_iter:
         previous_case = case
         first_iter = False
     if len(solved_cases[case]) < len(solved_cases[previous_case]):
         previous_case = case
+
 print(f"The case with the least number of moves is case {previous_case} with {len(solved_cases[previous_case])} moves.")
-print(f"The moves are: {solved_cases[previous_case]}")
+# print(f"The moves are: {solved_cases[previous_case]}")
+print(f"Average moves: {sum(avg_moves) / len(avg_moves)}")
+
+# create output file with best result 
+with open('output.csv', 'w+', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerow(["car", "move"])
+    writer.writerows(solved_cases[previous_case])
