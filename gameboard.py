@@ -5,8 +5,6 @@ import math
 # 	Now I use the x axis to indicate the rows which would be logically/visually the y axis in a normal coordinate /
 # 	system.
 
-# TODO: Maybe change the variable name 'exit' because it shadows a built-in function.
-
 # TODO: The code in the get_passed_coor function is now dependent of how the coordinates of a vehicle are implemented.
 # 	It should now be implemented in this way: if horizontal: [(left most coor), (middle coor), (right most coor)].
 # 	If vertical: [(lower coor), (middle coor), (upper coor)]
@@ -55,12 +53,12 @@ class Game:
 			Boolean Indicating whether the game is won or not.
 		"""
 
-        # Get the box that is in front of the exit.
-        exit = self.get_board().get_exit()
+        # Get the box that is in front of the finish.
+        finish = self.get_board().get_finish()
 
-        # Get the boxes between the exit and the red car.
+        # Get the boxes between the finish and the red car.
         box = self.red_car.get_position()[1]
-        while box != exit:
+        while box != finish:
             # Get the next spot
             next_row = box[0]
             next_column = box[1] + 1
@@ -68,16 +66,16 @@ class Game:
 
             # Loop over all vehicles on the board.
             for vehicle in self.get_vehicles():
-                # Check if a vehicle is blocking the exit.
+                # Check if a vehicle is blocking the finish.
                 if next_spot in vehicle.get_position():
-                    # If a vehicle is blocking the exit, the game is not finished.
+                    # If a vehicle is blocking the finish, the game is not finished.
                     return False
 
             box = (next_row, next_column)
 
-            # Check if the exit is reached.
-            if box == exit:
-                # If all spots between the red car and the exit are free, the game is finished.
+            # Check if the finish is reached.
+            if box == finish:
+                # If all spots between the red car and the finish are free, the game is finished.
                 return True
 
     def is_move_allowed(self, moving_vehicle, end_position):
@@ -133,13 +131,13 @@ class Board:
     def __init__(self, length):
         self.length = length
 
-        # TODO: Maybe make exit a pair of coordinates (indicating the red car is at that position would be easier that way)
+        # TODO: Maybe make finish a pair of coordinates (indicating the red car is at that position would be easier that way)
 
-        # Find the box of the exit.
+        # Find the box of the finish.
         if length % 2 == 0:
-            self.exit = (int(length / 2), length)
+            self.finish = (int(length / 2), length)
         else:
-            self.exit = (int(math.ceil(length / 2)), length)
+            self.finish = (int(math.ceil(length / 2)), length)
 
     # TODO: Would it be better to define an upper, lower, right and left border instead of just using the length /
     #  whenever it is needed to indicate the borders of the board? That would get rid of some magic numbers /
@@ -154,12 +152,12 @@ class Board:
 
         return self.length
 
-    def get_exit(self):
+    def get_finish(self):
         """
         Returns:
-            Tuple of integers indicating the box that is in front of the exit.
+            Tuple of integers indicating the box that is in front of the finish.
         """
-        return self.exit
+        return self.finish
 
 
 class Vehicle:
