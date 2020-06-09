@@ -38,7 +38,7 @@ for i in range(runs):
     # Create red car
     X = Vehicle('X', 2, [(3, 1), (3, 2)], 'horizontal')
 
-    vehicles = [A, B, C, D, E, F, G, H, I, J, K, L]
+    vehicles = [A, B, C, D, E, F, G, H, I, J, K, L, X]
 
     # Create the game.
     game = Game(board, vehicles, X)
@@ -79,9 +79,14 @@ for i in range(runs):
 
         solved_cases[f"{i}"] = moves
 
-end_time = time.time()        
-print(end_time - start_time)
+# Calculate runtime  
+s = time.time() - start_time
+h = s // 3600
+s %= 3600
+m = s // 60
+s %= 60
 
+# Get best result and average moves
 first_iter = True
 previous_case = None
 avg_moves = []
@@ -93,9 +98,9 @@ for case in solved_cases:
     if len(solved_cases[case]) < len(solved_cases[previous_case]):
         previous_case = case
 
-# print(f"The case with the least number of moves is case {previous_case} with {len(solved_cases[previous_case])} moves.")
-# print(f"The moves are: {solved_cases[previous_case]}")
+# Print results
 print(f"Moves: {avg_moves}")
+print(f"Runtime: {round(h)} hours, {round(m)} minutes and {round(s)} seconds")
 print(f"Runs: {runs}")
 print(f"Average moves: {sum(avg_moves) / len(avg_moves)}")
 print(f"Least moves: {len(solved_cases[previous_case])}")
