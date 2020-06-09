@@ -46,6 +46,31 @@ for i in range(runs):
     # Create a list to track the movements.
     moves = []
 
+    # Read in the file with the initial GameBoard status.
+    def load_initial_board(self, filename):
+        list_vehicles = []
+        vehicle_dict = {}
+        # read cargo file, include information of parcels
+        with open(filename) as csv_data:
+                reader = csv.reader(csv_data, delimiter=',')
+                next(reader)
+                for line in reader:
+                    if "#" in line:
+                        continue
+                    elif line[0].isupper():
+                        vehicle_id = line[0]
+                        size = line[1]
+                        if len(line) is 5:
+                            grid_position = line[2,3]
+                        elif len(line) is 6:
+                            grid_position = line[2,3,4]
+                        else:
+                            # print("incorrect vehicle information")
+                            continue
+                        orientation = line[5]
+                    vehicle_data = Vehicle(name, size, position, orientation)
+                    list_vehicles.append(vehicle_data)
+        return list_vehicles
     # Move vehicles around randomly until the game is finished.
     tries = 0
     while not game.is_finished():
@@ -79,7 +104,7 @@ for i in range(runs):
 
         solved_cases[f"{i}"] = moves
 
-# Calculate runtime  
+# Calculate runtime
 s = time.time() - start_time
 h = s // 3600
 s %= 3600
@@ -105,7 +130,7 @@ print(f"Runs: {runs}")
 print(f"Average moves: {sum(avg_moves) / len(avg_moves)}")
 print(f"Least moves: {len(solved_cases[previous_case])}")
 
-# Create output file with best result 
+# Create output file with best result
 with open('output.csv', 'w+', newline='') as f:
     writer = csv.writer(f)
     writer.writerow(["car", "move"])
