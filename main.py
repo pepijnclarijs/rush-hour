@@ -36,6 +36,31 @@ for i in range(10):
     # Create a list to track the movements.
     moves = []
 
+    # Read in the file with the initial GameBoard status.
+    def load_initial_board(self, filename):
+        list_vehicles = []
+        vehicle_dict = {}
+        # read cargo file, include information of parcels
+        with open(filename) as csv_data:
+                reader = csv.reader(csv_data, delimiter=',')
+                next(reader)
+                for line in reader:
+                    if "#" in line:
+                        continue
+                    elif line[0].isupper():
+                        vehicle_id = line[0]
+                        size = line[1]
+                        if len(line) is 5:
+                            grid_position = line[2,3]
+                        elif len(line) is 6:
+                            grid_position = line[2,3,4]
+                        else:
+                            # print("incorrect vehicle information")
+                            continue
+                        orientation = line[5]
+                    vehicle_data = Vehicle(name, size, position, orientation)
+                    list_vehicles.append(vehicle_data)
+        return list_vehicles
     # Move vehicles around randomly until the game is finished.
     j = 0
     while not game.is_finished():
@@ -45,7 +70,7 @@ for i in range(10):
             steps = random.randint(-4, 4)
 
         # Get a random vehicle.
-        random_vehicle = vehicles[random.randint(0, 12)]
+        random_vehicle = vehicles[random.randint(0, 12)] # Magic number random nummer tussen 0 en 12
 
         # Speculate the new position passed by the vehicle.
         new_coordinates = random_vehicle.speculate_new_position(steps)
