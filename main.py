@@ -10,7 +10,7 @@ import time
 #   5) When the win condition is met, stop moving and print the list of moves.
 
 # set amount of runs
-runs = 10
+runs = 3
 board_size = 6
 
 start_time = time.time()
