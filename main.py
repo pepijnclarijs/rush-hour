@@ -1,5 +1,3 @@
-# from code.classes import game, board, vehicle
-from load import load_game
 from code.algorithms import random
 
 import csv
@@ -13,13 +11,8 @@ game_number = "4"
 # set start time for performence measurements
 start_time = time.time()
 
-solved_cases = {}
-for i in range(runs):
-    # Load new game
-    game = load_game(board_size)
-
-    # Solve the game with random
-    result = random.randomize(game, board_size, i, solved_cases)
+# Solve the game with random
+result = random.randomize(board_size, runs)
 
 # Calculate runtime
 s = time.time() - start_time
