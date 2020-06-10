@@ -4,7 +4,7 @@ import csv
 import time
 
 # set amount of runs
-runs = 3
+runs = 50
 board_size = 6
 game_number = "4"
 
