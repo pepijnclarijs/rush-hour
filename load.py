@@ -12,11 +12,11 @@ import csv
 def load_game(board_size, initial_board):
     # Create the game board.
     board = board.Board(board_size)
-    self.initial_board = load_initial_board(f"data/InitialBoards/Game{number}.csv")
+    initial_board = load_initial_board(f"data/InitialBoards/Game{number}.csv")
 
 def load_initial_board(self, filename):
-    game_vehicles = []
-    vehicle_position = {}
+    list_vehicles = []
+    gamestate = {}
     # read cargo file, include information of parcels
     with open(filename) as csv_data:
             reader = csv.reader(csv_data, delimiter=',')
@@ -26,7 +26,7 @@ def load_initial_board(self, filename):
                 if "#" in line:
                     continue
                 elif line[0].isupper():
-                    vehicle_id = line[0]
+                    id = line[0]
                     size = line[1]
                     if len(line) is 5:
                         grid_position = line[1,2]
@@ -39,9 +39,14 @@ def load_initial_board(self, filename):
                     else:
                         print("incorrect vehicle information")
 
-                    vehicle_data = Vehicle(name, size, position, orientation)
-                game_vehicles.append(vehicle_data)
-    return game_vehicles
+                    vehicle_data = Vehicle(id, position, orientation, size)
+                    gamestate.update({ id : position })
+                    for (key, value) in gamestate.items() :
+                        print(key , " : ", value )
+
+                list_vehicles.append(vehicle_data)
+
+    return list_vehicles, gamestate
     # Create the begin situation.
     # A = vehicle.Vehicle('A', 2, [(1, 2), (1, 3)], 'horizontal')
     # B = vehicle.Vehicle('B', 3, [(1, 4), (1, 5), (1, 6)], 'horizontal')
