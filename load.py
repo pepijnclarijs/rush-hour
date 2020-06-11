@@ -1,5 +1,5 @@
-# import sys
-# sys.path.append('code/classes')
+import sys
+sys.path.append('code/classes')
 
 # from game import Game
 # from board import Board
@@ -62,8 +62,8 @@ def load_initial_board(self, filename):
     # # Create list of vehicles
     # vehicles = [A, B, C, D, E, F, G, H, I, J, K, L, X]
 
-    # # Create the game.
-    # game = game.Game(board, vehicles, X)
+    # Create the game.
+    game = Game(board, vehicles, X)
 
     return game
 
