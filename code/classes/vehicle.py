@@ -5,7 +5,8 @@ class Vehicle:
     Args:
         id: String representing the name for the vehicle.
         size: Integer representing the length of the vehicle.
-        position: List tuples containing integers. The list represents the position of the vehicle on the board.
+        position: List tuples containing integers [(i_1, j_1),(i_2, j_2)]. The list represents the position of the
+        vehicle on the board.
         orientation: String that indicates the direction of the vehicle.
     """
     def __init__(self, id, size, position, orientation):
@@ -28,7 +29,8 @@ class Vehicle:
             steps: Integer representing the number of steps the vehicle would move.
 
         Returns:
-            List of tuples indicating the would be new position of the vehicle after moving by a number of steps.
+            List of tuples containing integers [(i_1, j_1),(i_2, j_2)] indicating the would be new position of the
+            vehicle after moving by a number of steps.
         """
         # Loop over the position.
         new_position = []
@@ -53,9 +55,11 @@ class Vehicle:
         """
         Gets the boxes that are passed when a vehicle moves from its place to the 'end_box' box.
         Args:
-            end_position: Tuple representing the position up until which the passed boxes should be found.
+            end_position: Tuple of integers (i, j) representing the position up until which the passed boxes should be
+            found.
         Returns:
-            List of tuples that represent the boxes between the vehicle and the given end position.
+            List of tuples containing integers [(i_1, j_1),(i_2, j_2)] that represent the boxes between the vehicle and
+            the given end position.
         """
         enclosed_boxes = []
 
