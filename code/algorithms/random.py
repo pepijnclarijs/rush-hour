@@ -9,7 +9,7 @@ def randomize(board_size, runs):
     solved_cases = {}
     for i in range(runs):
         # Load new game
-        initial_board = "data/InitialBoards/Game1.csv"
+        initial_board = "data/InitialBoards/Rushhour#1.csv"
         game = load_game(board_size, initial_board)
 
         # Create a list to track the movements.
