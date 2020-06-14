@@ -1,14 +1,16 @@
 import random
 import sys
+import csv
 
-from load import load_game
+from load import load_game, load_initial_board
 
-# Start game 
+# Start game
 def randomize(board_size, runs):
     solved_cases = {}
     for i in range(runs):
         # Load new game
-        game = load_game(board_size)
+        initial_board = "data/InitialBoards/Game1.csv"
+        game = load_game(board_size, initial_board)
 
         # Create a list to track the movements.
         moves = []
@@ -23,7 +25,7 @@ def randomize(board_size, runs):
             steps = 0
             while steps == 0:
                 steps = random.randint(-board_size - 2, board_size - 2)
-                
+
             # Speculate the new position passed by the vehicle.
             new_coordinates = random_vehicle.speculate_new_position(steps)
 
@@ -33,7 +35,7 @@ def randomize(board_size, runs):
                 # Move the vehicle to the new position.
                 random_vehicle.set_position(new_coordinates)
                 game.update_taken_boxes()
-                
+
                 # Save the movements of the vehicles.
                 move = (random_vehicle.id, steps)
                 moves.append(move)
@@ -43,5 +45,5 @@ def randomize(board_size, runs):
                 break
 
             solved_cases[f"{i}"] = moves
-        
-    return solved_cases     
+
+    return solved_cases
