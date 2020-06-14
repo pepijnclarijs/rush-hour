@@ -1,5 +1,6 @@
 import math
 
+
 class Board:
     """
     This class represents an empty board in a game of rush hour.

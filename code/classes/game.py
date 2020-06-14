@@ -17,6 +17,9 @@ class Game:
             self.taken_boxes.extend(vehicle.position)
 
     def update_taken_boxes(self):
+        """
+        Updates the list that keeps track of the boxes that are taken.
+        """
         taken_positions = []
         for vehicle in self.vehicles:
             taken_positions.extend(vehicle.position)
@@ -24,13 +27,25 @@ class Game:
 
     def is_finished(self):
         """
-		Returns:
-			Boolean Indicating whether the game is won or not.
-		"""
+        Returns:
+            Boolean Indicating whether the game is won or not.
+        """
         if self.board.finish == self.red_car.position[1]:
             return True
 
+        return False
+
     def validate_move(self, vehicle, end_position):
+        """
+        Checks if a move is allowed by checking whether the passed boxes are not occupied and lie within the board.
+
+        Args:
+            end_position: List of tuples indicating the end position of the vehicle.
+            vehicle: The vehicle that is moving to the end position indicated by end_position argument.
+
+        Returns:
+            Boolean indicating whether the vehicle is allowed to move to the given position.
+        """
         # Get all boxes that are passed when the vehicle moves to its end position.
         passed_boxes = vehicle.get_passed_boxes(end_position)
 
@@ -55,4 +70,21 @@ class Game:
                     or column < 1
                     or column > board.length):
                 return False
+
         return True
+
+    def move(self, vehicle, end_position):
+        """
+        Moves a vehicle in the game from its current position to end_position.
+
+        Args:
+            vehicle: The vehicle that is moved.
+            end_position: List of tuples containing integers representing a row and a column [(i, j), (i, j)]. The position
+                            to which the vehicle is moved.
+        """
+
+        # Move the vehicle.
+        vehicle.set_position(end_position)
+
+        # Update the list that contains the taken boxes.
+        self.update_taken_boxes()
