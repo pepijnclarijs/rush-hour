@@ -1,6 +1,8 @@
 from code.algorithms import random
 from code.visualisation import visualise as vis
 
+from load import load_game
+
 import csv
 import time
 
@@ -13,8 +15,11 @@ if __name__ == "__main__":
     # set start time for performence measurements
     start_time = time.time()
 
+    # Load game
+    game = load_game(game_number, board_size)
+
     # Solve the game with random
-    result = random.randomize(board_size, runs)
+    result = random.randomize(game, runs, board_size)
 
     # Calculate runtime
     s = time.time() - start_time
@@ -25,7 +30,7 @@ if __name__ == "__main__":
     s %= 60
 
     # # TODO:Create visualisation
-    # vis.visualise(board_size, result)
+    vis.visualise(game, result, board_size)
 
     # Get best result and average moves
     first_iter = True
@@ -48,7 +53,6 @@ if __name__ == "__main__":
 
     # Check best result
     with open(f"data/game#{game_number}/game{game_number}_best_run.csv", 'r') as f:
-        # reader = csv.reader(f)
         best_result = f.readline()
 
     # Overwrite if best result
