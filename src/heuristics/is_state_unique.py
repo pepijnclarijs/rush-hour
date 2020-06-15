@@ -1,3 +1,6 @@
+# Checks if a given state is unique given a game.
+
+
 def is_state_unique(game, state):
     """
     Checks if a state has not yet occurred in a given game.

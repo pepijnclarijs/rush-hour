@@ -1,16 +1,16 @@
 import sys
-sys.path.append('code/classes')
+sys.path.append('src/classes')
 
-from game import Game
-from board import Board
-from vehicle import Vehicle
+from src.classes.game import Game
+from src.classes.board import Board
+from src.classes.vehicle import Vehicle
 
 import csv
 
 def load_game(game_number, board_size):
     vehicles = []
     # Check best result
-    with open(f"data/boards/game{game_number}.csv", 'r') as f:
+    with open("C:\\Users\\pepijn\\PycharmProjects\\rush-hour\\rush-hour\\data\\boards\\game1.csv", 'r') as f:
         reader = csv.reader(f)
         next(reader)
         for car, orientation, row, col, length in reader:
@@ -22,7 +22,7 @@ def load_game(game_number, board_size):
                 vehicles.append(Vehicle(car, coords))
     board = Board(board_size)
 
-    game = Game(board, vehicles, X)
+    game = Game(board, vehicles)
 
     return game
 

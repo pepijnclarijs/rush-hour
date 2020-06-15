@@ -49,3 +49,43 @@ def get_enclosed_boxes(box_1, box_2):
             enclosed_boxes.append(enclosed_box)
 
     return enclosed_boxes
+
+
+def get_red_car(game):
+    """
+    Gets the red car given a game.
+
+    Args:
+        game: (type Game) Instance of a game.
+    Returns:
+        Vehicle (type Vehicle) representing the red car.
+    """
+
+    # Find the red car.
+    red_car = None
+    for vehicle in game.vehicles:
+        if vehicle.id == 'X':
+            red_car = vehicle
+            break
+
+    return red_car
+
+
+def get_red_car(game):
+    """
+    Gets the red car given a game.
+
+    Args:
+        game: (type Game) Instance of a game.
+    Returns:
+        Vehicle (type Vehicle) representing the red car.
+    """
+
+    # Find the red car.
+    red_car = None
+    for vehicle in game.vehicles:
+        if vehicle.id == 'X':
+            red_car = vehicle
+            break
+
+    return red_car

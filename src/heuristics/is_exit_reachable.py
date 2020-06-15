@@ -1,3 +1,8 @@
+# Checks if the red car can be moved to the finish.
+
+from src.util import get_red_car
+
+
 def is_exit_reachable(game):
     """
     Checks if the red car can be moved to the finish.
@@ -10,14 +15,10 @@ def is_exit_reachable(game):
     """
 
     # Find the red car.
-    for vehicle in game.vehicles:
-        if vehicle.id == 'X':
-            red_car = vehicle
-            break
+    red_car = get_red_car(game)
 
     # Check if the red car can be moved to the exit.
     if game.validate_move(red_car, game.finish):
         return True
 
     return False
-

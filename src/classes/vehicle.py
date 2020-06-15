@@ -1,4 +1,4 @@
-from code.util import get_enclosed_boxes
+from src.util import get_enclosed_boxes
 
 
 class Vehicle:
