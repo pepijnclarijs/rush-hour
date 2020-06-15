@@ -20,8 +20,8 @@ if __name__ == "__main__":
     # print("Playing " + sys.argv[1])
     #
     # initial_board = sys.argv[1]
-    runs = int(sys.argv[2])
-    # size_and_num = initial_board[8:-4] # 6x6_1
+    # runs = int(sys.argv[2])
+    # # size_and_num = initial_board[8:-4] # 6x6_1
     # board_size = int(size_and_num.split('_')[0].split('x')[0])
     # game_number = int(size_and_num.split('_')[1])
 
