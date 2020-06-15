@@ -30,6 +30,7 @@ if __name__ == "__main__":
 
     # Load game
     game = load_game(game_number, board_size)
+    init_game = load_game(game_number, board_size)
 
     # Solve the game with random
     result = random.randomize(game, runs, board_size)
@@ -43,7 +44,7 @@ if __name__ == "__main__":
     s %= 60
 
     # # TODO:Create visualisation
-    vis.visualise(game, result, board_size)
+    vis.visualise(init_game, result, board_size)
 
     # Get best result and average moves
     first_iter = True
