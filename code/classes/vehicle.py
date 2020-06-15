@@ -57,6 +57,9 @@ class Vehicle:
     def set_position(self, new_position):
         self.position = new_position
 
+    def __repr__(self):
+        return self.id    
+
     def speculate_new_position(self, steps):
         """
         Speculates the new position of the vehicle after moving by a number of steps.

@@ -4,7 +4,6 @@ import csv
 
 from load import load_game, load_initial_board
 
-
 # Start game
 def randomize(board_size, runs):
     """
@@ -31,7 +30,7 @@ def randomize(board_size, runs):
         tries = 0
         while not game.is_finished():
             # Get a random vehicle
-            random_vehicle = game.vehicles[random.randint(0, len(game.vehicles) - 1)]
+            random_vehicle = random.choice(game.vehicles)
 
             # Get a random number of steps.
             steps = 0
