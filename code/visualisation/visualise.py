@@ -1,12 +1,11 @@
-from tkinter import *
+from tkinter import Tk, Label
 
 import random 
 import time
 
 from load import load_game
 
-def visualise(board_size, result):
-    game = load_game(board_size)
+def visualise(game, result, board_size):
 
     root = Tk()
     root.title("Rush Hour")
@@ -27,9 +26,9 @@ def visualise(board_size, result):
             print(position)
             boxes[position].configure(background=vehicle_color)      
 
-    print(result)
-    for move in result['0']:
-        time.sleep(1)
-        print(move)
+    # print(result)
+    # for move in result['0']:
+    #     time.sleep(1)
+    #     print(move)
 
     root.mainloop() 
