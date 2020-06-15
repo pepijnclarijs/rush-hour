@@ -18,21 +18,22 @@ with open(initial_board) as csv_data:
     reader = csv.reader(csv_data, delimiter=',')
     next(reader)
     for line in reader:
-        print(line)
+        # print(line)
         """ order of csv file vehicle: id, orientation, position first gridbox, size"""
         if line[0].islower():
             continue
         elif line[0].isupper():
             id = line[0]
-            print(id)
+            # print(id)
             orientation = line[1]
             grid_position = line[2:4]
-            print(grid_position)
+            # print(grid_position)
             row = line[2]
             column = line[3]
             size = line[4]
             vehicle_data = Vehicle(id, orientation, row, column, size)
             # gamestate.update({ vehicle_data(id) : [vehicle_data(row)][vehicle_data(column)] })
+            # gamestate.update({ id : (int(row), int(column)) })
             gamestate.update({ id : [int(row), int(column)] })
 
         else:
@@ -52,23 +53,45 @@ board_size = 6
 row = [0 for i in range(board_size)]
 print(f"1D:  {row}")
 
-# 2D array
+# # 2D array
 rows, columns = (board_size, board_size)
-board_array = [[ 0 for i in range(columns)] for j in range(rows)]
-print(f"2D:  {board_array}")
+# board_grid = [[ 0 for i in range(columns)] for j in range(rows)]
+# print(f"2D:  {board_grid}")
 
 # demonstrate the 2d-array as a board/grid
-board_array = [[ 0 for i in range(columns)] for j in range(rows)]
-board_array[0][0] = 1
-print("2D as a grid :")
-for row in board_array:
-    print(row)
+# board_grid = [[ '_' for i in range(columns)] for j in range(rows)]
+# board_grid[0][0] = 'A'
+# board_grid[1][5] = 'Z'
+# print("2D as a grid :")
+# for row in board_grid:
+    # print(row)
 
-for (key, value) in gamestate.items():
-    board_array[value[0]][value[1]] = key
+board_grid = [[ '_' for i in range(columns)] for j in range(rows)]
+for key in gamestate.keys(): #reaching the keys of the dict
+    hor = int(gamestate[key][0])
+    ver = int(gamestate[key][1])
+    board_grid[hor][ver] = key
+    # sth = gamestate.values()
+
+    print(f"does this work: {hor, ver}???" )
+    # print(sth)
+    # for value in gamestate[key]: #reaching every element in tuples
+    #     print(f"Key {key} has Values {value}")
+
+        # value[0] = row
+        # value[1] = column
+        # for (row, column) in value:
+    # board_grid[row][col] = key
     print("Gamestate:")
-    for row in board_array:
+    for row in board_grid:
         print(row)
+    # print (value[0][1])
+    # value.split(',')
+
+
+    """ equality comparison between gamestates to see if it's unique """
+
+
 
 
 
