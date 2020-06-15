@@ -5,46 +5,50 @@ sys.path.append('code/classes')
 # from board import Board
 # from vehicle import Vehicle
 
-
 from code.classes import game, board, vehicle
 import csv
+# from main import game_number
 
 def load_game(board_size, initial_board):
     # Create the game board.
-    board = board.Board(board_size)
-    initial_board = load_initial_board(f"data/InitialBoards/Game{number}.csv")
+    board_size = board.Board(board_size)
+    initial_board = load_initial_board(initial_board)
 
-def load_initial_board(self, filename):
+def load_initial_board(initial_board):
     list_vehicles = []
     gamestate = {}
     # read cargo file, include information of parcels
-    with open(filename) as csv_data:
+    with open(initial_board) as csv_data:
             reader = csv.reader(csv_data, delimiter=',')
             next(reader)
             for line in reader:
-                """ order of csv file vehicle: id, posistion gridboxes, orientation, size"""
+                """ order of csv file vehicle: id, position gridboxes, orientation, size"""
                 if "#" in line:
                     continue
                 elif line[0].isupper():
                     id = line[0]
-                    size = line[1]
-                    if len(line) is 5:
-                        grid_position = line[1,2]
+                    if len(line) is 5: # if line.range(5):
+                        grid_position = line[1:3]
                         orientation = line[3]
                         size = line[4]
                     elif len(line) is 6:
-                        grid_position = line[1,2,3]
+                        grid_position = line[1:4]
                         orientation = line[4]
                         size = line[5]
                     else:
                         print("incorrect vehicle information")
 
-                    vehicle_data = Vehicle(id, position, orientation, size)
-                    gamestate.update({ id : position })
-                    for (key, value) in gamestate.items() :
-                        print(key , " : ", value )
+                    vehicle_data = vehicle.Vehicle(id, size, grid_position, orientation)
+                    # print(f"This vehicle has been added: {vehicle_data[0]}")
+                    gamestate.update({ id : grid_position })
 
-                list_vehicles.append(vehicle_data)
+                    list_vehicles.append(vehicle_data)
+
+            print(f"gamestate dictionary :  \n {gamestate}")
+            for (key, value) in gamestate.items() :
+                print(key , " : ", value )
+
+                        # print(*list_vehicles)
 
     return list_vehicles, gamestate
     # Create the begin situation.
@@ -68,7 +72,7 @@ def load_initial_board(self, filename):
     # vehicles = [A, B, C, D, E, F, G, H, I, J, K, L, X]
 
     # Create the game.
-    game = Game(board, vehicles, X)
+    game = Game(board_size, list_vehicles, X)
 
     return game
 

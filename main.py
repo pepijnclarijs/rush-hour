@@ -6,7 +6,7 @@ import time
 
 if __name__ == "__main__":
     # set amount of runs
-    runs = 10
+    runs = 1
     board_size = 6
     game_number = "1"
 
@@ -62,7 +62,7 @@ if __name__ == "__main__":
             writer.writerow([f"Least moves: {len(result[previous_case])}"])
             writer.writerow([f"Moves: {avg_moves}"])
             writer.writerow(["car", "move"])
-            writer.writerows(result[previous_case])    
+            writer.writerows(result[previous_case])
 
     # Append results
     with open(f"data/game#{game_number}/game{game_number}_results.csv", 'a', newline='') as f:
