@@ -1,5 +1,7 @@
 import sys
 import csv
+
+from os import walk
 from testvehicle import Vehicle
 
 # def load_game(board_size, initial_board):
@@ -9,7 +11,9 @@ from testvehicle import Vehicle
 #
 #
 # def load_initial_board(initial_board):
-initial_board = 'testrush1.csv'
+
+initial_board = sys.argv[1]
+#initial_board = 'Rushhour6x6_1.csv'
 
 list_vehicles = []
 gamestate = {}
@@ -59,21 +63,23 @@ rows, columns = (board_size, board_size)
 # print(f"2D:  {board_grid}")
 
 # demonstrate the 2d-array as a board/grid
-# board_grid = [[ '_' for i in range(columns)] for j in range(rows)]
-# board_grid[0][0] = 'A'
-# board_grid[1][5] = 'Z'
-# print("2D as a grid :")
-# for row in board_grid:
-    # print(row)
+board_grid = [[ '_' for i in range(columns)] for j in range(rows)]
+board_grid[0][0] = 'A'
+board_grid[1][5] = 'Z'
+print("2D as a grid :")
+for row in board_grid:
+    print(row)
 
 board_grid = [[ '_' for i in range(columns)] for j in range(rows)]
 for key in gamestate.keys(): #reaching the keys of the dict
-    hor = int(gamestate[key][0])
-    ver = int(gamestate[key][1])
+    hor = int(gamestate[key][0] - 1)
+    ver = int(gamestate[key][1] - 1)
     board_grid[hor][ver] = key
+
+    #print(key + " " + str(hor) + " " + str(ver))
     # sth = gamestate.values()
 
-    print(f"does this work: {hor, ver}???" )
+    #print(f"does this work: {hor, ver}???" )
     # print(sth)
     # for value in gamestate[key]: #reaching every element in tuples
     #     print(f"Key {key} has Values {value}")
@@ -91,9 +97,21 @@ for key in gamestate.keys(): #reaching the keys of the dict
 
     """ equality comparison between gamestates to see if it's unique """
 
+# Rushhour6x6_1.csv [0:8]
+initial_board = 'Rushhour12x12_1.csv'
+print(initial_board)
+print(initial_board[0:8])
+print(initial_board[8:])
+print(initial_board[8:-4])
+list = initial_board[8:-4].split('_')
+print(list[0])
+print(list[1])
+lengte, breedte = list[0].split('x')
+print(f"{lengte} is de lengte {breedte} is de breedte")
 
-
-
+print(sys.argv)
+# print 'Number of arguments:', len(sys.argv), 'arguments.'
+#print 'Argument List:', str(sys.argv)
 
                 # print(*list_vehicles)
 
