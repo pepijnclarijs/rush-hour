@@ -13,6 +13,25 @@ class Vehicle:
     def __init__(self, id, position):
         self.id = id
         self.position = position
+    # def __init__(self, id, orientation, row, column, size):
+    #     self.id = id
+    #     self.orientation = orientation
+    #     self.row = row
+    #     self.column = column
+    #     self.size = size
+
+
+            # vehicle_gridblocks = []
+            # i = 0
+            # for vehicle in list_vehicles:
+            #     if i < size:
+            #         i += 1
+            #     elif i == size:
+            #         if orientation == 'H'
+            #             grid_position[i] = row + i, column
+            #         elif orientation == 'V'
+            #             grid_position[i] = row, column + i
+            #         vehicle_gridblocks.append(vehicle.id, grid_position[i#])
 
         # Check if both boxes are in the same row.
         if position[0][0] == position[1][0]:
