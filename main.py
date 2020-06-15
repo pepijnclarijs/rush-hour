@@ -29,8 +29,8 @@ if __name__ == "__main__":
     m = s // 60
     s %= 60
 
-    # # # TODO:Create visualisation
-    # vis.visualise(game, result, board_size)
+    # # TODO:Create visualisation
+    vis.visualise(game, result, board_size)
 
     # Get best result and average moves
     first_iter = True

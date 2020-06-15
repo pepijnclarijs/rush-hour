@@ -16,7 +16,7 @@ def visualise(game, result, board_size):
     for row in range(1, board_size+1):
         for col in range(1, board_size+1):
             box = Label(root, text=f'{row},{col}', bg='white', bd=40)
-            box.grid(column=col, row=row)
+            box.grid(row=row, column=col)
             boxes[(row, col)] = box
 
     for vehicle in game.vehicles:

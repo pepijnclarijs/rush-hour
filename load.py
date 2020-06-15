@@ -24,9 +24,6 @@ def load_game(game_number, board_size):
     
     game = Game(board, vehicles, X)
 
-    for i in vehicles:
-        print(f"{i.id} : {i.position}")
-
     return game
 
 def get_coords(orientation, row, col, length):
