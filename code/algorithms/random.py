@@ -4,12 +4,7 @@ import csv
 
 from load import load_game, load_initial_board
 
-<<<<<<< HEAD
 # Start game
-=======
-
-# Start game 
->>>>>>> 307ea5192557c7ed075c55dfdbfa8f9eb77bd4ae
 def randomize(board_size, runs):
     """
     Moves vehicles around at random until the game is solved.
@@ -35,7 +30,7 @@ def randomize(board_size, runs):
         tries = 0
         while not game.is_finished():
             # Get a random vehicle
-            random_vehicle = game.vehicles[random.randint(0, len(game.vehicles) - 1)]
+            random_vehicle = random.choice(game.vehicles)
 
             # Get a random number of steps.
             steps = 0
@@ -48,14 +43,8 @@ def randomize(board_size, runs):
             # Check if the new position is free.
             if game.validate_move(random_vehicle, new_coordinates):
                 # Move the vehicle to the new position.
-<<<<<<< HEAD
-                random_vehicle.set_position(new_coordinates)
-                game.update_taken_boxes()
-
-=======
                 game.move(random_vehicle, new_coordinates)
                 
->>>>>>> 307ea5192557c7ed075c55dfdbfa8f9eb77bd4ae
                 # Save the movements of the vehicles.
                 move = (random_vehicle.id, steps)
                 moves.append(move)
@@ -65,9 +54,5 @@ def randomize(board_size, runs):
                 break
 
             solved_cases[f"{i}"] = moves
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> 307ea5192557c7ed075c55dfdbfa8f9eb77bd4ae
+            
     return solved_cases
