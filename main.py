@@ -5,12 +5,25 @@ from load import load_game
 
 import csv
 import time
+import sys
 
 if __name__ == "__main__":
     # set amount of runs
-    runs = 1
-    board_size = 6
-    game_number = "1"
+
+    """ command line arguments for game_number, board_size & runs """
+    game_number = sys.argv[1]
+    board_size = int(sys.argv[2])
+    runs = int(sys.argv[3])
+
+    print(f"Playing game {game_number}, with board size {board_size}, for {runs} runs")
+
+    # print("Playing " + sys.argv[1])
+    #
+    # initial_board = sys.argv[1]
+    runs = int(sys.argv[2])
+    # size_and_num = initial_board[8:-4] # 6x6_1
+    # board_size = int(size_and_num.split('_')[0].split('x')[0])
+    # game_number = int(size_and_num.split('_')[1])
 
     # set start time for performence measurements
     start_time = time.time()
