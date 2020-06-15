@@ -21,8 +21,6 @@ def load_game(game_number, board_size):
                 vehicles.append(X)
             else:
                 vehicles.append(Vehicle(car, coords))  
-            print(car)
-            print(coords)
     board = Board(board_size)
     
     game = Game(board, vehicles, X)
