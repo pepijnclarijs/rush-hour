@@ -13,6 +13,7 @@ class Vehicle:
     def __init__(self, id, position):
         self.id = id
         self.position = position
+        self.color = None
     # def __init__(self, id, orientation, row, column, size):
     #     self.id = id
     #     self.orientation = orientation
