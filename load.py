@@ -26,31 +26,29 @@ def load_initial_board(initial_board):
             reader = csv.reader(csv_data, delimiter=',')
             next(reader)
             for line in reader:
-                """ order of csv file vehicle: id, position gridboxes, orientation, size"""
-                if "#" in line:
+                """ order of csv file vehicle: id, orientation, position first gridbox, size"""
+                if line[0].islower():
                     continue
                 elif line[0].isupper():
                     id = line[0]
-                    if len(line) is 5: # if line.range(5):
-                        grid_position = line[1:3]
-                        orientation = line[3]
-                        size = line[4]
-                    elif len(line) is 6:
-                        grid_position = line[1:4]
-                        orientation = line[4]
-                        size = line[5]
-                    else:
-                        print("incorrect vehicle information")
+                    orientation = line[1]
+                    grid_position = line[2:4]
+                    row = line[2]
+                    column = line[3]
+                    size = line[4]
+                else:
+                    print("something went wrong with the csv_data")
 
-                    vehicle_data = vehicle.Vehicle(id, size, grid_position, orientation)
+                    vehicle_data = vehicle.Vehicle(id, orientation, row, column, size)
                     # print(f"This vehicle has been added: {vehicle_data[0]}")
-                    gamestate.update({ id : grid_position })
+                    gamestate.update({ id : [row][column] })
 
                     list_vehicles.append(vehicle_data)
 
             print(f"gamestate dictionary :  \n {gamestate}")
             for (key, value) in gamestate.items() :
                 print(key , " : ", value )
+
 
                         # print(*list_vehicles)
 
@@ -75,8 +73,12 @@ def load_initial_board(initial_board):
     # # Create list of vehicles
     # vehicles = [A, B, C, D, E, F, G, H, I, J, K, L, X]
 
-    # # Create the game.
-    # game = Game(board_size, list_vehicles, X)
+    # for vehicle in list_vehicles:
+    #     if vehicle.id == 'X'
+    #         vehicle = red_car
+    #     return red_car
+    # Create the game.
+    game = Game(board_size, list_vehicles, red_car)
 
     # return game
 

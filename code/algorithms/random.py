@@ -20,7 +20,7 @@ def randomize(board_size, runs):
     solved_cases = {}
     for i in range(runs):
         # Load new game
-        initial_board = "data/InitialBoards/Rushhour#1.csv"
+        initial_board = 'data/InitialBoards/Rushhour#1.csv'
         game = load_game(board_size, initial_board)
 
         # Create a list to track the movements.
@@ -44,7 +44,7 @@ def randomize(board_size, runs):
             if game.validate_move(random_vehicle, new_coordinates):
                 # Move the vehicle to the new position.
                 game.move(random_vehicle, new_coordinates)
-                
+
                 # Save the movements of the vehicles.
                 move = (random_vehicle.id, steps)
                 moves.append(move)
@@ -54,5 +54,5 @@ def randomize(board_size, runs):
                 break
 
             solved_cases[f"{i}"] = moves
-            
+
     return solved_cases
