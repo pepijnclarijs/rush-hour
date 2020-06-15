@@ -1,5 +1,5 @@
-from code.algorithms import random
-from code.visualisation import visualise as vis
+from src.algorithms import random
+from src.visualisation import visualise as vis
 
 from load import load_game
 
