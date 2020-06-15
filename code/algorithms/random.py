@@ -1,10 +1,10 @@
 import random
 import sys
+import csv
 
-from load import load_game
+from load import load_game, load_initial_board
 
-
-# Start game 
+# Start game
 def randomize(board_size, runs):
     """
     Moves vehicles around at random until the game is solved.
@@ -20,7 +20,8 @@ def randomize(board_size, runs):
     solved_cases = {}
     for i in range(runs):
         # Load new game
-        game = load_game(board_size)
+        initial_board = "data/InitialBoards/Rushhour#1.csv"
+        game = load_game(board_size, initial_board)
 
         # Create a list to track the movements.
         moves = []
@@ -35,7 +36,7 @@ def randomize(board_size, runs):
             steps = 0
             while steps == 0:
                 steps = random.randint(-board_size - 2, board_size - 2)
-                
+
             # Speculate the new position passed by the vehicle.
             new_coordinates = random_vehicle.speculate_new_position(steps)
 
@@ -53,5 +54,5 @@ def randomize(board_size, runs):
                 break
 
             solved_cases[f"{i}"] = moves
-        
+            
     return solved_cases

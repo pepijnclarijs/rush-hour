@@ -62,7 +62,7 @@ if __name__ == "__main__":
             writer.writerow([f"Least moves: {len(result[previous_case])}"])
             writer.writerow([f"Moves: {avg_moves}"])
             writer.writerow(["car", "move"])
-            writer.writerows(result[previous_case])    
+            writer.writerows(result[previous_case])
 
     # Append results
     with open(f"data/game#{game_number}/game{game_number}_results.csv", 'a', newline='') as f:
