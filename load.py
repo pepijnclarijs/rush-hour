@@ -1,7 +1,6 @@
 import sys
 sys.path.append('code/classes')
 
-
 from game import Game
 from board import Board
 from vehicle import Vehicle
