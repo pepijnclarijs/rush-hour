@@ -1,7 +1,6 @@
 import sys
 sys.path.append('code/classes')
 
-
 from game import Game
 from board import Board
 from vehicle import Vehicle
@@ -24,6 +23,9 @@ def load_game(game_number, board_size):
     board = Board(board_size)
     
     game = Game(board, vehicles, X)
+
+    for i in vehicles:
+        print(f"{i.id} : {i.position}")
 
     return game
 
