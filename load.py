@@ -14,14 +14,14 @@ def load_game(game_number, board_size):
         reader = csv.reader(f)
         next(reader)
         for car, orientation, row, col, length in reader:
-            coords = get_coords(orientation, int(row), 7 - int(col), int(length))
+            coords = get_coords(orientation, int(row), (board_size + 1) - int(col), int(length))
             if car == 'X':
                 X = Vehicle(car, coords)
                 vehicles.append(X)
             else:
-                vehicles.append(Vehicle(car, coords))  
+                vehicles.append(Vehicle(car, coords))
     board = Board(board_size)
-    
+
     game = Game(board, vehicles, X)
 
     return game
@@ -37,7 +37,7 @@ def get_coords(orientation, row, col, length):
         else:
             print("Error loading CSV")
             break
-    return coords   
+    return coords
 
 # # from main import game_number
 # def load_game(board_size):
