@@ -13,11 +13,11 @@ def visualise(game, result, board_size):
     root.configure(bg='grey')
 
     boxes = {}
-    for y in range(1, board_size+1):
-        for x in range(1, board_size+1):
-            box = Label(root, text=f'{y},{x}', bg='white', bd=40)
-            box.grid(row=y, column=x)
-            boxes[(y, x)] = box
+    for col in range(1, board_size+1):
+        for row in range(1, board_size+1):
+            box = Label(root, text=f'{row},{col}', bg='white', bd=40)
+            box.grid(column=col, row=row)
+            boxes[(col, row)] = box
 
     for vehicle in game.vehicles:
         vehicle_color = ["#"+''.join([random.choice('0123456789ABCDEF') for j in range(6)])]
