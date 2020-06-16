@@ -29,11 +29,10 @@ if __name__ == "__main__":
     start_time = time.time()
 
     # Load game
-    game = load_game(game_number, board_size)
     init_game = load_game(game_number, board_size)
 
     # Solve the game with random
-    result = random.randomize(init_game, game, runs, board_size)
+    result = random.randomize(game_number, runs, board_size)
 
     # Calculate runtime
     s = time.time() - start_time

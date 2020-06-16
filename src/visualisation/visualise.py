@@ -21,8 +21,11 @@ def visualise(init_game, result, board_size):
             boxes[(row, col)] = box
 
     for vehicle in init_game.vehicles:
-        vehicle.color = ["#"+''.join([random.choice('0123456789ABCDEF') for j in range(6)])]
         veh_dict[vehicle.id] = vehicle
+        if vehicle.id != 'X':
+            vehicle.color = ["#"+''.join([random.choice('0123456789ABCDEF') for j in range(6)])]
+        else:
+            vehicle.color = "red"    
         for position in vehicle.get_position():
             boxes[position].configure(background=vehicle.color)   
 
@@ -39,6 +42,7 @@ def visualise(init_game, result, board_size):
                 for position in car.position:
                     boxes[position].configure(background='white')
                 for position in car.position:    
+                    print(position)
                     if car.orientation == 'horizontal':
                         car.position[0] = new_col_1 
                         print(car.position[0][0])
