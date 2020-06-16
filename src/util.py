@@ -89,3 +89,18 @@ def get_red_car(game):
             break
 
     return red_car
+
+
+def finish_game(game):
+    """
+    TODO: write docstring
+    Args:
+        game:
+
+    Returns:
+
+    """
+    # game.board.finish = (i, j)
+    # game.board.finish_position = [(3, 5), (3, 6)]
+    # TODO: maybe make finish_position an attribute of the board class.
+    game.move(game.red_car, game.board.finish_position)

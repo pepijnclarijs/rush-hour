@@ -29,13 +29,13 @@ class Game:
         self.states = []
         self.possible_moves = set()
         self.taken_boxes = []
+        self.executed_moves = []
 
         # Initialize attributes.
         self.update_current_state()
         self.update_states()
         self.update_taken_boxes()
         self.update_possible_moves()
-
 
     def update_current_state(self):
         """
@@ -76,17 +76,20 @@ class Game:
             for steps in range(-self.board.length + vehicle.size, self.board.length - vehicle.size):
                 if steps == 0:
                     continue
-                move = (vehicle, steps)
                 new_coordinates = vehicle.speculate_new_position(steps)
                 if self.validate_move(vehicle, new_coordinates):
+                    move = (vehicle, steps)
                     self.possible_moves.add(move)
+
+    def update_executed_moves(self, move):
+        self.executed_moves.append(move)
 
     def is_finished(self):
         """
         Returns:
             Boolean Indicating whether the game is won or not.
         """
-        if self.board.finish == self.red_car.position[1]:
+        if self.board.finish_position == self.red_car.position:
             return True
 
         return False
