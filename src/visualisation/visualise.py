@@ -33,18 +33,21 @@ def visualise(init_game, result, board_size):
                 time.sleep(speed)
                 counter=+1
                 car = veh_dict.get(move[0])
+                new_col_1 = car.position[0][1] + (move[0])
+                new_col_2 = car.position[1][1] + (move[0])
+
                 for position in car.position:
                     boxes[position].configure(background='white')
-                    
                 for position in car.position:    
                     if car.orientation == 'horizontal':
-                        print(car.position[1])
-                        car.position[0][1] += move[1]
-                        car.position[1][1] +=move[1]
+                        car.position[0] = new_col_1 
+                        print(car.position[0][0])
+                        print(car.position[1][0])
+
                         boxes[position].configure(background=vehicle.color)
                     else:
-                        car.position[0][0] +=move[1]
-                        car.position[1][0] +=move[1]
+                        print(car.position[1][0])
+                        print(car.position[1][1])
                         boxes[position].configure(background=vehicle.color)
     def stop():
         stop = True
