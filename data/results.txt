@@ -1,9 +1,0 @@
-08/06/2020 - random.
-Runs: 1000
-Average moves: 5574.437
-Least moves: 187
-
-Runtime: 2730 seconds
-Runs: 1000
-Average moves: 5681.551
-Least moves: 101
