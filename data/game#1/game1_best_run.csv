@@ -1,9 +1,7 @@
-2
+0
 "Runtime: 0 hours, 0 minutes and 1 seconds"
-Runs: 1
-Average moves: 2.0
-Least moves: 2
-Moves: [2]
+Runs: 6
+Average moves: 507.0
+Least moves: 0
+"Moves: [3042, 0, 0, 0, 0, 0]"
 car,move
-C,-1
-A,-1
