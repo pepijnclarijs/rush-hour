@@ -50,7 +50,7 @@ def visualise(init_game, result, board_size):
         stop = True
 
     startbtn = Button(root, text='Start', command=start).grid()
-    startbtn = Button(root, text='Stop', command=stop).grid()
+    stopbtn = Button(root, text='Stop', command=stop).grid()
     root.mainloop()
             
 
