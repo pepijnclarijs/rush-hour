@@ -1,6 +1,9 @@
 from src.algorithms import random
-from src.algorithms.breadthfirst import breadthfirst
+# from src.algorithms.breadthfirst import breadthfirst
 from src.visualisation import visualise as vis
+
+# tijdelijk voor testen:
+from bf import breadth
 
 from load import load_game
 
@@ -36,10 +39,10 @@ if __name__ == "__main__":
     results = random.randomize(init_game, runs, board_size)
     
     # Solve the game with breadthfirst
-    # results = breadthfirst.breadth(init_game, runs, depth)
+    # results = breadth.bf(init_game, runs, depth)
 
-    # Solve the game with deapthdirst
-    rootnode = Depthfirst(None, init_game)
+    # # Solve the game with deapthdirst
+    # rootnode = Depthfirst(None, init_game)
 
     # Calculate runtime
     s = time.time() - start_time
@@ -60,7 +63,7 @@ if __name__ == "__main__":
     print(best_result)        
 
     # Create visualisation
-    # vis.visualise(init_game, best_result, board_size)
+    vis.visualise(init_game, best_result, board_size)
 
     # Print results
     print(f"Moves: {avg_moves}")
