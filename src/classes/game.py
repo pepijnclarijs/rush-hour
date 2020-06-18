@@ -59,6 +59,8 @@ class Game:
 
         self.current_state = {}
         for vehicle in self.vehicles.values():
+            print(vehicle)
+            # break
             self.current_state.update(list({vehicle.id: vehicle.id, vehicle.position}))
 
         # self.current_state = {}
