@@ -32,8 +32,8 @@ if __name__ == "__main__":
     init_game = load_game(game_number, board_size)
 
     # Solve the game with random
-    result = random.randomize(init_game, runs, board_size)
-    result = breadthfirst.breadthfirst()
+    # result = random.randomize(game_number, runs, board_size)
+    result = breadthfirst.breadth_first(init_game, 2, 1)
 
     # Calculate runtime
     s = time.time() - start_time
@@ -44,7 +44,7 @@ if __name__ == "__main__":
     s %= 60
 
     """ Create visualisation """
-    vis.visualise(init_game, result, board_size)
+    # vis.visualise(init_game, result, board_size)
 
     # Get best result and average moves
     first_iter = True
