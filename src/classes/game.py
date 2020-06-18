@@ -9,11 +9,11 @@ class Game:
 
     Args:
         board (Board): This is an instance of an empty game board.
-        vehicles (list of Vehicle): This is a list containing the vehicles present in the game.
+        vehicles (dict of str: Vehicle): This is a list containing the vehicles present in the game.
 
     Attributes:
         board (Board): Represents a board for a game of rush hour.
-        vehicles (list of Vehicle): Represents vehicles that can be placed on the board.
+        vehicles (dict of str: Vehicle): Represents vehicles that can be placed on the board.
         red_car (Vehicle): Represents the red car.
         current_state (dict of str: list of tuples of integers): Represents the current state that the game is in.
         states (list of dict of str: list of tuples of integers): Represents the states that the game has been in.
@@ -45,11 +45,11 @@ class Game:
             update_vehicle (Vehicle): The vehicle in the vehicle list that should be updated.
         """
 
-        updated_vehicles = []
-        for vehicle in self.vehicles:
+        updated_vehicles = {}
+        for vehicle in self.vehicles.values():
             if vehicle.id == update_vehicle.id:
                 vehicle = update_vehicle
-            updated_vehicles.append(vehicle)
+            updated_vehicles[vehicle.id] = vehicle
         self.vehicles = updated_vehicles
 
     def update_current_state(self):
@@ -58,7 +58,7 @@ class Game:
         """
 
         self.current_state = {}
-        for vehicle in self.vehicles:
+        for vehicle in self.vehicles.values():
             self.current_state.update({vehicle.id: vehicle.position})
 
     def update_states(self):
@@ -76,7 +76,7 @@ class Game:
         Updates the list that keeps track of the boxes that are taken.
         """
         taken_positions = []
-        for vehicle in self.vehicles:
+        for vehicle in self.vehicles.values():
             taken_positions.extend(vehicle.position)
         self.taken_boxes = taken_positions
 
@@ -86,7 +86,7 @@ class Game:
         """
 
         self.possible_moves = set()
-        for vehicle in self.vehicles:
+        for vehicle in self.vehicles.values():
             # Get the possible moves in the current state.
             for steps in range(-self.board.length + vehicle.size, self.board.length - vehicle.size):
                 if steps == 0:
@@ -151,7 +151,7 @@ class Game:
         Args:
             vehicle: The vehicle that is moved.
             end_position: List of tuples containing integers representing a row and a column [(i, j), (i, j)]. The position
-                            to which the vehicle is moved.
+                    to which the vehicle is moved.
         """
 
         # Move the vehicle.
