@@ -41,7 +41,7 @@ if __name__ == "__main__":
     m = s // 60
     s %= 60
 
-    # # Create visualisation
+    """ Create visualisation """
     # vis.visualise(init_game, result, board_size)
 
     # Get best result and average moves
