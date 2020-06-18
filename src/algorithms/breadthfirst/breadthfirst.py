@@ -12,7 +12,7 @@ from src.util import finish_game
 from src.algorithms.breadthfirst.breadthfirst_util import create_game_from_state, get_vehicle
 
 
-def breadthfirst(initial_game, runs, depth):
+def bf(initial_game, runs, depth):
     """
     Uses a breadth first algorithm to solve a given game of Rush Hour.
 

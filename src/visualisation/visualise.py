@@ -9,7 +9,6 @@ def visualise(init_game, result, board_size):
     root.geometry('700x700')
     root.configure(bg='grey')
 
-    veh_dict = {}
     counter = 0
     speed = 1
 
@@ -20,8 +19,7 @@ def visualise(init_game, result, board_size):
             box.grid(row=row, column=col)
             boxes[(row, col)] = box
 
-    for vehicle in init_game.vehicles:
-        veh_dict[vehicle.id] = vehicle
+    for vehicle in init_game.vehicles.values():
         if vehicle.id != 'X':
             vehicle.color = ["#"+''.join([random.choice('0123456789ABCDEF') for j in range(6)])]
         else:
@@ -30,23 +28,17 @@ def visualise(init_game, result, board_size):
             boxes[position].configure(background=vehicle.color)   
 
     def start():          
-        stop = False
-        for move in result['0']:
-            time.sleep(speed)
-            counter=+1
-            car = veh_dict.get(move[0])
-            print(car)
-            # print(car.position[0][0])
-            # print(car.position[1][0])
-            print(move[1])
-            new_col_2 = car.position[1][1] + int(move[1])
-            for position in car.position:
+        print(move)
+        time.sleep(speed)
+        counter=+1
+        car = veh_dict.get(move[0])
+        for position in car.position:
                 boxes[position].configure(background='white')
-            car.set_position(car.speculate_new_position(-1))    
-            for position in car.position:    
-                if car.orientation == 'horizontal':
-                    boxes[position].configure(background=vehicle.color)
+        car.set_position(car.speculate_new_position(move[1]))
 
+        for position in car.position:
+                boxes[position].configure(background=vehicle.color)
+        root.update()
 
     startbtn = Button(root, text='Start', command=start).grid() 
     # stopbtn = Button(root, text='Stop', command=stop_game).grid()

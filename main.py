@@ -14,6 +14,7 @@ if __name__ == "__main__":
     game_number = sys.argv[1]
     board_size = int(sys.argv[2])
     runs = int(sys.argv[3])
+    depth = 4
 
     print(f"Playing game {game_number}, with board size {board_size}, for {runs} runs")
 
@@ -33,7 +34,7 @@ if __name__ == "__main__":
 
     # Solve the game with random
     result = random.randomize(init_game, runs, board_size)
-    result = breadthfirst.breadthfirst()
+    # result = breadthfirst.bf(init_game, runs, board_size, depth)
 
     # Calculate runtime
     s = time.time() - start_time
