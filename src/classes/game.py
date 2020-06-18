@@ -45,6 +45,13 @@ class Game:
             update_vehicle (Vehicle): The vehicle in the vehicle list that should be updated.
         """
 
+        # updated_vehicles = {}
+        # for vehicle in self.vehicles:
+        #     if vehicle.id == update_vehicle.id:
+        #         vehicle = update_vehicle
+        #     updated_vehicles.append(vehicle)
+        # self.vehicles = updated_vehicles
+
         updated_vehicles = []
         for vehicle in self.vehicles:
             if vehicle.id == update_vehicle.id:
@@ -60,6 +67,15 @@ class Game:
         self.current_state = {}
         for vehicle in self.vehicles:
             self.current_state.update({vehicle.id: vehicle.position})
+
+        # self.current_state = {}
+        # for vehicle in self.vehicles:
+        #     self.current_state.update({vehicle: position})
+
+        self.current_state = {}
+        for vehicle in self.vehicles.items():
+            self.current_state.update({vehicle: Vehicle(coords)})
+
 
     def update_states(self):
         """

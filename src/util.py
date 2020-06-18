@@ -63,8 +63,8 @@ def get_red_car(game):
 
     # Find the red car.
     red_car = None
-    for vehicle in game.vehicles:
-        if vehicle.id == 'X':
+    for vehicle in game.vehicles.items():
+        if vehicle == 'X':
             red_car = vehicle
             break
 
@@ -83,8 +83,8 @@ def get_red_car(game):
 
     # Find the red car.
     red_car = None
-    for vehicle in game.vehicles:
-        if vehicle.id == 'X':
+    for vehicle in game.vehicles.items():
+        if vehicle == 'X':
             red_car = vehicle
             break
 
