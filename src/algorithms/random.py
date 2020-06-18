@@ -1,3 +1,4 @@
+import copy
 import random
 import sys
 import csv
@@ -17,14 +18,15 @@ def randomize(init_game, runs, board_size):
     """
     solved_cases = {}
     for i in range(runs):
-        # Load new game
-        game = init_game
+        # Load game
+        game = copy.deepcopy(init_game)
 
         # Create a list to track the movements.
         moves = []
 
         # Move vehicles around randomly until the game is finished.
         tries = 0
+
         while not game.is_finished():
             # Get a random vehicle
             random_vehicle = random.choice(list(game.vehicles.values()))
@@ -50,6 +52,6 @@ def randomize(init_game, runs, board_size):
             if tries > 100000:
                 break
 
-        solved_cases[f"{i}"] = moves
+        solved_cases[i] = moves
 
     return solved_cases
