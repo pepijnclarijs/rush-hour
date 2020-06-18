@@ -29,7 +29,7 @@ def randomize(game_number, runs, board_size):
         tries = 0
         while not game.is_finished():
             # Get a random vehicle
-            random_vehicle = random.choice(game.vehicles)
+            random_vehicle = random.choice(game.vehicles.values())
 
             # Get a random number of steps.
             steps = 0
@@ -52,6 +52,6 @@ def randomize(game_number, runs, board_size):
             if tries > 100000:
                 break
 
-        solved_cases[f"{i}"] = moves 
+        solved_cases[f"{i}"] = moves
             
     return solved_cases

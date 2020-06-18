@@ -20,10 +20,10 @@ def create_game_from_state(state, board_size):
     board = Board(board_size)
 
     # Create the vehicles from the state.
-    vehicles = []
+    vehicles = {}
     for vehicle_id in state:
         vehicle = Vehicle(vehicle_id, state[vehicle_id])
-        vehicles.append(vehicle)
+        vehicles[vehicle_id] = vehicle
 
     game = Game(board, vehicles)
 
@@ -32,18 +32,14 @@ def create_game_from_state(state, board_size):
 
 def get_vehicle(id, vehicles):
     """
-    Finds a vehicle in a list of vehicles given a vehicle id.
+    Finds a vehicle in a dict of vehicles given a vehicle id.
 
     Args:
         id (string): The id of the vehicle.
-        vehicles (list of vehicles): The list of vehicles.
+        vehicles (dict of str: vehicle): The list of vehicles.
 
     Returns:
             The vehicle with the given id.
     """
 
-    for vehicle in vehicles:
-        if vehicle.id == id:
-            return vehicle
-
-    return None
+    return vehicles[id]
