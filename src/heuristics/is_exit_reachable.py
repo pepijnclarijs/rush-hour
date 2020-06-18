@@ -18,7 +18,7 @@ def is_exit_reachable(game):
     red_car = get_red_car(game)
 
     # Check if the red car can be moved to the exit.
-    if game.validate_move(red_car, game.finish):
+    if game.validate_move(red_car, game.board.finish_position):
         return True
 
     return False

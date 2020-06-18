@@ -89,3 +89,30 @@ def get_red_car(game):
             break
 
     return red_car
+
+
+def finish_game(game):
+    """
+    Finishes the game by moving the red car to the end position.
+
+    Args:
+        game (Game): The game that should be finished.
+
+    Returns:
+        The last move that is done to finish the game.
+    """
+
+    red_car = game.red_car
+
+    # Calculate the steps the red car has to do.
+    if red_car.position[0][1] > red_car.position[-1][1]:
+        right_most_box = red_car.position[0]
+    else:
+        right_most_box = red_car.position[-1]
+
+    steps = game.board.finish_box[1] - right_most_box[1]
+    last_move = (game.red_car.id, steps)
+
+    game.move(red_car, game.board.finish_position)
+
+    return last_move
