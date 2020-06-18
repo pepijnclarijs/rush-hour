@@ -93,14 +93,26 @@ def get_red_car(game):
 
 def finish_game(game):
     """
-    TODO: write docstring
+    Finishes the game by moving the red car to the end position.
+
     Args:
-        game:
+        game (Game): The game that should be finished.
 
     Returns:
-
+        The last move that is done to finish the game.
     """
-    # game.board.finish = (i, j)
-    # game.board.finish_position = [(3, 5), (3, 6)]
-    # TODO: maybe make finish_position an attribute of the board class.
-    game.move(game.red_car, game.board.finish_position)
+
+    red_car = game.red_car
+
+    # Calculate the steps the red car has to do.
+    if red_car.position[0][1] > red_car.position[-1][1]:
+        right_most_box = red_car.position[0]
+    else:
+        right_most_box = red_car.position[-1]
+
+    steps = game.board.finish_box[1] - right_most_box[1]
+    last_move = (game.red_car.id, steps)
+
+    game.move(red_car, game.board.finish_position)
+
+    return last_move

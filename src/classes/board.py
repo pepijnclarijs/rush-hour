@@ -8,6 +8,7 @@ class Board:
     Args:
         length: Integer representing the length of the board.
     """
+
     def __init__(self, length):
         self.length = length
         
