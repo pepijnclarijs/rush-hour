@@ -26,7 +26,7 @@ if __name__ == "__main__":
     # board_size = int(size_and_num.split('_')[0].split('x')[0])
     # game_number = int(size_and_num.split('_')[1])
 
-    # set start time for performence measurements
+    # Set start time for performence measurements
     start_time = time.time()
 
     # Load game
@@ -37,6 +37,9 @@ if __name__ == "__main__":
     
     # Solve the game with breadthfirst
     # results = breadthfirst.breadth(init_game, runs, depth)
+
+    # Solve the game with deapthdirst
+    rootnode = Depthfirst(None, init_game)
 
     # Calculate runtime
     s = time.time() - start_time
