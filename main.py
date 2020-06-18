@@ -1,5 +1,5 @@
 from src.algorithms import random
-from src.algorithms import breadth_first
+from src.algorithms import breadthfirst
 from src.visualisation import visualise as vis
 
 from load import load_game
@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
     # Solve the game with random
     result = random.randomize(init_game, runs, board_size)
-    result = breadth_first.breadth_first()
+    result = breadthfirst.breadthfirst()
 
     # Calculate runtime
     s = time.time() - start_time

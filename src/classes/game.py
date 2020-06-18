@@ -64,7 +64,7 @@ class Game:
         # self.current_state = {}
         # for vehicle in self.vehicles:
         #     self.current_state.update({vehicle: position})
-        # 
+        #
         # self.current_state = {}
         # for vehicle in self.vehicles.items():
         #     self.current_state.update({vehicle: Vehicle(coords)})

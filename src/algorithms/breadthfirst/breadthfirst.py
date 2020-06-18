@@ -9,10 +9,10 @@ from load import load_game
 from src.heuristics.is_exit_reachable import is_exit_reachable
 from src.heuristics.is_state_unique import is_state_unique
 from src.util import finish_game
-from src.algorithms.breadth_first.breadthfirst_util import create_game_from_state, get_vehicle
+from src.algorithms.breadthfirst.breadthfirst_util import create_game_from_state, get_vehicle
 
 
-def breadth_first(initial_game, runs, depth):
+def breadthfirst(initial_game, runs, depth):
     """
     Uses a breadth first algorithm to solve a given game of Rush Hour.
 
@@ -112,6 +112,5 @@ game_number = "1"
 
 # Load game.
 game = load_game(game_number, board_size)
-result = breadth_first(game, runs, 24)
+result = breadthfirst(game, runs, 24)
 print(result)
-
