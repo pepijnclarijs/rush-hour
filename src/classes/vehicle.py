@@ -9,6 +9,10 @@ class Vehicle:
         id: String representing the name for the vehicle.
         position: List tuples containing integers [(i_1, j_1),(i_2, j_2)]. The list represents the position of the
                     vehicle on the board.
+
+    Attributes:
+
+
     """
     def __init__(self, id, position):
         self.id = id
@@ -40,7 +44,7 @@ class Vehicle:
         self.position = new_position
 
     def __repr__(self):
-        return self.id    
+        return f"Vehicle {self.id}"
 
     def speculate_new_position(self, steps):
         """

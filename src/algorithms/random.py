@@ -52,6 +52,6 @@ def randomize(game_number, runs, board_size):
             if tries > 100000:
                 break
 
-        solved_cases[f"{i}"] = moves
+        solved_cases[f"{i}"] = moves 
             
     return solved_cases
