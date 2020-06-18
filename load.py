@@ -8,24 +8,18 @@ from src.classes.vehicle import Vehicle
 import csv
 
 def load_game(game_number, board_size):
-    # vehicles = []
-    vehicles = []
+    vehicles = {}
     # Check best result
     with open(f"data/boards/game{game_number}.csv", 'r') as f:
         reader = csv.reader(f)
         next(reader)
         for id, orientation, row, col, length in reader:
             coords = get_coords(orientation, int(row), (board_size + 1) - int(col), int(length))
-            if id == 'X':
-                X = Vehicle(id, coords)
-                vehicles.append(X)
-            else:
-                vehicles.append(Vehicle(id, coords))
-            # vehicles.update({ id :  Vehicle(id, coords) })
+            vehicles.update({ id :  Vehicle(id, coords) })
 
     board = Board(board_size)
 
-    game = Game(board, vehicles, X)
+    game = Game(board, vehicles)
 
     return game
 

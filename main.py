@@ -32,7 +32,7 @@ if __name__ == "__main__":
     init_game = load_game(game_number, board_size)
 
     # Solve the game with random
-    result = random.randomize(game_number, runs, board_size)
+    result = random.randomize(init_game, runs, board_size)
     result = breadth_first.breadth_first()
 
     # Calculate runtime
