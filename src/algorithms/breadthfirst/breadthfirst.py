@@ -10,7 +10,7 @@ from src.heuristics.is_state_unique import is_state_unique
 from src.util import finish_game
 
 
-def breadth_first(game, runs, depth):
+def breadth(init_game, runs, depth):
     """
     Uses a breadth first algorithm to solve a given game of Rush Hour.
 
@@ -26,6 +26,9 @@ def breadth_first(game, runs, depth):
     # Solve the game 'runs' times.
     solved_cases = {}
     for i in range(runs):
+        # Load game
+        game = copy.deepcopy(init_game)
+
         # Track states
         seen_states = []
 
@@ -39,10 +42,9 @@ def breadth_first(game, runs, depth):
             node = queue.get()
             current_game_instance = copy.deepcopy(node[0])
             current_depth = len(node[1])
-            print(len(node[1]))
 
             # Don't search deeper than 'depth'.
-            while current_depth < depth:
+            while current_depth < depth and current_game_instance.is_finished() == False:
                 for move in current_game_instance.possible_moves:
                     # Get the move specifics.
                     vehicle = move[0]
@@ -72,9 +74,7 @@ def breadth_first(game, runs, depth):
                         # Heuristic: check if the boxes from the red car up until the exit are free.
                         if is_exit_reachable(current_game_instance):
                             finish_game(current_game_instance)
-
-                        if current_game_instance.is_finished():
-                            break
-        solved_cases[f"{i}"] = current_game_instance.executed_moves
+            break                    
+        solved_cases[i] = current_game_instance.executed_moves
 
     return solved_cases
