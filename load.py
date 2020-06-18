@@ -11,8 +11,7 @@ def load_game(game_number, board_size):
     # vehicles = []
     vehicles = {}
     # Check best result
-    # with open(f"data/boards/game{game_number}.csv", 'r') as f:
-    with open("C:\\Users\\pepijn\\PycharmProjects\\rush-hour\\rush-hour\\data\\boards\\game1.csv", 'r') as f:
+    with open(f"data/boards/game{game_number}.csv", 'r') as f:
         reader = csv.reader(f)
         next(reader)
         for id, orientation, row, col, length in reader:
