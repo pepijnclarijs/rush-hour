@@ -42,17 +42,9 @@ def visualise(init_game, result, board_size):
             new_col_2 = car.position[1][1] + int(move[1])
             for position in car.position:
                 boxes[position].configure(background='white')
-            for i, position in car.position:    
+            car.set_position(car.speculate_new_position(-1))    
+            for position in car.position:    
                 if car.orientation == 'horizontal':
-                    new_pos1 = car.position[i][1] + int(move[1])  
-                    new_coords = (car.position[i][0], new_pos1)
-
-                    car.position[i] = new_coords
-                    boxes[position].configure(background=vehicle.color)
-                else:
-                    new_pos1 = car.position[0][0] + int(move[1])
-                    new_pos2 = car.position[1][0] + int(move[1])  
-                    print(new_pos1) 
                     boxes[position].configure(background=vehicle.color)
 
 

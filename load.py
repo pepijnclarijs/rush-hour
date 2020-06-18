@@ -9,23 +9,23 @@ import csv
 
 def load_game(game_number, board_size):
     # vehicles = []
-    vehicles = {}
+    vehicles = []
     # Check best result
     with open(f"data/boards/game{game_number}.csv", 'r') as f:
         reader = csv.reader(f)
         next(reader)
         for id, orientation, row, col, length in reader:
             coords = get_coords(orientation, int(row), (board_size + 1) - int(col), int(length))
-            # if car == 'X':
-            #     X = Vehicle(car, coords)
-            #     vehicles.append(X)
-            # else:
-            #     vehicles.append(Vehicle(car, coords))
-            vehicles.update({ id :  Vehicle(id, coords) })
+            if id == 'X':
+                X = Vehicle(id, coords)
+                vehicles.append(X)
+            else:
+                vehicles.append(Vehicle(id, coords))
+            # vehicles.update({ id :  Vehicle(id, coords) })
 
     board = Board(board_size)
 
-    game = Game(board, vehicles)
+    game = Game(board, vehicles, X)
 
     return game
 
