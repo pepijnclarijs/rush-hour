@@ -1,5 +1,5 @@
 from src.algorithms import random
-# from src.algorithms.breadthfirst import breadthfirst
+from src.algorithms.breadthfirst import breadthfirst
 from src.visualisation import visualise as vis
 
 # tijdelijk voor testen:
@@ -36,10 +36,10 @@ if __name__ == "__main__":
     init_game = load_game(game_number, board_size)
 
     # Solve the game with random
-    results = random.randomize(init_game, runs, board_size)
+    # results = random.randomize(init_game, runs, board_size)
     
     # Solve the game with breadthfirst
-    # results = breadth.bf(init_game, runs, depth)
+    results = breadthfirst.breadth_first(init_game, runs, depth)
 
     # # Solve the game with deapthdirst
     # rootnode = Depthfirst(None, init_game)
@@ -58,9 +58,7 @@ if __name__ == "__main__":
     for result in results:
         avg_moves.append(len(results[result]))
         if len(results[result]) < len(best_result):
-            best_result = results[result]
-
-    print(best_result)        
+            best_result = results[result]   
 
     # Create visualisation
     vis.visualise(init_game, best_result, board_size)

@@ -14,7 +14,6 @@ def visualise(init_game, result, board_size):
     if len(result) < 30:
         speed = 1
 
-    print(len(result))
     boxes = {}
     for row in range(1, board_size+1):
         for col in range(1, board_size+1):

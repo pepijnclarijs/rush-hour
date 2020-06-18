@@ -109,12 +109,12 @@ def execute_breadthfirst(initial_game, runs, depth):
         Dict of int: dict of
     """
 
-# Set number of runs.
-runs = 1
-board_size = 6
-game_number = "1"
+    # Set number of runs.
+    runs = 1
+    board_size = 6
+    game_number = "1"
 
-# Load game.
-game = load_game(game_number, board_size)
-result = breadth_first(game, runs, 22)
-print(result)
+    # Load game.
+    game = load_game(game_number, board_size)
+    results = breadth_first(game, runs, 22)
+    return results
