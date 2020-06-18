@@ -33,17 +33,16 @@ if __name__ == "__main__":
     init_game = load_game(game_number, board_size)
 
     # Solve the game with random
-<<<<<<< HEAD
-    # result = random.randomize(game_number, runs, board_size)
+    result = random.randomize(game_number, runs, board_size)
     # result = breadthfirst.breadth_first(init_game, 2, 1)
 
     # Depthfirst
-    rootnode = Depthfirst(None, init_game)
+    # rootnode = Depthfirst(None, init_game)
 
-=======
+
     # result = random.randomize(init_game, runs, board_size)
-    result = breadthfirst.breadthfirst(init_game, runs, depth)
->>>>>>> eea5986b0eb3ff82215991f25e75a9819a713786
+    # result = breadthfirst.breadthfirst(init_game, runs, depth)
+
 
     # Calculate runtime
     s = time.time() - start_time
