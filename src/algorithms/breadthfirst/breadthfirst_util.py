@@ -28,18 +28,3 @@ def create_game_from_state(state, board_size):
     game = Game(board, vehicles)
 
     return game
-
-
-def get_vehicle(id, vehicles):
-    """
-    Finds a vehicle in a dict of vehicles given a vehicle id.
-
-    Args:
-        id (string): The id of the vehicle.
-        vehicles (dict of str: vehicle): The list of vehicles.
-
-    Returns:
-            The vehicle with the given id.
-    """
-
-    return vehicles[id]

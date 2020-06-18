@@ -20,7 +20,7 @@ class Vehicle:
         self.color = None
 
         # Check if both boxes are in the same row.
-        if position[0][0] == position[1][0]:
+        if self.position[0][0] == self.position[1][0]:
             self.orientation = 'horizontal'
 
             # Sort the boxes in the position based on column values from small to large.

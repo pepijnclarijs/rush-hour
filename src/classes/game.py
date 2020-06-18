@@ -16,7 +16,6 @@ class Game:
         vehicles (dict of str: Vehicle): Represents vehicles that can be placed on the board.
         red_car (Vehicle): Represents the red car.
         current_state (dict of str: list of tuples of integers): Represents the current state that the game is in.
-        states (list of dict of str: list of tuples of integers): Represents the states that the game has been in.
         possible_moves (set of tuples of Vehicle, integer): Represents the possible moves that can be done in the
                 current state of the game.
     """
@@ -26,14 +25,12 @@ class Game:
         self.vehicles = vehicles
         self.red_car = get_red_car(self)
         self.current_state = {}
-        self.states = []
         self.possible_moves = set()
         self.taken_boxes = []
         self.executed_moves = []
 
         # Initialize attributes.
         self.update_current_state()
-        self.update_states()
         self.update_taken_boxes()
         self.update_possible_moves()
 
@@ -57,20 +54,9 @@ class Game:
         Updates the current_state dictionary.
         """
 
-        self.current_state = self.vehicles
-        # for vehicle in self.vehicles:
-        #     self.current_state[vehicle.id]: vehicle.position =})
+        for vehicle in self.vehicles.values():
+            self.current_state[vehicle.id] = vehicle.position
 
-
-    def update_states(self):
-        """
-        Updates the dictionary that holds the states.
-
-        NOTE: The dict should not be emptied before updates as in the other update functions. We want to remember all
-        states.
-        """
-
-        self.states.append(self.current_state)
 
     def update_taken_boxes(self):
         """
@@ -166,5 +152,4 @@ class Game:
         self.update_vehicles(vehicle)
         self.update_taken_boxes()
         self.update_current_state()
-        self.update_states()
         self.update_possible_moves()
