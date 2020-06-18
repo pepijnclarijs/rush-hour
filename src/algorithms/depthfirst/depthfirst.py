@@ -53,7 +53,7 @@ class Depthfirst:
 
         for move in self.game.possible_moves:
             child_game = copy.deepcopy(self.game)
-            
+            #### okay hoe verder
 
 #### ------ Verdelen over code
 

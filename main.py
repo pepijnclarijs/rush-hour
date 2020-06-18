@@ -37,9 +37,7 @@ if __name__ == "__main__":
 
     # Depthfirst
     rootnode = Depthfirst(None, init_game)
-    finish_moves = rootnode.traverse_depth().reverse()
-    print(finish_moves)
-    result = finish_moves
+
 
     # Calculate runtime
     s = time.time() - start_time
