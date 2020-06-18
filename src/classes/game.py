@@ -57,19 +57,9 @@ class Game:
         Updates the current_state dictionary.
         """
 
-        self.current_state = {}
-        for vehicle in self.vehicles.values():
-            print(vehicle)
-            # break
-            self.current_state.update(list({vehicle.id: vehicle.id, vehicle.position}))
-
-        # self.current_state = {}
+        self.current_state = self.vehicles
         # for vehicle in self.vehicles:
-        #     self.current_state.update({vehicle: position})
-        #
-        # self.current_state = {}
-        # for vehicle in self.vehicles.items():
-        #     self.current_state.update({vehicle: Vehicle(coords)})
+        #     self.current_state[vehicle.id]: vehicle.position =})
 
 
     def update_states(self):

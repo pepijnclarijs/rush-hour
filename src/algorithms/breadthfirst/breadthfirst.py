@@ -5,7 +5,6 @@ import copy
 import queue as q
 import random
 
-from load import load_game
 from src.heuristics.is_exit_reachable import is_exit_reachable
 from src.heuristics.is_state_unique import is_state_unique
 from src.util import finish_game
@@ -27,10 +26,6 @@ def breadth_first(game, runs, depth):
     # Solve the game 'runs' times.
     solved_cases = {}
     for i in range(runs):
-        # Load new game
-        # initial_board = 'data/InitialBoards/Rushhour#1.csv'
-        # game = load_game(board_size, initial_board)
-
         # Track states
         seen_states = []
 
@@ -47,7 +42,7 @@ def breadth_first(game, runs, depth):
             print(len(node[1]))
 
             # Don't search deeper than 'depth'.
-            if current_depth < depth:
+            while current_depth < depth:
                 for move in current_game_instance.possible_moves:
                     # Get the move specifics.
                     vehicle = move[0]
@@ -80,21 +75,6 @@ def breadth_first(game, runs, depth):
 
                         if current_game_instance.is_finished():
                             break
-                else:
-                    continue
-                break
-            else:
-                break
+        solved_cases[f"{i}"] = current_game_instance.executed_moves
 
-    return current_game_instance.executed_moves
-
-
-# Set number of runs.
-runs = 1
-board_size = 6
-game_number = "1"
-
-# Load game.
-game = load_game(game_number, board_size)
-result = breadth_first(game, runs, 24)
-print(len(result))
+    return solved_cases
