@@ -32,32 +32,32 @@ def visualise(init_game, result, board_size):
     def start():          
         stop = False
         for move in result['0']:
-            while stop != True:
-                time.sleep(speed)
-                counter=+1
-                car = veh_dict.get(move[0])
-                new_col_1 = car.position[0][1] + (move[0])
-                new_col_2 = car.position[1][1] + (move[0])
+            time.sleep(speed)
+            counter=+1
+            car = veh_dict.get(move[0])
+            print(car)
+            # print(car.position[0][0])
+            # print(car.position[1][0])
+            print(move[1])
+            new_col_2 = car.position[1][1] + int(move[1])
+            for position in car.position:
+                boxes[position].configure(background='white')
+            for i, position in car.position:    
+                if car.orientation == 'horizontal':
+                    new_pos1 = car.position[i][1] + int(move[1])  
+                    new_coords = (car.position[i][0], new_pos1)
 
-                for position in car.position:
-                    boxes[position].configure(background='white')
-                for position in car.position:    
-                    print(position)
-                    if car.orientation == 'horizontal':
-                        car.position[0] = new_col_1 
-                        print(car.position[0][0])
-                        print(car.position[1][0])
+                    car.position[i] = new_coords
+                    boxes[position].configure(background=vehicle.color)
+                else:
+                    new_pos1 = car.position[0][0] + int(move[1])
+                    new_pos2 = car.position[1][0] + int(move[1])  
+                    print(new_pos1) 
+                    boxes[position].configure(background=vehicle.color)
 
-                        boxes[position].configure(background=vehicle.color)
-                    else:
-                        print(car.position[1][0])
-                        print(car.position[1][1])
-                        boxes[position].configure(background=vehicle.color)
-    def stop():
-        stop = True
 
-    startbtn = Button(root, text='Start', command=start).grid()
-    stopbtn = Button(root, text='Stop', command=stop).grid()
+    startbtn = Button(root, text='Start', command=start).grid() 
+    # stopbtn = Button(root, text='Stop', command=stop_game).grid()
     root.mainloop()
             
 

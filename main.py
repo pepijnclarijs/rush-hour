@@ -8,11 +8,12 @@ import time
 import sys
 
 if __name__ == "__main__":
-    # set amount of runs
     """ command line arguments for game_number, board_size & runs """
     game_number = sys.argv[1]
     board_size = int(sys.argv[2])
     runs = int(sys.argv[3])
+
+    
 
     print(f"Playing game {game_number}, with board size {board_size}, for {runs} runs")
 
@@ -41,8 +42,8 @@ if __name__ == "__main__":
     m = s // 60
     s %= 60
 
-    # # Create visualisation
-    # vis.visualise(init_game, result, board_size)
+    # Create visualisation
+    vis.visualise(init_game, result, board_size)
 
     # Get best result and average moves
     first_iter = True
