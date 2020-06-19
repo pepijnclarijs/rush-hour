@@ -2,7 +2,7 @@ from src.algorithms import random
 from src.algorithms.breadthfirst import breadthfirst
 from src.visualisation import visualise as vis
 
-# # tijdelijk voor testen:
+# tijdelijk voor testen:
 # from bf import breadth
 
 from load import load_game
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     # results = random.randomize(init_game, runs, board_size)
     
     # Solve the game with breadthfirst
-    results = breadthfirst.breadth_first(init_game, runs, depth)
+    # results = breadthfirst.breadth_first(init_game, 1, depth)
 
     # # Solve the game with deapthdirst
     # rootnode = Depthfirst(None, init_game)
