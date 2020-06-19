@@ -33,7 +33,7 @@ def randomize(init_game, runs, board_size):
             # Get a random number of steps.
             steps = 0
             while steps == 0:
-                steps = random.randint(-board_size + 2, board_size - 2)
+                steps = random.randint(-board_size + random_vehicle.size, board_size - random_vehicle.size + 1)
 
             # Speculate the new position passed by the vehicle.
             new_coordinates = random_vehicle.speculate_new_position(steps)

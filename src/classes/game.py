@@ -71,7 +71,7 @@ class Game:
         self.possible_moves = set()
         for vehicle in self.vehicles.values():
             # Get the possible moves in the current state.
-            for steps in range(-self.board.length + vehicle.size, self.board.length - vehicle.size):
+            for steps in range(-self.board.length + vehicle.size, self.board.length - vehicle.size + 1):
                 if steps == 0:
                     continue
                 new_coordinates = vehicle.speculate_new_position(steps)

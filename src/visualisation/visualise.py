@@ -12,7 +12,7 @@ def visualise(init_game, result, board_size):
 
     counter = 0
     speed = 0.01
-    if len(result) < 30:
+    if len(result) < 40:
         speed = 1
 
     boxes = {}

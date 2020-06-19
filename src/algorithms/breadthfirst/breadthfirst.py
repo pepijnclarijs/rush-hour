@@ -1,14 +1,9 @@
 # This src was taken and altered from Bas Terwijn's constructive algorithm series on youtube.
 # https://www.youtube.com/watch?v=NqSSrKDAE_U&list=PLJBtJTYGPSzIfEzXpszM8Ewsllwfa0d6T&index=9
 
-# This src was taken and altered from Bas Terwijn's constructive algorithm series on youtube.
-# https://www.youtube.com/watch?v=NqSSrKDAE_U&list=PLJBtJTYGPSzIfEzXpszM8Ewsllwfa0d6T&index=9
-
 import copy
 import queue as q
-import random
 
-from load import load_game
 from src.heuristics.is_exit_reachable import is_exit_reachable
 from src.heuristics.is_state_unique import is_state_unique
 from src.util import finish_game
@@ -74,8 +69,7 @@ def breadth_first(initial_game):
             # Add new child node to queue.
             moves_until_state = copy.deepcopy(parent_node[1])
             moves_until_state.append((vehicle.id, steps))
-            node_id += 1
-            child_node = (child_state, moves_until_state, node_id)
+            child_node = (child_state, moves_until_state)
             queue.put(child_node)
 
             # Heuristic: check if the boxes from the red car up until the exit are free.
