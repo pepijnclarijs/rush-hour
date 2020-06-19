@@ -48,6 +48,7 @@ def randomize(init_game, runs, board_size):
                 move = (random_vehicle.id, steps)
                 moves.append(move)
 
+            # Do not try more than 100.000 moves.
             tries += 1
             if tries > 100000:
                 break

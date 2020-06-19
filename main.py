@@ -12,7 +12,7 @@ import time
 import sys
 
 if __name__ == "__main__":
-    # set amount of runs
+    # set number of runs
     """ command line arguments for game_number, board_size & runs """
     game_number = sys.argv[1]
     board_size = int(sys.argv[2])
@@ -21,6 +21,7 @@ if __name__ == "__main__":
 
     print(f"Playing game {game_number}, with board size {board_size}, for {runs} runs")
 
+    # TODO: mag dit weg?
     # print("Playing " + sys.argv[1])
     #
     # initial_board = sys.argv[1]
@@ -41,7 +42,7 @@ if __name__ == "__main__":
     # Solve the game with breadthfirst
     # results = breadthfirst.breadth_first(init_game, 1, depth)
 
-    # # Solve the game with deapthdirst
+    # # Solve the game with depthdirst
     # rootnode = Depthfirst(None, init_game)
 
     # Calculate runtime
