@@ -1,5 +1,6 @@
 from src.algorithms import random
 from src.algorithms.breadthfirst import breadthfirst
+from src.algorithms.depthfirst import depthfirst
 from src.visualisation import visualise as vis
 
 from load import load_game
@@ -39,7 +40,10 @@ if __name__ == "__main__":
     # results = breadthfirst.breadth(init_game, runs, depth)
 
     # Solve the game with deapthdirst
-    rootnode = Depthfirst(None, init_game)
+    # rootnode = depthfirst.Depthfirst(None, init_game)
+    # finish_moves = rootnode.traverse_depth().reverse()
+    # print(finish_moves)
+    # results = finish_moves
 
     # Calculate runtime
     s = time.time() - start_time
@@ -73,8 +77,20 @@ if __name__ == "__main__":
     with open(f"data/game#{game_number}/game{game_number}_best_run.csv", 'r') as f:
         best_stat = f.readline()
 
+    # if int(best_stat) != len(best_restult):
+    #     with open(f"data/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
+    #         writer = csv.writer(f)
+    #         writer.writerow([len(best_result)])
+    #         writer.writerow([f"Runtime: {round(h)} hours, {round(m)} minutes and {round(s)} seconds"])
+    #         writer.writerow([f"Runs: {runs}"])
+    #         writer.writerow([f"Average moves: {sum(avg_moves) / len(avg_moves)}"])
+    #         writer.writerow([f"Least moves: {len(best_result)}"])
+    #         writer.writerow([f"Moves: {avg_moves}"])
+    #         writer.writerow(["car", "move"])
+    #         writer.writerows(best_result)
+
     # Overwrite if best result
-    if int(best_stat) >= len(best_result):
+    if int(best_stat) >= len(best_result): #or int(best_stat) != len(best_restult):
         with open(f"data/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([len(best_result)])
