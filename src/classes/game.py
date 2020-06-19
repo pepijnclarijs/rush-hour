@@ -1,7 +1,5 @@
 # Game class representing a game of rush hour.
 
-from src.util import get_red_car
-
 # TODO: Get rid of unneccessary attributes.
 class Game:
     """
