@@ -21,11 +21,10 @@ class Game:
     def __init__(self, board, vehicles):
         self.board = board
         self.vehicles = vehicles
-        self.red_car = get_red_car(self)
+        self.red_car = self.vehicles['X']
         self.current_state = {}
         self.possible_moves = set()
         self.taken_boxes = []
-        self.executed_moves = []
 
         # Initialize attributes.
         self.update_current_state()
@@ -55,7 +54,6 @@ class Game:
         for vehicle in self.vehicles.values():
             self.current_state[vehicle.id] = vehicle.position
 
-
     def update_taken_boxes(self):
         """
         Updates the list that keeps track of the boxes that are taken.
@@ -80,9 +78,6 @@ class Game:
                 if self.validate_move(vehicle, new_coordinates):
                     move = (vehicle, steps)
                     self.possible_moves.add(move)
-
-    def update_executed_moves(self, move):
-        self.executed_moves.append(move)
 
     def is_finished(self):
         """
