@@ -2,8 +2,8 @@ from src.algorithms import random
 from src.algorithms.breadthfirst import breadthfirst
 from src.visualisation import visualise as vis
 
-# tijdelijk voor testen:
-from bf import breadth
+# # tijdelijk voor testen:
+# from bf import breadth
 
 from load import load_game
 
@@ -52,6 +52,10 @@ if __name__ == "__main__":
     m = s // 60
     s %= 60
 
+
+    
+    print(results)
+    print(results[0])
     # Get best result and average moves
     avg_moves = []
     best_result = results[0]
@@ -60,6 +64,7 @@ if __name__ == "__main__":
         if len(results[result]) < len(best_result):
             best_result = results[result]   
 
+    print(best_result)
     # Create visualisation
     vis.visualise(init_game, best_result, board_size)
 

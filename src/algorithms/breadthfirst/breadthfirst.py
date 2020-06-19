@@ -36,7 +36,7 @@ def breadth_first(initial_game, runs, depth):
 
         # Add begin state to queue.
         initial_state = initial_game.current_state
-        queue.put((initial_state, [""], 0))
+        queue.put((initial_state, [], 0))
         seen_states.append(initial_state)
         board_size = initial_game.board.length
         node_id = 0
