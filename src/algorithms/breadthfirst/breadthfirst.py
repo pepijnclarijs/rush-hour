@@ -58,44 +58,34 @@ def breadth_first(initial_game):
             steps = move[1]
             new_position = vehicle.speculate_new_position(steps)
 
-            # Execute the move if possible to create a child node.
-            if parent_game.validate_move(vehicle, new_position):
-                child_game = copy.deepcopy(parent_game)
-                child_vehicle = child_game.vehicles.get(vehicle.id)
-                child_game.move(child_vehicle, new_position)
+            # Execute the move to create a child node.
+            child_game = copy.deepcopy(parent_game)
+            child_vehicle = child_game.vehicles.get(vehicle.id)
+            child_game.move(child_vehicle, new_position)
 
-                # Heuristic: Check if the state is unique.
-                child_state = child_game.current_state
-                if not is_state_unique(seen_states, child_state):
-                    continue
+            # Heuristic: Check if the state is unique.
+            child_state = child_game.current_state
+            if not is_state_unique(seen_states, child_state):
+                continue
 
-                # Otherwise, remember the state.
-                seen_states.append(child_state)
+            # Otherwise, remember the state.
+            seen_states.append(child_state)
 
-                # Add new child node to queue.
-                moves_until_state = copy.deepcopy(parent_node[1])
-                moves_until_state.append((vehicle.id, steps))
-                node_id += 1
-                child_node = (child_state, moves_until_state, node_id)
-                queue.put(child_node)
+            # Add new child node to queue.
+            moves_until_state = copy.deepcopy(parent_node[1])
+            moves_until_state.append((vehicle.id, steps))
+            node_id += 1
+            child_node = (child_state, moves_until_state, node_id)
+            queue.put(child_node)
 
-                # Heuristic: check if the boxes from the red car up until the exit are free.
-                if is_exit_reachable(child_game):
-                    last_move = finish_game(child_game)
-                    moves = child_node[1]
-                    moves.append(last_move)
-                    solved_cases[0] = moves
+            # Heuristic: check if the boxes from the red car up until the exit are free.
+            if is_exit_reachable(child_game):
+                last_move = finish_game(child_game)
+                moves = child_node[1]
+                moves.append(last_move)
+                solved_cases[0] = moves
 
-                if child_game.is_finished():
-                    return solved_cases
+            if child_game.is_finished():
+                return solved_cases
+
     return "No solved cases have been found :("
-
-# runs = 1
-# board_size = 6
-# game_number = "1"
-#
-# # Load game.
-# game = load_game(game_number, board_size)
-# results = breadth_first(game, runs, 40)
-# print(results)
-# #return results

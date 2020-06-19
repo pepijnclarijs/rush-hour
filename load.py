@@ -11,6 +11,7 @@ sys.path.append('src/classes')
 def load_game(game_number, board_size):
     vehicles = {}
     # Check best result
+    # with open(f"C:\\Users\\pepijn\\PycharmProjects\\rush-hour\\rush-hour\\data\\boards\\game3.csv", 'r') as f:
     with open(f"data/boards/game{game_number}.csv", 'r') as f:
         reader = csv.reader(f)
         next(reader)

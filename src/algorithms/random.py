@@ -1,7 +1,6 @@
 import copy
 import random
-import sys
-import csv
+
 
 # Start game
 def randomize(init_game, runs, board_size):
