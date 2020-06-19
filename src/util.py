@@ -51,19 +51,6 @@ def get_enclosed_boxes(box_1, box_2):
     return enclosed_boxes
 
 
-def get_red_car(game):
-    """
-    Gets the red car given a game.
-
-    Args:
-        game: (type Game) Instance of a game.
-    Returns:
-        Vehicle (type Vehicle) representing the red car.
-    """
-
-    return game.vehicles['X']
-
-
 def finish_game(game):
     """
     Finishes the game by moving the red car to the end position.

@@ -4,7 +4,7 @@
 3. class Vehicle
 4. class Depthfirst
 
-### class game_equal
+### class Game
 
 ### class board
 

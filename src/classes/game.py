@@ -1,8 +1,6 @@
 # Game class representing a game of rush hour.
 
-from src.util import get_red_car
 
-# TODO: Get rid of unneccessary attributes.
 class Game:
     """
     This class represents a game of rush hour.
@@ -16,66 +14,50 @@ class Game:
         vehicles (dict of str: Vehicle): Represents vehicles that can be placed on the board.
         red_car (Vehicle): Represents the red car.
         current_state (dict of str: list of tuples of integers): Represents the current state that the game is in.
-        states (list of dict of str: list of tuples of integers): Represents the states that the game has been in.
         possible_moves (set of tuples of Vehicle, integer): Represents the possible moves that can be done in the
                 current state of the game.
+        # TODO: Check if the taken_boxes attribute is still useful and if it is not better to use the current_state
+            at places where taken_boxes is currently used.
+        taken_boxes (list of tuples of ints): Represents all the boxes that are currently taken on the board.
     """
-# TODO: Make sure everything is updated correctly. The red car for example is not at the moment.
+
     def __init__(self, board, vehicles):
         self.board = board
         self.vehicles = vehicles
-        self.red_car = get_red_car(self)
+        self.red_car = self.vehicles['X']
         self.current_state = {}
-        self.states = []
         self.possible_moves = set()
         self.taken_boxes = []
-        self.executed_moves = []
 
         # Initialize attributes.
         self.update_current_state()
-        self.update_states()
         self.update_taken_boxes()
         self.update_possible_moves()
 
-    def update_vehicles(self, update_vehicle):
+    def update_vehicles(self, new_vehicle_version):
         """
         Updates vehicle object in the list of vehicles.
 
         Args:
-            update_vehicle (Vehicle): The vehicle in the vehicle list that should be updated.
+            new_vehicle_version (Vehicle): The updated version of the vehicle in the vehicle list with which it shares
+            its id.
         """
 
-        updated_vehicles = {}
-        for vehicle in self.vehicles.values():
-            if vehicle.id == update_vehicle.id:
-                vehicle = update_vehicle
-            updated_vehicles[vehicle.id] = vehicle
-        self.vehicles = updated_vehicles
+        self.vehicles[new_vehicle_version.id] = new_vehicle_version
 
     def update_current_state(self):
         """
         Updates the current_state dictionary.
         """
 
-        self.current_state = self.vehicles
-        # for vehicle in self.vehicles:
-        #     self.current_state[vehicle.id]: vehicle.position =})
-
-
-    def update_states(self):
-        """
-        Updates the dictionary that holds the states.
-
-        NOTE: The dict should not be emptied before updates as in the other update functions. We want to remember all
-        states.
-        """
-
-        self.states.append(self.current_state)
+        for vehicle in self.vehicles.values():
+            self.current_state[vehicle.id] = vehicle.position
 
     def update_taken_boxes(self):
         """
         Updates the list that keeps track of the boxes that are taken.
         """
+
         taken_positions = []
         for vehicle in self.vehicles.values():
             taken_positions.extend(vehicle.position)
@@ -89,7 +71,7 @@ class Game:
         self.possible_moves = set()
         for vehicle in self.vehicles.values():
             # Get the possible moves in the current state.
-            for steps in range(-self.board.length + vehicle.size, self.board.length - vehicle.size):
+            for steps in range(-self.board.length + vehicle.size, self.board.length - vehicle.size + 1):
                 if steps == 0:
                     continue
                 new_coordinates = vehicle.speculate_new_position(steps)
@@ -97,14 +79,12 @@ class Game:
                     move = (vehicle, steps)
                     self.possible_moves.add(move)
 
-    def update_executed_moves(self, move):
-        self.executed_moves.append(move)
-
     def is_finished(self):
         """
         Returns:
             Boolean Indicating whether the game is won or not.
         """
+
         if self.board.finish_position == self.red_car.position:
             return True
 
@@ -166,5 +146,4 @@ class Game:
         self.update_vehicles(vehicle)
         self.update_taken_boxes()
         self.update_current_state()
-        self.update_states()
         self.update_possible_moves()

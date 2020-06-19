@@ -6,12 +6,16 @@ class Vehicle:
     This class represents a vehicle in a game of rush hour.
 
     Args:
-        id: String representing the name for the vehicle.
-        position: List tuples containing integers [(i_1, j_1),(i_2, j_2)]. The list represents the position of the
-                    vehicle on the board.
+        id (str): The id of the vehicle.
+        position (List tuples containing integers [(i_1, j_1),(i_2, j_2)]) : The position of the vehicle on
+                the board.
 
     Attributes:
-
+        id (str): The id of the vehicle.
+        position (List tuples containing integers [(i_1, j_1),(i_2, j_2)]): The position of the vehicle.
+        color (str): Represents the color of the vehicle.
+        orientation (str): The orientation of the vehicle.
+        size (int): The size of the vehicle (number of boxes on the grid that it occupies).
 
     """
     def __init__(self, id, position):
@@ -20,7 +24,7 @@ class Vehicle:
         self.color = None
 
         # Check if both boxes are in the same row.
-        if position[0][0] == position[1][0]:
+        if self.position[0][0] == self.position[1][0]:
             self.orientation = 'horizontal'
 
             # Sort the boxes in the position based on column values from small to large.
@@ -43,15 +47,12 @@ class Vehicle:
     def set_position(self, new_position):
         self.position = new_position
 
-    def __repr__(self):
-        return f"Vehicle {self.id}"
-
     def speculate_new_position(self, steps):
         """
         Speculates the new position of the vehicle after moving by a number of steps.
 
         Args:
-            steps: Integer representing the number of steps the vehicle would move.
+            steps (int): The number of steps the vehicle would move.
 
         Returns:
             List of tuples containing integers [(i_1, j_1),(i_2, j_2)] indicating the would be new position of the
@@ -79,8 +80,9 @@ class Vehicle:
     def get_passed_boxes(self, end_position):
         """
         Gets the boxes that are passed when a vehicle moves from its place to the 'end_box' box.
+
         Args:
-            end_position: Tuple of integers (i, j) representing the position up until which the passed boxes should be
+            end_position (Tuple of integers (i, j)): Represents the position up until which the passed boxes should be
             found.
         Returns:
             List of tuples containing integers [(i_1, j_1),(i_2, j_2)] that represent the boxes between the vehicle and
@@ -102,3 +104,6 @@ class Vehicle:
                 passed_boxes.append(box)
 
         return passed_boxes
+
+    def __repr__(self):
+        return f"Vehicle {self.id}"
