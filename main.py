@@ -41,13 +41,12 @@ if __name__ == "__main__":
     # results = breadthfirst.breadth(init_game, runs, depth)
 
     # Solve the game with deapthdirst
-    archive = Archive()
-    rootnode = depthfirst.Depthfirst(None, init_game, archive)
-
-
-    finish_moves = rootnode.traverse_depth()
-    print("Finish moves: " + str(finish_moves))
-    print("Finish moves reverted: " + str(finish_moves.reverse()))
+    # archive = Archive()
+    # rootnode = depthfirst.Depthfirst(None, init_game, archive)
+    #
+    # finish_moves = rootnode.traverse_depth()
+    # print("Finish moves: " + str(finish_moves))
+    # print("Finish moves reverted: " + str(finish_moves.reverse()))
 
     # Calculate runtime
     s = time.time() - start_time
@@ -78,7 +77,7 @@ if __name__ == "__main__":
     print(f"Least moves: {len(best_result)}")
 
     # Check best result
-    with open(f"data/game#{game_number}/game{game_number}_best_run.csv", 'r') as f:
+    with open(f"data/results/breadthfirst/heuristics/exit_reachable_and_unique_states/game#{game_number}/game{game_number}_best_run.csv", 'w+') as f:
         best_stat = f.readline()
 
     # if int(best_stat) != len(best_restult):
@@ -93,9 +92,15 @@ if __name__ == "__main__":
     #         writer.writerow(["car", "move"])
     #         writer.writerows(best_result)
 
-    # Overwrite if best result
-    if int(best_stat) >= len(best_result): #or int(best_stat) != len(best_restult):
-        with open(f"data/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
+    # Overwrite if best result. Skip if this is the first result.
+    first_result = True
+    if len(best_stat) != 0:
+        first_result = False
+    else:
+        best_stat = '0'
+
+    if int(best_stat) >= len(best_result) or first_result: #or int(best_stat) != len(best_restult):
+        with open(f"data/results/breadthfirst/heuristics/exit_reachable_and_unique_states/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([len(best_result)])
             writer.writerow([f"Runtime: {round(h)} hours, {round(m)} minutes and {round(s)} seconds"])
@@ -107,7 +112,7 @@ if __name__ == "__main__":
             writer.writerows(best_result)
 
     # Append results
-    with open(f"data/game#{game_number}/game{game_number}_results.csv", 'a', newline='') as f:
+    with open(f"data/results/breadthfirst/heuristics/exit_reachable_and_unique_states/game#{game_number}/game{game_number}_results.csv", 'a+', newline='') as f:
         writer = csv.writer(f)
         if f.tell() == 0:
             writer.writerow(['least', 'average', 'runs', "runtime(sec)"])
