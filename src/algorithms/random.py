@@ -1,6 +1,8 @@
 import copy
 import random
 
+# from src.heuristics.is_exit_reachable import is_exit_reachable
+
 
 # Start game
 def randomize(init_game, runs, board_size):
