@@ -105,5 +105,11 @@ class Vehicle:
 
         return passed_boxes
 
+    def equals(self, other):
+        if self.id == other.id and self.position == other.position:
+            return True
+        else:
+            return False
+
     def __repr__(self):
-        return f"Vehicle {self.id}"
+        return f"Vehicle {self.id}: ({self.position})"

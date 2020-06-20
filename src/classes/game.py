@@ -147,3 +147,19 @@ class Game:
         self.update_taken_boxes()
         self.update_current_state()
         self.update_possible_moves()
+
+    def print_board(self):
+        print_board = []
+        for i in range(self.board.length):
+            print_row = []
+            for j in range(self.board.length):
+                print_row.append(" ")
+            print_board.append(print_row)
+
+        for key in self.vehicles:
+            for pos in self.vehicles[key].position:
+                print(pos)
+                print_board[pos[0]-1][pos[1]-1] = key
+
+        for pr in print_board:
+            print(pr)
