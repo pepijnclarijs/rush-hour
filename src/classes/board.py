@@ -11,7 +11,7 @@ class Board:
 
     def __init__(self, length):
         self.length = length
-        
+
         # Find the box of the finish.
         if length % 2 == 0:
             self.finish_box = (int(length / 2), length)

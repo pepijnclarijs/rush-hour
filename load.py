@@ -18,6 +18,8 @@ def load_game(game_number, board_size):
         for id, orientation, row, col, length in reader:
             coords = get_coords(orientation, int(row), (board_size + 1) - int(col), int(length))
             vehicles.update({id: Vehicle(id, coords)})
+            # is dit beter, intuitiever?:
+            # vehicles[id] = Vehicle(id, coords)
 
     board = Board(board_size)
 

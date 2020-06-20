@@ -1,6 +1,7 @@
 from src.algorithms import random
 from src.algorithms.breadthfirst import breadthfirst
-from src.algorithms.depthfirst import depthfirst
+from src.algorithms.depthfirst import depthfirst, archive
+from src.algorithms.depthfirst.archive import Archive
 from src.visualisation import visualise as vis
 
 from load import load_game
@@ -40,10 +41,13 @@ if __name__ == "__main__":
     # results = breadthfirst.breadth(init_game, runs, depth)
 
     # Solve the game with deapthdirst
-    rootnode = depthfirst.Depthfirst(None, init_game)
-    finish_moves = rootnode.traverse_depth().reverse()
-    print(finish_moves)
-    results = finish_moves
+    archive = Archive()
+    rootnode = depthfirst.Depthfirst(None, init_game, archive)
+
+
+    finish_moves = rootnode.traverse_depth()
+    print("Finish moves: " + str(finish_moves))
+    print("Finish moves reverted: " + str(finish_moves.reverse()))
 
     # Calculate runtime
     s = time.time() - start_time
