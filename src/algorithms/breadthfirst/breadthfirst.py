@@ -1,9 +1,6 @@
 # This src was taken and altered from Bas Terwijn's constructive algorithm series on youtube.
 # https://www.youtube.com/watch?v=NqSSrKDAE_U&list=PLJBtJTYGPSzIfEzXpszM8Ewsllwfa0d6T&index=9
 
-# This src was taken and altered from Bas Terwijn's constructive algorithm series on youtube.
-# https://www.youtube.com/watch?v=NqSSrKDAE_U&list=PLJBtJTYGPSzIfEzXpszM8Ewsllwfa0d6T&index=9
-
 import copy
 import queue as q
 import random
@@ -25,7 +22,6 @@ def breadth_first(initial_game, runs, depth):
         List of tuples containing a string representing the id of a vehicle and an integer representing the number of
         steps [('A', 2), ('B', -2)]. The list represents the movements that should be executed to solve the game.
     """
-
     # Solve the game 'runs' times.
     solved_cases = {}
     for i in range(runs):
@@ -44,7 +40,7 @@ def breadth_first(initial_game, runs, depth):
             # Get first from queue.
             parent_node = copy.deepcopy(queue.get())
             current_depth = len(parent_node[1])
-            print(current_depth)
+            print(f"current depth: {current_depth}")
 
             # Don't search deeper than 'depth'.
             if current_depth < depth:
@@ -83,39 +79,17 @@ def breadth_first(initial_game, runs, depth):
 
                         # Heuristic: check if the boxes from the red car up until the exit are free.
                         if is_exit_reachable(child_game):
-                            last_move = finish_game(child_game)
                             moves = child_node[1]
+                            last_move = finish_game(child_game)
                             moves.append(last_move)
                             solved_cases[i] = moves
+                            
+   
 
                         if child_game.is_finished():
-                            return solved_cases
+                            break
+ 
             else:
                 break
-
-    return solved_cases
-
-
-def execute_breadthfirst(initial_game, runs, depth):
-    """
-    Executes the breadth first algorithm.
-
-    Args:
-        initial_game (Game): The game that should be solved.
-        runs (int): The number of times the game should be solved.
-        depth: The depth until which the breadth first should be tried.
-
-    Returns:
-        Dict of int: dict of
-    """
-    pass
-# Set number of runs.
-runs = 1
-board_size = 6
-game_number = "1"
-
-# Load game.
-game = load_game(game_number, board_size)
-results = breadth_first(game, runs, 40)
-print(results)
-#return results
+    
+        return solved_cases
