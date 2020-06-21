@@ -1,9 +1,8 @@
 from src.algorithms import random
 from src.algorithms.breadthfirst import breadthfirst
+from src.algorithms.depthfirst import depthfirst, archive
+from src.algorithms.depthfirst.archive import Archive
 from src.visualisation import visualise as vis
-
-# tijdelijk voor testen:
-# from bf import breadth
 
 from load import load_game
 
@@ -37,12 +36,17 @@ if __name__ == "__main__":
 
     # Solve the game with random
     # results = random.randomize(init_game, runs, board_size)
-    
-    # Solve the game with breadthfirst
-    # results = breadthfirst.breadth_first(init_game, 1, depth)
 
-    # # Solve the game with deapthdirst
-    # rootnode = Depthfirst(None, init_game)
+    # Solve the game with breadthfirst
+    # results = breadthfirst.breadth(init_game, runs, depth)
+
+    # Solve the game with deapthdirst
+    # archive = Archive()
+    # rootnode = depthfirst.Depthfirst(None, init_game, archive)
+    #
+    # finish_moves = rootnode.traverse_depth()
+    # print("Finish moves: " + str(finish_moves))
+    # print("Finish moves reverted: " + str(finish_moves.reverse()))
 
     # Calculate runtime
     s = time.time() - start_time
@@ -52,21 +56,18 @@ if __name__ == "__main__":
     m = s // 60
     s %= 60
 
-
-    
-    print(results)
-    print(results[0])
     # Get best result and average moves
     avg_moves = []
     best_result = results[0]
     for result in results:
         avg_moves.append(len(results[result]))
         if len(results[result]) < len(best_result):
-            best_result = results[result]   
+            best_result = results[result]
 
     print(best_result)
+
     # Create visualisation
-    vis.visualise(init_game, best_result, board_size)
+    # vis.visualise(init_game, best_result, board_size)
 
     # Print results
     print(f"Moves: {avg_moves}")
@@ -76,12 +77,30 @@ if __name__ == "__main__":
     print(f"Least moves: {len(best_result)}")
 
     # Check best result
-    with open(f"data/game#{game_number}/game{game_number}_best_run.csv", 'r') as f:
+    with open(f"data/results/breadthfirst/heuristics/exit_reachable_and_unique_states/game#{game_number}/game{game_number}_best_run.csv", 'w+') as f:
         best_stat = f.readline()
 
-    # Overwrite if best result
-    if int(best_stat) >= len(best_result):
-        with open(f"data/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
+    # if int(best_stat) != len(best_restult):
+    #     with open(f"data/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
+    #         writer = csv.writer(f)
+    #         writer.writerow([len(best_result)])
+    #         writer.writerow([f"Runtime: {round(h)} hours, {round(m)} minutes and {round(s)} seconds"])
+    #         writer.writerow([f"Runs: {runs}"])
+    #         writer.writerow([f"Average moves: {sum(avg_moves) / len(avg_moves)}"])
+    #         writer.writerow([f"Least moves: {len(best_result)}"])
+    #         writer.writerow([f"Moves: {avg_moves}"])
+    #         writer.writerow(["car", "move"])
+    #         writer.writerows(best_result)
+
+    # Overwrite if best result. Skip if this is the first result.
+    first_result = True
+    if len(best_stat) != 0:
+        first_result = False
+    else:
+        best_stat = '0'
+
+    if int(best_stat) >= len(best_result) or first_result: #or int(best_stat) != len(best_restult):
+        with open(f"data/results/breadthfirst/heuristics/exit_reachable_and_unique_states/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([len(best_result)])
             writer.writerow([f"Runtime: {round(h)} hours, {round(m)} minutes and {round(s)} seconds"])
@@ -93,7 +112,7 @@ if __name__ == "__main__":
             writer.writerows(best_result)
 
     # Append results
-    with open(f"data/game#{game_number}/game{game_number}_results.csv", 'a', newline='') as f:
+    with open(f"data/results/breadthfirst/heuristics/exit_reachable_and_unique_states/game#{game_number}/game{game_number}_results.csv", 'a+', newline='') as f:
         writer = csv.writer(f)
         if f.tell() == 0:
             writer.writerow(['least', 'average', 'runs', "runtime(sec)"])

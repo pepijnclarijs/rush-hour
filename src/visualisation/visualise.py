@@ -3,6 +3,7 @@ from tkinter import Tk, Label, Button
 import random 
 import time
 
+
 def visualise(init_game, result, board_size):
     root = Tk()
     root.title("Rush Hour")

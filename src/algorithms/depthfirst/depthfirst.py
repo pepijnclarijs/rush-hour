@@ -1,23 +1,8 @@
-import copy
+import copy, sys
+from src.algorithms.depthfirst.archive import Archive
+from src.heuristics.is_exit_reachable import is_exit_reachable
+from src.util import finish_game
 from load import load_game
-
-archive = []
-
-def game_in_archive(game_vehicles):
-    if len(archive) == 0:
-        return_bool = False
-    else:
-        for arch_vehicles in archive:
-            game_equal = True
-
-            for id in game_vehicles.keys():
-                if arch_vehicles[id] != vehicles_b[id]:
-                    game_equal = False
-
-            if game_equal:
-                return True
-
-        return False
 
 class Depthfirst:
     """
@@ -38,21 +23,37 @@ class Depthfirst:
         finish_moves = rev_moveset.reverse()
 
     """
-    def __init__(parent_node, game):
+    def __init__(self, parent_node, game, archive):
         self.parent = parent_node
         self.game = game
+        self.archive = archive
+
+        print("Current state:")
+        game.print_board()
+        print("")
 
     def traverse_depth(self):
-        if self.game.is_finished():
-            return []
+        if is_exit_reachable(self.game):
+            last_move = finish_game(self.game)
+            return [last_move]
 
-        if game_in_archive(self.game.vehicles):
+        if self.archive.game_in_archive(self.game.vehicles):
             return None
 
-        archive.append(copy.deepcopy(self.game.vehicles))
+        self.archive.add_board_state(copy.deepcopy(self.game.vehicles))
 
         for move in self.game.possible_moves:
             child_game = copy.deepcopy(self.game)
+            (vehicle, steps) = move
+            new_pos = vehicle.speculate_new_position(steps)
+            child_game.move(vehicle, new_pos)
+
+            child_node = Depthfirst(self, child_game, self.archive)
+            traversal_list = child_node.traverse_depth()
+            if (traversal_list != None):
+                return traversal_list.append(move)
+
+        return None
             #### okay hoe verder
 
 #### ------ Verdelen over code
@@ -80,4 +81,4 @@ class Depthfirst:
         # length: mogelijke moves
         # mogelijke move[i] uitvoeren op game[i]
 
-    def game_in_archive()
+    # def game_in_archive()
