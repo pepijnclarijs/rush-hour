@@ -76,3 +76,6 @@ def finish_game(game):
     game.move(red_car, game.board.finish_position)
 
     return last_move
+
+
+

@@ -1,4 +1,4 @@
-from src.algorithms import random
+from src.algorithms.random import random
 from src.algorithms.breadthfirst import breadthfirst
 from src.algorithms.depthfirst import depthfirst, archive
 from src.algorithms.depthfirst.archive import Archive
@@ -32,7 +32,9 @@ def run(game_number, algorithm, iterations, depth, visualisation):
     if algorithm == 'random':
         results = random.randomize(init_game, iterations, board_size)
     elif algorithm == 'bf':
-        results = breadthfirst.breadth(init_game, iterations, depth)
+        results = breadthfirst.breadthfirst(init_game)
+    elif algorithm == 'df':
+        results = depthfirst.depthfirst(init_game)        
 
     # Solve the game with deapthdirst
     # archive = Archive()
@@ -53,6 +55,7 @@ def run(game_number, algorithm, iterations, depth, visualisation):
     # Get best result and average moves
     avg_moves = []
     best_result = results[0]
+    print(results)
     for result in results:
         avg_moves.append(len(results[result]))
         if len(results[result]) < len(best_result):
@@ -69,47 +72,28 @@ def run(game_number, algorithm, iterations, depth, visualisation):
     print(f"Average moves: {round(sum(avg_moves) / len(avg_moves))}")
     print(f"Least moves: {len(best_result)}")
 
-    # # Check best result
-    # with open(f"data/results/breadthfirst/heuristics/exit_reachable_and_unique_states/game#{game_number}/game{game_number}_best_run.csv", 'w+') as f:
-    #     best_stat = f.readline()
+    # Check best result
+    with open(f"data/results/{algorithm}/game#{game_number}/game{game_number}_best_run.csv", 'w+') as f:
+        best_stat = f.readline()
 
-    # # if int(best_stat) != len(best_restult):
-    # #     with open(f"data/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
-    # #         writer = csv.writer(f)
-    # #         writer.writerow([len(best_result)])
-    # #         writer.writerow([f"Runtime: {round(h)} hours, {round(m)} minutes and {round(s)} seconds"])
-    # #         writer.writerow([f"Iterations: {iterations}"])
-    # #         writer.writerow([f"Average moves: {sum(avg_moves) / len(avg_moves)}"])
-    # #         writer.writerow([f"Least moves: {len(best_result)}"])
-    # #         writer.writerow([f"Moves: {avg_moves}"])
-    # #         writer.writerow(["car", "move"])
-    # #         writer.writerows(best_result)
+    if best_stat and int(best_stat) >= len(best_result):
+        with open(f"data/results/{algorithm}/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow([len(best_result)])
+            writer.writerow([f"Runtime: {round(h)} hours, {round(m)} minutes and {round(s)} seconds"])
+            writer.writerow([f"Iterations: {iterations}"])
+            writer.writerow([f"Average moves: {sum(avg_moves) / len(avg_moves)}"])
+            writer.writerow([f"Least moves: {len(best_result)}"])
+            writer.writerow([f"Moves: {avg_moves}"])
+            writer.writerow(["car", "move"])
+            writer.writerows(best_result)
 
-    # # Overwrite if best result. Skip if this is the first result.
-    # first_result = True
-    # if len(best_stat) != 0:
-    #     first_result = False
-    # else:
-    #     best_stat = '0'
-
-    # if int(best_stat) >= len(best_result) or first_result: #or int(best_stat) != len(best_restult):
-    #     with open(f"data/results/breadthfirst/heuristics/exit_reachable_and_unique_states/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
-    #         writer = csv.writer(f)
-    #         writer.writerow([len(best_result)])
-    #         writer.writerow([f"Runtime: {round(h)} hours, {round(m)} minutes and {round(s)} seconds"])
-    #         writer.writerow([f"Iterations: {iterations}"])
-    #         writer.writerow([f"Average moves: {sum(avg_moves) / len(avg_moves)}"])
-    #         writer.writerow([f"Least moves: {len(best_result)}"])
-    #         writer.writerow([f"Moves: {avg_moves}"])
-    #         writer.writerow(["car", "move"])
-    #         writer.writerows(best_result)
-
-    # # Append results
-    # with open(f"data/results/breadthfirst/heuristics/exit_reachable_and_unique_states/game#{game_number}/game{game_number}_results.csv", 'a+', newline='') as f:
-    #     writer = csv.writer(f)
-    #     if f.tell() == 0:
-    #         writer.writerow(['least', 'average', 'iterations', "runtime(sec)"])
-    #     writer.writerow([len(best_result), round(sum(avg_moves) / len(avg_moves)), iterations, round(seconds)])
+    # Append results
+    with open(f"data/results/{algorithm}/game#{game_number}/game{game_number}_results.csv", 'a+', newline='') as f:
+        writer = csv.writer(f)
+        if f.tell() == 0:
+            writer.writerow(['least', 'average', 'iterations', "runtime(sec)"])
+        writer.writerow([len(best_result), round(sum(avg_moves) / len(avg_moves)), iterations, round(seconds)])
 
 
 if __name__ == "__main__":
