@@ -15,12 +15,12 @@ def breadth_first(initial_game):
     Uses a breadth first algorithm to solve a given game of Rush Hour.
     Args:
         board_size: Integer that represents the length and width of the board.
-        runs: Integer that indicates the number of times the game should be solved.
+        iterations: Integer that indicates the number of times the game should be solved.
     Returns:
         List of tuples containing a string representing the id of a vehicle and an integer representing the number of
         steps [('A', 2), ('B', -2)]. The list represents the movements that should be executed to solve the game.
     """
-    # Solve the game 'runs' times.
+    # Solve the game 'iterations' times.
     solved_cases = {}
 
     # Track states.
@@ -28,7 +28,7 @@ def breadth_first(initial_game):
 
     queue = q.Queue()
 
-        # Add begin state to queue.
+    # Add begin state to queue.
     initial_state = initial_game.current_state
     queue.put((initial_state, [], 0))
     seen_states.append(initial_state)

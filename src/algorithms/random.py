@@ -5,20 +5,20 @@ import random
 
 
 # Start game
-def randomize(init_game, runs, board_size):
+def randomize(init_game, iterations, board_size):
     """
     Moves vehicles around at random until the game is solved.
 
     Args:
         board_size: Integer that represents the length and width of the board.
-        runs: Integer that indicates the number of times the game should be solved.
+        iterations: Integer that indicates the number of times the game should be solved.
 
     Returns:
         List of tuples containing a string representing the id of a vehicle and an integer representing the number of
         steps [('A', 2), ('B', -2)]. The list represents the movements that should be executed to solve the game.
     """
     solved_cases = {}
-    for i in range(runs):
+    for i in range(iterations):
         # Load game
         game = copy.deepcopy(init_game)
 
