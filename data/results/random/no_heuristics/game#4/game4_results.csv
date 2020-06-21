@@ -1,4 +1,4 @@
-least,average,runs,runtime(sec)
+least,average,iterations,runtime(sec)
 546,546,1,1
 2174,2819,5,34
 1958,2839,5,32

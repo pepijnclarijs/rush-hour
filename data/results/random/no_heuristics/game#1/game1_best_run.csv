@@ -1,11 +1,11 @@
 0
 "Runtime: 0 hours, 0 minutes and 1 seconds"
-Runs: 6
+Iterations: 6
 Average moves: 507.0
 Least moves: 0
 "Moves: [3042, 0, 0, 0, 0, 0]"
 "Runtime: 0 hours, 0 minutes and 0 seconds"
-Runs: 10
+Iterations: 10
 Average moves: 37.2
 Least moves: 0
 "Moves: [372, 0, 0, 0, 0, 0, 0, 0, 0, 0]"
