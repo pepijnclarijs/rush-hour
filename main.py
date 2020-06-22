@@ -11,14 +11,15 @@ import csv
 import time
 import sys
 
+
 def run(game_number, algorithm, iterations, depth, visualisation):
     """ command line arguments for game_number, board_size & iterations """
 
-    if game_number <= 3:
+    if game_number < 4:
         board_size = 6
-    elif game_number > 3:
+    elif game_number < 7:
         board_size = 9
-    elif game_number == 7:
+    else:
         board_size = 12
 
     print(f"Playing game {game_number}, with board size {board_size}, for {iterations} iterations with {algorithm} algorithm")
@@ -36,13 +37,13 @@ def run(game_number, algorithm, iterations, depth, visualisation):
     elif algorithm == 'df':
         results = depthfirst.depthfirst(init_game)
 
-    # Solve the game with deapthdirst
-    archive = Archive()
-    rootnode = depthfirst.Depthfirst(None, init_game, archive)
-
-    finish_moves = rootnode.traverse_depth()
-    print("Finish moves: " + str(finish_moves))
-    print("Finish moves reverted: " + str(finish_moves.reverse()))
+    # # Solve the game with depthfirst
+    # archive = Archive()
+    # rootnode = depthfirst.Depthfirst(None, init_game, archive)
+    #
+    # finish_moves = rootnode.traverse_depth()
+    # print("Finish moves: " + str(finish_moves))
+    # print("Finish moves reverted: " + str(finish_moves.reverse()))
 
     # Calculate runtime
     s = time.time() - start_time
@@ -62,7 +63,7 @@ def run(game_number, algorithm, iterations, depth, visualisation):
             best_result = results[result]
 
     # Create visualisation
-    if visualisation == True:
+    if visualisation:
         vis.visualise(init_game, best_result, board_size)
 
     # Print results
@@ -100,9 +101,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-g', '--game_number', type=int, required=True, help='Choose game number')
     parser.add_argument('-a', '--algorithm', type=str, choices=['random', 'bf'], required=True, help='Choose algorithm')
-    parser.add_argument('-i','--iterations', type=int, required=False, default=1, help='Enter amount of iterations')
-    parser.add_argument('-d','--depth', type=int, required=False, default=30, help='Enter depth')
-    parser.add_argument('-v','--visualisation', action="store_true", help='Generate visualisation')
+    parser.add_argument('-i', '--iterations', type=int, required=False, default=1, help='Enter amount of iterations')
+    parser.add_argument('-d', '--depth', type=int, required=False, default=30, help='Enter depth')
+    parser.add_argument('-v', '--visualisation', action="store_true", help='Generate visualisation')
 
     args = parser.parse_args()
     run(args.game_number, args.algorithm, args.iterations, args.depth, args.visualisation)
