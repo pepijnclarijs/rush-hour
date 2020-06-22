@@ -25,6 +25,7 @@ class Game:
         self.board = board
         self.vehicles = vehicles
         self.red_car = self.vehicles['X']
+        # self.truck = truck #self.vehicles.values(vehicle.size == 3)
         self.current_state = {}
         self.possible_moves = set()
         self.taken_boxes = []
@@ -141,6 +142,10 @@ class Game:
         # Update red car if necessary.
         if vehicle.id == 'X':
             self.red_car = vehicle
+
+        # Check for Trucks in vehicles.
+        # if vehicle.size == 3:
+        #     self.truck = vehicle
 
         # Update attributes.
         self.update_vehicles(vehicle)

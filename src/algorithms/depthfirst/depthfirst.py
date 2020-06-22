@@ -46,12 +46,14 @@ class Depthfirst:
             child_game = copy.deepcopy(self.game)
             (vehicle, steps) = move
             new_pos = vehicle.speculate_new_position(steps)
+            # child_vehicle = child_game.vehicles.get(vehicle.id)
             child_game.move(vehicle, new_pos)
 
             child_node = Depthfirst(self, child_game, self.archive)
             traversal_list = child_node.traverse_depth()
             if (traversal_list != None):
                 return traversal_list.append(move)
+                # child_vehicle = child_game.vehicles.get(vehicle.id)
 
         return None
             #### okay hoe verder
@@ -80,5 +82,3 @@ class Depthfirst:
         # lijst games
         # length: mogelijke moves
         # mogelijke move[i] uitvoeren op game[i]
-
-    # def game_in_archive()
