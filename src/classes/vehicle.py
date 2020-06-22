@@ -62,16 +62,15 @@ class Vehicle:
         new_position = []
         for box in self.position:
             # Get the row and column.
-            row = box[0]
-            column = box[1]
+            row, column = box
 
             # Check which one should be changed.
             if self.orientation == 'horizontal':
-                new_column = box[1] + steps
+                new_column = column + steps
                 # Create the new position of the vehicle.
                 new_position.append((row, new_column))
             else:
-                new_row = box[0] + steps
+                new_row = row + steps
                 # Create the new position of the vehicle.
                 new_position.append((new_row, column))
 

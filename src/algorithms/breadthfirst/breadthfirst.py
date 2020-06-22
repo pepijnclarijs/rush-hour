@@ -9,6 +9,7 @@ from src.util import finish_game
 from src.algorithms.breadthfirst.breadthfirst_util import create_game_from_state
 from src.load import load_game
 
+
 def breadthfirst(initial_game):
     """
     Uses a breadth first algorithm to solve a given game of Rush Hour.
@@ -29,7 +30,7 @@ def breadthfirst(initial_game):
 
     # Add begin state to queue.
     initial_state = initial_game.current_state
-    queue.put((initial_state, [], 0))
+    queue.put((initial_state, []))
     seen_states.append(initial_state)
     board_size = initial_game.board.length
 

@@ -115,8 +115,7 @@ class Game:
                 return False
 
             # Check if the row and column are inside the board.
-            row = box[0]
-            column = box[1]
+            row, column = box
             board = self.board
             if (row < 1
                     or row > board.length

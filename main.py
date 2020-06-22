@@ -41,7 +41,7 @@ def run(game_number, game_size, algorithm, iterations, depth, visualisation):
         rootnode = depthfirst.Depthfirst(None, init_game, archive)
         results = rootnode.traverse_depth()
         results.reverse()
-        
+
         print(results)
 
     # Calculate runtime
@@ -54,15 +54,26 @@ def run(game_number, game_size, algorithm, iterations, depth, visualisation):
 
     # Get best result and average moves
     avg_moves = []
-    best_result = results[0]
-    print(results)
+    best_result = results[0] # TODO: uncomment later
+    # best_result = [] # TODO: del this
+    # for stupid in range(90000): # TODO del this for loop
+    #     best_result.append(stupid)
+    # solved_times = 0 # TODO: delete later. just for random + heuristic: unique state.
     for result in results:
+        # # TODO: delete later. just for random + heuristic: unique state.
+        # if len(results[result]) == 1:
+        #     continue
+        # solved_times += 1
+        # # ENDTODO
+
         avg_moves.append(len(results[result]))
         if len(results[result]) < len(best_result):
             best_result = results[result]
 
+    print(best_result)
+
     # Create visualisation
-    if visualisation == True:
+    if visualisation:
         vis.visualise(init_game, best_result, board_size)
 
     # Print results
@@ -71,13 +82,21 @@ def run(game_number, game_size, algorithm, iterations, depth, visualisation):
     print(f"Iterations: {iterations}")
     print(f"Average moves: {round(sum(avg_moves) / len(avg_moves))}")
     print(f"Least moves: {len(best_result)}")
+    # print(f"{(solved_times/iterations) * 100}% of the games was solved.") # TODO: del later. just for random + heuristic: unique state.
 
     # Check best result
-    with open(f"data/results/{algorithm}/game#{game_number}/game{game_number}_best_run.csv", 'w+') as f:
+    with open(f"data/results/random/no_heuristics/game#{game_number}/game{game_number}_best_run.csv", 'w+') as f:
         best_stat = f.readline()
 
-    if best_stat and int(best_stat) >= len(best_result):
-        with open(f"data/results/{algorithm}/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
+    # Overwrite if best result. Create if this is the first result.
+    first_result = True
+    if len(best_stat) != 0:
+        first_result = False
+    else:
+        best_stat = '0'
+
+    if int(best_stat) >= len(best_result) or first_result: #or int(best_stat) != len(best_restult):
+        with open(f"data/results/random/no_heuristics/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([len(best_result)])
             writer.writerow([f"Runtime: {round(h)} hours, {round(m)} minutes and {round(s)} seconds"])
@@ -89,11 +108,12 @@ def run(game_number, game_size, algorithm, iterations, depth, visualisation):
             writer.writerows(best_result)
 
     # Append results
-    with open(f"data/results/{algorithm}/game#{game_number}/game{game_number}_results.csv", 'a+', newline='') as f:
+    with open(f"data/results/random/no_heuristics/game#{game_number}/game{game_number}_results.csv", 'a+', newline='') as f:
         writer = csv.writer(f)
         if f.tell() == 0:
             writer.writerow(['least', 'average', 'iterations', "runtime(sec)"])
         writer.writerow([len(best_result), round(sum(avg_moves) / len(avg_moves)), iterations, round(seconds)])
+        #writer.writerow([f"{(solved_times / iterations) * 100}% of the games was solved."])  # TODO:
 
 
 if __name__ == "__main__":
