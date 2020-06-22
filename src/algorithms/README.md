@@ -10,7 +10,7 @@ To run the algorithms they get called on from the main.py
 ### breadthfirst.py
 
 ### depthfirst.py
-Runs Rush Hour with a Depth First Search algorithm. It uses the initial board as the parent node
+Iterations Rush Hour with a Depth First Search algorithm. It uses the initial board as the parent node
 and retains deepcoded copy's of the moves made to solve the game of Rush Hour with the first possible solution. 
 
 
