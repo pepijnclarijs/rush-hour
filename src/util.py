@@ -14,34 +14,39 @@ def get_enclosed_boxes(box_1, box_2):
     """
 
     enclosed_boxes = []
+
+    # Get the specifics.
+    row_1, col_1 = box_1
+    row_2, col_2 = box_2
+
     # Check if the boxes are in the same row.
-    if box_1[0] == box_2[0]:
+    if row_1 == row_2:
         # Remember the row that the boxes are in.
-        row = box_1[0]
+        row = row_1
 
         # Check if box_1 is on the left of box_2.
-        if box_1[1] < box_2[1]:
-            enclosed_boxes_count = box_2[1] - box_1[1]
-            left_most_column = box_1[1]
+        if col_1 < col_2:
+            enclosed_boxes_count = col_2 - col_1
+            left_most_column = col_1
         else:
-            enclosed_boxes_count = box_1[1] - box_2[1]
-            left_most_column = box_2[1]
+            enclosed_boxes_count = col_1 - col_2
+            left_most_column = col_2
 
         # Loop over the enclosed columns.
         for i in range(1, enclosed_boxes_count):
             enclosed_box = (row, left_most_column + i)
             enclosed_boxes.append(enclosed_box)
     else:
-        # Remember the column that the boxes are in.
-        column = box_1[1]
+        # Remember the column that the boxes are in.   box_1[0] = row_1, box_1[1] = col_1
+        column = col_1
 
         # Check if box_1 is above box_2.
-        if box_1[0] < box_2[0]:
-            enclosed_boxes_count = box_2[0] - box_1[0]
-            upper_most_row = box_1[0]
+        if row_1 < row_2:
+            enclosed_boxes_count = row_2 - row_1
+            upper_most_row = row_1
         else:
-            enclosed_boxes_count = box_1[0] - box_2[0]
-            upper_most_row = box_2[0]
+            enclosed_boxes_count = row_1 - row_2
+            upper_most_row = row_2
 
         # Loop over the enclosed rows.
         for i in range(1, enclosed_boxes_count):
