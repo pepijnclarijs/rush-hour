@@ -55,7 +55,7 @@ class Depthfirst:
             child_game = copy.deepcopy(self.game)
             (vehicle, steps) = move
             new_pos = vehicle.speculate_new_position(steps)
-            child_game.move(vehicle, new_pos)
+            child_game.move(child_game.vehicles[vehicle.id], new_pos)
 
             child_node = Depthfirst(self, child_game, self.archive)
             traversal_list = child_node.traverse_depth()
