@@ -155,16 +155,20 @@ class Game:
 
     def print_board(self):
         print_board = []
-        for i in range(self.board.length):
+        for i in range(self.board.length + 1):
             print_row = []
-            for j in range(self.board.length):
+            for j in range(self.board.length + 1):
                 print_row.append(" ")
             print_board.append(print_row)
 
+        for fpos in self.board.finish_position:
+            print_board[fpos[0] - 1][fpos[1] - 1] = "f"
+
         for key in self.vehicles:
             for pos in self.vehicles[key].position:
-                print(pos)
+                print(key + ": " + str(pos))
                 print_board[pos[0]-1][pos[1]-1] = key
+
 
         for pr in print_board:
             print(pr)

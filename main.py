@@ -11,15 +11,18 @@ import csv
 import time
 import sys
 
-def run(game_number, algorithm, iterations, depth, visualisation):
+def run(game_number, game_size, algorithm, iterations, depth, visualisation):
     """ command line arguments for game_number, board_size & iterations """
 
-    if game_number <= 3:
-        board_size = 6
-    elif game_number > 3:
-        board_size = 9
-    elif game_number == 7:
-        board_size = 12
+    if game_size > 0:
+        board_size = game_size
+    else:
+        if game_number <= 3:
+            board_size = 6
+        elif game_number > 3:
+            board_size = 9
+        elif game_number == 7:
+            board_size = 12
 
     print(f"Playing game {game_number}, with board size {board_size}, for {iterations} iterations with {algorithm} algorithm")
 
@@ -34,15 +37,12 @@ def run(game_number, algorithm, iterations, depth, visualisation):
     elif algorithm == 'bf':
         results = breadthfirst.breadthfirst(init_game)
     elif algorithm == 'df':
-        results = depthfirst.depthfirst(init_game)
-
-    # Solve the game with deapthdirst
-    archive = Archive()
-    rootnode = depthfirst.Depthfirst(None, init_game, archive)
-
-    finish_moves = rootnode.traverse_depth()
-    print("Finish moves: " + str(finish_moves))
-    print("Finish moves reverted: " + str(finish_moves.reverse()))
+        archive = Archive()
+        rootnode = depthfirst.Depthfirst(None, init_game, archive)
+        results = rootnode.traverse_depth()
+        results.reverse()
+        
+        print(results)
 
     # Calculate runtime
     s = time.time() - start_time
@@ -99,10 +99,11 @@ def run(game_number, algorithm, iterations, depth, visualisation):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-g', '--game_number', type=int, required=True, help='Choose game number')
-    parser.add_argument('-a', '--algorithm', type=str, choices=['random', 'bf'], required=True, help='Choose algorithm')
+    parser.add_argument('-s', '--size', type=int, required=False, default=-1, help='The width and height of the board')
+    parser.add_argument('-a', '--algorithm', type=str, choices=['random', 'bf', 'df'], required=True, help='Choose algorithm')
     parser.add_argument('-i','--iterations', type=int, required=False, default=1, help='Enter amount of iterations')
     parser.add_argument('-d','--depth', type=int, required=False, default=30, help='Enter depth')
     parser.add_argument('-v','--visualisation', action="store_true", help='Generate visualisation')
 
     args = parser.parse_args()
-    run(args.game_number, args.algorithm, args.iterations, args.depth, args.visualisation)
+    run(args.game_number, args.size, args.algorithm, args.iterations, args.depth, args.visualisation)

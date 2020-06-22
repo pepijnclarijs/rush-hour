@@ -34,11 +34,20 @@ class Depthfirst:
 
     def traverse_depth(self):
         if is_exit_reachable(self.game):
+            return_moves = []
+            # This move needs to be the same type as the moves
+            # from possible_moves
             last_move = finish_game(self.game)
-            return [last_move]
+            print("Last move: " + str(last_move))
+            actual_move = self.game.vehicles[last_move[0]].speculate_new_position(last_move[1])
+            return_moves.append(actual_move)
+            print(return_moves)
+            return return_moves
+        print("Exit not reachable")
 
         if self.archive.game_in_archive(self.game.vehicles):
             return None
+        print("Game not in Archive")
 
         self.archive.add_board_state(copy.deepcopy(self.game.vehicles))
 
@@ -46,14 +55,14 @@ class Depthfirst:
             child_game = copy.deepcopy(self.game)
             (vehicle, steps) = move
             new_pos = vehicle.speculate_new_position(steps)
-            # child_vehicle = child_game.vehicles.get(vehicle.id)
             child_game.move(vehicle, new_pos)
 
             child_node = Depthfirst(self, child_game, self.archive)
             traversal_list = child_node.traverse_depth()
-            if (traversal_list != None):
-                return traversal_list.append(move)
-                # child_vehicle = child_game.vehicles.get(vehicle.id)
+            # print(traversal_list)
+            if (traversal_list is not None):
+                traversal_list.append(move)
+                return traversal_list
 
         return None
             #### okay hoe verder
