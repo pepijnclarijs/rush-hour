@@ -2,7 +2,7 @@ import copy, sys
 from src.algorithms.depthfirst.archive import Archive
 from src.heuristics.heuristics import is_exit_reachable
 from src.util import finish_game
-from load import load_game
+from src.load import load_game
 
 class Depthfirst:
     """

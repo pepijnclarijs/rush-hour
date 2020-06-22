@@ -7,7 +7,7 @@ import queue as q
 from src.heuristics.heuristics import is_exit_reachable, is_state_unique
 from src.util import finish_game
 from src.algorithms.breadthfirst.breadthfirst_util import create_game_from_state
-from load import load_game
+from src.load import load_game
 
 def breadthfirst(initial_game):
     """

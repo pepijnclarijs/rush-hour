@@ -4,7 +4,7 @@ from src.algorithms.depthfirst import depthfirst, archive
 from src.algorithms.depthfirst.archive import Archive
 from src.visualisation import visualise as vis
 
-from load import load_game
+from src.load import load_game
 
 import argparse
 import csv
@@ -17,7 +17,7 @@ def run(game_number, algorithm, iterations, depth, visualisation):
     if game_number <= 3:
         board_size = 6
     elif game_number > 3:
-        board_size = 9    
+        board_size = 9
     elif game_number == 7:
         board_size = 12
 
@@ -34,15 +34,15 @@ def run(game_number, algorithm, iterations, depth, visualisation):
     elif algorithm == 'bf':
         results = breadthfirst.breadthfirst(init_game)
     elif algorithm == 'df':
-        results = depthfirst.depthfirst(init_game)        
+        results = depthfirst.depthfirst(init_game)
 
     # Solve the game with deapthdirst
-    # archive = Archive()
-    # rootnode = depthfirst.Depthfirst(None, init_game, archive)
-    #
-    # finish_moves = rootnode.traverse_depth()
-    # print("Finish moves: " + str(finish_moves))
-    # print("Finish moves reverted: " + str(finish_moves.reverse()))
+    archive = Archive()
+    rootnode = depthfirst.Depthfirst(None, init_game, archive)
+
+    finish_moves = rootnode.traverse_depth()
+    print("Finish moves: " + str(finish_moves))
+    print("Finish moves reverted: " + str(finish_moves.reverse()))
 
     # Calculate runtime
     s = time.time() - start_time
