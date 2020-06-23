@@ -55,7 +55,7 @@ def randomize(init_game, iterations, state_unique, exit_reachable, board_size, m
                     tries_until_stuck += 1
                     if tries_until_stuck > 20:
                         print("Got stuck :( ")
-                        moves.clear() 
+                        moves.clear()
                         break
                     continue
                 tries_until_stuck = 0
@@ -75,13 +75,13 @@ def randomize(init_game, iterations, state_unique, exit_reachable, board_size, m
             if tries > max_tries:
                 print("max tries exceeded")
                 break
-            
+
             # Heuristic: check if the red car can be moved to the exit.
             if exit_reachable == True:
                 if is_exit_reachable(game):
                     last_move = finish_game(game)
                     moves.append(last_move)
-                    
+
         if moves:
             print('Found exit!')
             solved_cases[i] = moves

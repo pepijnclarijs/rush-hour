@@ -17,13 +17,10 @@ class Depthfirst:
 
     Return:
         The list returned contains the moves needed to complete the game,
-        in REVERSE order. So in order to use the move list, please REVERSE
-        first.
-
+        in REVERSE order. So in order to use the move list they get reversed first.
     Usage:
-        game = Depthfirst(None, initial_game)
-        rev_moveset = game.traverse_depth()
-        finish_moves = rev_moveset.reverse()
+        game = Depthfirst(None, initial_game, archive, max_depth)
+        result_moves --> reverse()
 
     """
     def __init__(self, parent_node, game, archive, max_depth):
