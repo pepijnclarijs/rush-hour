@@ -5,7 +5,6 @@ from src.algorithms.depthfirst.archive import Archive
 from src.algorithms.depthfirstbb import depthfirstbb
 from src.algorithms.depthfirstbb import depthfirstbb2
 from src.algorithms.depthfirstbb import depthfirstbbr
-from src.algorithms.depthfirstbb import depthfirstbbr2
 from src.visualisation import visualise as vis
 
 from src.load import load_game
