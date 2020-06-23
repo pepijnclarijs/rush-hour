@@ -25,11 +25,11 @@ def depthfirstbb2(parent_node, depth):
     stack.append(parent_node)
     seen_states.append(parent_node)
 
-    while len(stack)>0:    
+    while len(stack)>0:
         # Get first from stack.
         state = stack.pop()
 
-        if len(state.moves) < best_sol_count or len(state.moves) < depth:   
+        if len(state.moves) < best_sol_count or len(state.moves) < depth:
             # Create all children notes
             for move in state.possible_moves:
                 child_game = copy.deepcopy(state)
@@ -50,7 +50,7 @@ def depthfirstbb2(parent_node, depth):
                 # Save the movements of the vehicles.
                 moved = (vehicle.id, steps)
                 child_game.moves.append(moved)
-                child_game.update_possible_moves()             
+                child_game.update_possible_moves()
                 seen_states.append(child_game)
                 stack.append(child_game)
 
@@ -58,7 +58,7 @@ def depthfirstbb2(parent_node, depth):
                 if is_exit_reachable(child_game):
                     last_move = finish_game(child_game)
                     moved = (vehicle.id, steps)
-                    child_game.moves.append(moved)  
+                    child_game.moves.append(moved)
                     best_sol[0] = child_game.moves
 
                 if child_game.is_finished():

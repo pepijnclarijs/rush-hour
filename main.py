@@ -53,12 +53,8 @@ def run(game_number, game_size, algorithm, iterations, depth, visualisation):
             print(result_moves)
     elif algorithm == 'dfbb':
         results = depthfirstbb.depthfirstbb(init_game, depth)
-    elif algorithm == 'dfbb2':
-        results = depthfirstbb2.depthfirstbb2(init_game)
     elif algorithm == 'dfbbr':
         results = depthfirstbbr.depthfirstbbr(init_game, depth)
-    elif algorithm == 'dfbbr2':
-        results = depthfirstbbr2.depthfirstbbr2(init_game)
     else:
         print("Error running algorithm")
 
@@ -106,36 +102,36 @@ def run(game_number, game_size, algorithm, iterations, depth, visualisation):
     print(f"Least moves: {len(best_result)}")
     # print(f"{(solved_times/iterations) * 100}% of the games was solved.") # TODO: del later. just for random + heuristic: unique state.
     #
-    # # Check best result
-    # with open(f"data/results/random/no_heuristics/game#{game_number}/game{game_number}_best_run.csv", 'w+') as f:
-    #     best_stat = f.readline()
-    #
-    # # Overwrite if best result. Create if this is the first result.
-    # first_result = True
-    # if len(best_stat) != 0:
-    #     first_result = False
-    # else:
-    #     best_stat = '0'
-    #
-    # if int(best_stat) >= len(best_result) or first_result: #or int(best_stat) != len(best_restult):
-    #     with open(f"data/results/random/no_heuristics/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
-    #         writer = csv.writer(f)
-    #         writer.writerow([len(best_result)])
-    #         writer.writerow([f"Runtime: {round(h)} hours, {round(m)} minutes and {round(s)} seconds"])
-    #         writer.writerow([f"Iterations: {iterations}"])
-    #         writer.writerow([f"Average moves: {sum(avg_moves) / len(avg_moves)}"])
-    #         writer.writerow([f"Least moves: {len(best_result)}"])
-    #         writer.writerow([f"Moves: {avg_moves}"])
-    #         writer.writerow(["car", "move"])
-    #         writer.writerows(best_result)
-    #
-    # # Append results
-    # with open(f"data/results/random/no_heuristics/game#{game_number}/game{game_number}_results.csv", 'a+', newline='') as f:
-    #     writer = csv.writer(f)
-    #     if f.tell() == 0:
-    #         writer.writerow(['least', 'average', 'iterations', "runtime(sec)"])
-    #     writer.writerow([len(best_result), round(sum(avg_moves) / len(avg_moves)), iterations, round(seconds)])
-    #     #writer.writerow([f"{(solved_times / iterations) * 100}% of the games was solved."])  # TODO:
+    # Check best result
+    with open(f"data/results/random/no_heuristics/game#{game_number}/game{game_number}_best_run.csv", 'w+') as f:
+        best_stat = f.readline()
+
+    # Overwrite if best result. Create if this is the first result.
+    first_result = True
+    if len(best_stat) != 0:
+        first_result = False
+    else:
+        best_stat = '0'
+
+    if int(best_stat) >= len(best_result) or first_result: #or int(best_stat) != len(best_restult):
+        with open(f"data/results/random/no_heuristics/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow([len(best_result)])
+            writer.writerow([f"Runtime: {round(h)} hours, {round(m)} minutes and {round(s)} seconds"])
+            writer.writerow([f"Iterations: {iterations}"])
+            writer.writerow([f"Average moves: {sum(avg_moves) / len(avg_moves)}"])
+            writer.writerow([f"Least moves: {len(best_result)}"])
+            writer.writerow([f"Moves: {avg_moves}"])
+            writer.writerow(["car", "move"])
+            writer.writerows(best_result)
+
+    # Append results
+    with open(f"data/results/random/no_heuristics/game#{game_number}/game{game_number}_results.csv", 'a+', newline='') as f:
+        writer = csv.writer(f)
+        if f.tell() == 0:
+            writer.writerow(['least', 'average', 'iterations', "runtime(sec)"])
+        writer.writerow([len(best_result), round(sum(avg_moves) / len(avg_moves)), iterations, round(seconds)])
+        #writer.writerow([f"{(solved_times / iterations) * 100}% of the games was solved."])  # TODO:
 
 
 if __name__ == "__main__":
