@@ -15,8 +15,6 @@ def depthfirstbb2(parent_node, depth):
         number of steps [('A', 2), ('B', -2)]. The list represents the movements that should be executed to solve the
         game.
     """
-    # Creat dict for solved case
-    solved_cases = {}
 
     # moet inf zijn
     best_sol_count = 100000
@@ -31,7 +29,7 @@ def depthfirstbb2(parent_node, depth):
         # Get first from stack.
         state = stack.pop()
 
-        if len(state.moves) < best_sol_count and len(state.moves) < depth :   
+        if len(state.moves) < best_sol_count or len(state.moves) < depth:   
             # Create all children notes
             for move in state.possible_moves:
                 child_game = copy.deepcopy(state)
