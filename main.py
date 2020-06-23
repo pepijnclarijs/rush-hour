@@ -78,16 +78,12 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     # Get best result and average moves
     avg_moves = []
 
+    # Use highest value as best result
     if algorithm == 'r' and state_unique == True:
-        first_result = iterations +1 - solved_times 
-        
-        # best_result = results[first_result]
-        # dit weg bovenstaande regel uncomment
-        best_result = []
-        for i in range(9999):
-            best_result.append(i)
+        best_result = max(results.values(), key=len)
     else:
         best_result = results[0]
+
     for result in results:
         avg_moves.append(len(results[result]))
         if len(results[result]) < len(best_result):
@@ -125,8 +121,6 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     # Check best result
     with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
         best_stat = f.readline()
-    if best_stat == '':
-        best_stat = 1000
 
     if int(best_stat) >= len(best_result):
         with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
