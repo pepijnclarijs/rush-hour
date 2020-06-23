@@ -86,4 +86,4 @@ def randomize(init_game, iterations, state_unique, exit_reachable, board_size, m
             print('Found exit!')
             solved_cases[i] = moves
 
-    return solved_cases
+    return solved_cases, game.vehicles

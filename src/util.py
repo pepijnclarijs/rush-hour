@@ -1,6 +1,3 @@
-# Utilities
-
-
 def get_enclosed_boxes(box_1, box_2):
     """
     Gets the boxes that are enclosed between box_1 and box_2, where a box is defined as a pair of coordinates

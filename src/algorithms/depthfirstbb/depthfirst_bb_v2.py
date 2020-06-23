@@ -78,7 +78,7 @@ def depthfirst(initial_game, max_depth):
                     solved_cases[0] = moves
 
                 if child_game.is_finished():
-                    return solved_cases
+                    solved_cases
 
     return 1
 

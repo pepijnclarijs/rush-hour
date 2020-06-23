@@ -7,7 +7,7 @@ from src.algorithms.breadthfirst.breadthfirst_util import create_game_from_state
 from src.load import load_game
 
 
-def bestfirst(initial_game, winning_state):
+def bestfirst(initial_game, exit_reachable, state_unique, winning_state):
     """
     Uses a best first algorithm to solve a given game of Rush Hour.
     Args:
@@ -78,7 +78,7 @@ def bestfirst(initial_game, winning_state):
                 solved_cases[0] = moves
 
             if child_game.is_finished():
-                return solved_cases
+                solved_cases, child_game.vehicles
 
     return "No solved cases have been found :("
 
@@ -106,10 +106,4 @@ def calc_heuristic(state, winning_state):
 
     return vehicle_count - correct_vehicle_count
 
-# TODO: win states moeten niet hardcoded staan hier...
-winning_state = {'A': [(1, 1), (1, 2)], 'B': [(1, 3), (1, 4), (1, 5)], 'C': [(2, 1), (2, 2)], 'D': [(2, 4), (2, 5)], 'E': [(5, 4), (4, 4)], 'F': [(4, 1), (4, 2)], 'G': [(3, 3), (2, 3)], 'H': [(4, 5), (4, 6)], 'I': [(2, 6), (1, 6)], 'J': [(5, 5), (5, 6)], 'K': [(6, 1), (5, 1)], 'L': [(5, 3), (4, 3)], 'X': [(3, 5), (3, 6)]}
-
-init_game = load_game(1, 6)
-
-print(bestfirst(init_game, winning_state))
 
