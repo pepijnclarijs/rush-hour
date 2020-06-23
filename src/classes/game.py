@@ -29,7 +29,7 @@ class Game:
         self.current_state = {}
         self.possible_moves = set()
         self.taken_boxes = []
-        
+
         # TEST Sjors
         self.moves = []
 
@@ -72,7 +72,8 @@ class Game:
         Updates the possible_moves set.
         """
 
-        self.possible_moves = set()
+        self.possible_moves = []
+        # self.possible_moves = set()
         for vehicle in self.vehicles.values():
             # Get the possible moves in the current state.
             for steps in range(-self.board.length + vehicle.size, self.board.length - vehicle.size + 1):
@@ -81,7 +82,8 @@ class Game:
                 new_coordinates = vehicle.speculate_new_position(steps)
                 if self.validate_move(vehicle, new_coordinates):
                     move = (vehicle, steps)
-                    self.possible_moves.add(move)
+                    # self.possible_moves.add(move)
+                    self.possible_moves.append(move)
 
     def is_finished(self):
         """
@@ -157,9 +159,9 @@ class Game:
 
     def print_board(self):
         print_board = []
-        for i in range(self.board.length + 1):
+        for i in range(self.board.length):
             print_row = []
-            for j in range(self.board.length + 1):
+            for j in range(self.board.length):
                 print_row.append(" ")
             print_board.append(print_row)
 
