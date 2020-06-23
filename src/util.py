@@ -1,6 +1,7 @@
 # Utilities
 from src.classes.board import Board
 from src.classes.game import Game
+from src.classes.vehicle import Vehicle
 
 def get_enclosed_boxes(box_1, box_2):
     """
