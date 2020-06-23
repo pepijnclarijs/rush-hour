@@ -2,6 +2,10 @@ from src.algorithms.random import random
 from src.algorithms.breadthfirst import breadthfirst
 from src.algorithms.depthfirst import depthfirst, archive
 from src.algorithms.depthfirst.archive import Archive
+from src.algorithms.depthfirstbb import depthfirstbb
+from src.algorithms.depthfirstbb import depthfirstbb2
+from src.algorithms.depthfirstbb import depthfirstbbr
+from src.algorithms.depthfirstbb import depthfirstbbr2
 from src.visualisation import visualise as vis
 
 from src.load import load_game
@@ -42,8 +46,19 @@ def run(game_number, game_size, algorithm, iterations, depth, visualisation):
         result_moves = rootnode.traverse_depth()
         result_moves.reverse()
         results = {0: result_moves}
+    elif algorithm == 'dfbb':
+        results = depthfirstbb.depthfirstbb(init_game, depth)  
+    elif algorithm == 'dfbb2':
+        results = depthfirstbb2.depthfirstbb2(init_game)      
+    elif algorithm == 'dfbbr':
+        results = depthfirstbbr.depthfirstbbr(init_game, depth)      
+    elif algorithm == 'dfbbr2':
+        results = depthfirstbbr2.depthfirstbbr2(init_game)  
+    else:
+        print("Error running algorithm")
 
-        print(len(results))
+    print(len(results))
+    print(results)
 
     # Calculate runtime
     s = time.time() - start_time
@@ -75,7 +90,8 @@ def run(game_number, game_size, algorithm, iterations, depth, visualisation):
 
     # Create visualisation
     if visualisation:
-        vis.visualise(init_game, best_result, board_size)
+        game = load_game(game_number, board_size)
+        vis.visualise(game, best_result, board_size)
 
     # Print results
     print(f"Moves: {avg_moves}")
@@ -121,7 +137,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-g', '--game_number', type=int, required=True, help='Choose game number')
     parser.add_argument('-s', '--size', type=int, required=False, default=-1, help='The width and height of the board')
-    parser.add_argument('-a', '--algorithm', type=str, choices=['random', 'bf', 'df'], required=True, help='Choose algorithm')
+    parser.add_argument('-a', '--algorithm', type=str, choices=['random', 'bf', 'df','dfbb', 'dfbbr','dfbb2', 'dfbbr2'], required=True, help='Choose algorithm')
     parser.add_argument('-i','--iterations', type=int, required=False, default=1, help='Enter amount of iterations')
     parser.add_argument('-d','--depth', type=int, required=False, default=30, help='Enter depth')
     parser.add_argument('-v','--visualisation', action="store_true", help='Generate visualisation')
