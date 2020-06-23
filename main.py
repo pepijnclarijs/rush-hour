@@ -70,7 +70,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
             best_result = results[result]
 
     # Get solved times for random + heuristic: unique state
-    if algorithm == 'random' and state_unique == True:
+    if algorithm == 'random' and state_unique:
         solved_times = 0
         for result in results:
             if len(results[result]) == 1:
@@ -90,7 +90,6 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     print(f"Least moves to reach exit: {len(best_result)}")
     if algorithm == 'random' and state_unique == True:
         print(f"{(solved_times/iterations) * 100}% of the games was solved.")
-
 
     # Fix result saving name problems
     heuristics = 'no_heuristics'
@@ -129,6 +128,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
         if f.tell() == 0:
             writer.writerow(['least', 'average', 'iterations', 'runtime(sec)', ' is state unique', 'is exit reachable'])
         writer.writerow([len(best_result), round(sum(avg_moves) / len(avg_moves)), iterations, round(seconds), state_unique, exit_reachable])
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
