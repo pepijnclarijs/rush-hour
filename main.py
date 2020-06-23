@@ -41,11 +41,16 @@ def run(game_number, game_size, algorithm, iterations, depth, visualisation):
     elif algorithm == 'bf':
         results = breadthfirst.breadthfirst(init_game)
     elif algorithm == 'df':
-        archive = Archive()
-        rootnode = depthfirst.Depthfirst(None, init_game, archive)
-        result_moves = rootnode.traverse_depth()
-        result_moves.reverse()
-        results = {0: result_moves}
+        results = []
+        for i in range(depth):
+            print(i)
+            archive = Archive()
+            rootnode = depthfirst.Depthfirst(None, init_game, archive, i)
+            result_moves = rootnode.traverse_depth(0)
+            if result_moves is not None:
+                result_moves.reverse()
+            results.append(result_moves)
+            print(result_moves)
     elif algorithm == 'dfbb':
         results = depthfirstbb.depthfirstbb(init_game, depth)
     elif algorithm == 'dfbb2':
@@ -75,18 +80,18 @@ def run(game_number, game_size, algorithm, iterations, depth, visualisation):
     # for stupid in range(90000): # TODO del this for loop
     #     best_result.append(stupid)
     # solved_times = 0 # TODO: delete later. just for random + heuristic: unique state.
-    for result in results:
-        # # TODO: delete later. just for random + heuristic: unique state.
-        # if len(results[result]) == 1:
-        #     continue
-        # solved_times += 1
-        # # ENDTODO
-
-        avg_moves.append(len(results[result]))
-        if len(results[result]) < len(best_result):
-            best_result = results[result]
-
-    print(best_result)
+    # for result in results:
+    #     # # TODO: delete later. just for random + heuristic: unique state.
+    #     # if len(results[result]) == 1:
+    #     #     continue
+    #     # solved_times += 1
+    #     # # ENDTODO
+    #
+    #     avg_moves.append(len(results[result]))
+    #     if len(results[result]) < len(best_result):
+    #         best_result = results[result]
+    #
+    # print(best_result)
 
     # Create visualisation
     if visualisation:

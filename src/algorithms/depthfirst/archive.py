@@ -5,9 +5,9 @@ class Archive:
     def add_board_state(self, vehicle_list):
         self.archive.append(vehicle_list)
 
-    def game_in_archive(self, vehicles):
+    def game_state_in_archive(self, vehicles):
         if len(self.archive) == 0:
-            return_bool = False
+            return False
 
         else:
             for arch_vehicles in self.archive:
