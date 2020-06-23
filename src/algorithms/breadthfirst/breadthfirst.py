@@ -74,6 +74,6 @@ def breadthfirst(initial_game):
                 solved_cases[0] = moves
 
             if child_game.is_finished():
-                solved_cases
+                return solved_cases
 
     return "No solved cases have been found :("
