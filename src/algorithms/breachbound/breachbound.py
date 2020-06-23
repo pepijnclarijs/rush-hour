@@ -2,7 +2,6 @@ import copy
 
 from src.heuristics.heuristics import is_exit_reachable, is_state_unique
 from src.util import finish_game
-from src.load import load_game
 
 
 def breachbound(parent_node, depth, exit_reachable, state_unique):

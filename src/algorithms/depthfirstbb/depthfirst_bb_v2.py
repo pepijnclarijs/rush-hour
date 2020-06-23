@@ -1,10 +1,7 @@
 import copy
-import queue as q
 
 from src.heuristics.heuristics import is_exit_reachable, is_state_unique
-from src.util import finish_game
-from src.algorithms.breadthfirst.breadthfirst_util import create_game_from_state
-from src.load import load_game
+from src.util import finish_game, create_game_from_state
 
 
 def depthfirst(initial_game, max_depth):
@@ -32,13 +29,14 @@ def depthfirst(initial_game, max_depth):
     board_size = initial_game.board.length
 
     while len(stack) > 0:
+        print(f"Number of passed nodes is: {len(seen_nodes)}")
+
         # Get first from queue.
         parent_node = stack.pop()
 
         # Check current depth.
         moves_until_state = parent_node[1]
         current_depth = len(moves_until_state)
-        print(current_depth)
         if current_depth < max_depth:
             # Create a game instance from the state.
             parent_state = parent_node[0]
@@ -77,10 +75,16 @@ def depthfirst(initial_game, max_depth):
                     moves.append(last_move)
                     solved_cases[0] = moves
 
-                if child_game.is_finished():
-                    return solved_cases
-
-    return 1
+    # Get the best solution.
+    previous_case = 999999999
+    for case in solved_cases:
+        moves = solved_cases[case]
+        moves_count = len(moves)
+        if moves_count < previous_case:
+            previous_case = moves_count
+            best_solution = moves
+    return_result = {0: best_solution}
+    return return_result
 
 
 def is_shortest_route_to_state(seen_nodes, node):
@@ -108,35 +112,4 @@ def is_shortest_route_to_state(seen_nodes, node):
                 return False
 
     return True
-
-
-def grade_state(state, winning_state):
-    """
-    Gives a grade to a state, indicating the how close it is to finishing the game. The grade is based on the number of
-    vehicles that are in the same position as they are in the winning_state, and the number of vehicles in the game.
-
-    Args:
-        state (dict of str: list of tuples of int, int): The current state of the game.
-        winning_state (dict of str: list of tuples of int, int): The state that the game is in when it is finished.
-
-    Returns:
-            float: The grade given to the state.
-    """
-
-    vehicle_count = len(state)
-
-    # Check the shared key-value pairs.
-    shared_items = {k: state[k] for k in state if k in winning_state and state[k] == winning_state[k]}
-    correct_vehicle_count = len(shared_items)
-
-    return correct_vehicle_count / vehicle_count
-
-
-initial_game = load_game(1, 6)
-
-result = depthfirst(initial_game, 3)
-
-print(f"result is: {result}")
-if result != 1:
-    print(len(result[0]))
 

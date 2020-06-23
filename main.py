@@ -2,6 +2,7 @@ import argparse, csv, sys, time
 
 from src.algorithms.random import random
 from src.algorithms.breadthfirst import breadthfirst
+from src.algorithms.bestfirst import bestfirst
 from src.algorithms.depthfirst import depthfirst, archive
 from src.algorithms.depthfirst.archive import Archive
 from src.algorithms.breachbound import breachbound
@@ -30,10 +31,15 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     # Load game
     init_game = load_game(game_number, board_size)
 
-    if algorithm == 'random':
-        results = random.randomize(init_game, iterations, state_unique, exit_reachable, board_size, max_tries)
+    if algorithm == 'r':
+        results, winning_game = random.randomize(init_game, iterations, state_unique, exit_reachable, board_size, max_tries)
     elif algorithm == 'bf':
         results = breadthfirst.breadthfirst(init_game)
+    elif algorithm == 'bffs':
+        with open(f"data/boards/game{game_number}_winning_state.csv", 'r') as f:
+            reader = csv.reader(f)
+            winning_state = dict(reader)    
+        results = bestfirst.bestfirst(init_game, exit_reachable, state_unique, winning_state)        
     elif algorithm == 'df':
         results = []
         for i in range(depth):
@@ -61,22 +67,32 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     m = s // 60
     s %= 60
 
-    # Get best result and average moves
-    avg_moves = []
-    best_result = results[0]
-    for result in results:
-        avg_moves.append(len(results[result]))
-        if len(results[result]) < len(best_result):
-            best_result = results[result]
-
     # Get solved times for random + heuristic: unique state
-    if algorithm == 'random' and state_unique == True:
+    if algorithm == 'r' and state_unique == True:
         solved_times = 0
         for result in results:
             if len(results[result]) == 1:
                 continue
             solved_times += 1
 
+    # Get best result and average moves
+    avg_moves = []
+
+    if algorithm == 'r' and state_unique == True:
+        first_result = iterations +1 - solved_times 
+        
+        # best_result = results[first_result]
+        # dit weg bovenstaande regel uncomment
+        best_result = []
+        for i in range(9999):
+            best_result.append(i)
+    else:
+        best_result = results[0]
+    for result in results:
+        avg_moves.append(len(results[result]))
+        if len(results[result]) < len(best_result):
+            best_result = results[result]
+        
     # Create visualisation
     if visualisation:
         game = load_game(game_number, board_size)
@@ -88,28 +104,31 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     print(f"Iterations: {iterations}")
     print(f"Average moves to reach exit: {round(sum(avg_moves) / len(avg_moves))}")
     print(f"Least moves to reach exit: {len(best_result)}")
-    if algorithm == 'random' and state_unique == True:
+    if algorithm == 'r' and state_unique == True:
         print(f"{(solved_times/iterations) * 100}% of the games was solved.")
-
 
     # Fix result saving name problems
     heuristics = 'no_heuristics'
     if state_unique or exit_reachable:
         heuristics = 'heuristics'
+    if algorithm == 'r':
+        algorithm = 'random'         
     if algorithm == 'bf':
-        algorithm = 'breadthfirst'
+        algorithm = 'breadthfirst' 
+    if algorithm == 'bffs':
+        algorithm = 'bestfirst' 
     elif algorithm == 'df':
         algorithm = 'depthfirst'
     elif algorithm == 'bb':
         algorithm = 'breachbound'
 
     # Check best result
-    with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_best_run.csv", 'w+') as f:
+    with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
         best_stat = f.readline()
-        if not best_stat:
-            best_stat = float('inf')
+    if best_stat == '':
+        best_stat = 1000
 
-    if best_stat >= len(best_result):
+    if int(best_stat) >= len(best_result):
         with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([len(best_result)])
@@ -123,6 +142,12 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
             writer.writerow(["car", "move"])
             writer.writerows(best_result)
 
+        # Add winning state with least moves for best first
+        with open(f"data/boards/game{game_number}_winning_state.csv", 'w+', newline='') as f:    
+            for vehicle, position in winning_game.items():
+                writer = csv.writer(f)
+                writer.writerow([vehicle, position])
+
     # Append results
     with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_results.csv", 'a+', newline='') as f:
         writer = csv.writer(f)
@@ -130,11 +155,12 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
             writer.writerow(['least', 'average', 'iterations', 'runtime(sec)', ' is state unique', 'is exit reachable'])
         writer.writerow([len(best_result), round(sum(avg_moves) / len(avg_moves)), iterations, round(seconds), state_unique, exit_reachable])
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-g', '--game_number', type=int, required=True, help='Choose game number')
     parser.add_argument('-s', '--size', type=int, required=False, default=-1, help='The width and height of the board')
-    parser.add_argument('-a', '--algorithm', type=str, choices=['random', 'bf', 'df','bb'], required=True, help='Choose algorithm')
+    parser.add_argument('-a', '--algorithm', type=str, choices=['r', 'bf', 'bffs', 'df','bb'], required=True, help='Choose algorithm')
     parser.add_argument('-e','--exit_reachable', action="store_false", help='Disable heuristic: exit_reachable')
     parser.add_argument('-u','--state_unique', action="store_false", help='Disable heuristic: state_unique')
     parser.add_argument('-i','--iterations', type=int, required=False, default=1, help='Enter amount of iterations')
