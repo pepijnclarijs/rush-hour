@@ -43,6 +43,7 @@ def run(game_number, game_size, algorithm, iterations, depth, visualisation):
         results.reverse()
 
         print(results)
+        print(f"number of moves df: {len(results)}")
 
     # Calculate runtime
     s = time.time() - start_time

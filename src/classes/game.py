@@ -69,7 +69,8 @@ class Game:
         Updates the possible_moves set.
         """
 
-        self.possible_moves = set()
+        self.possible_moves = []
+        # self.possible_moves = set()
         for vehicle in self.vehicles.values():
             # Get the possible moves in the current state.
             for steps in range(-self.board.length + vehicle.size, self.board.length - vehicle.size + 1):
@@ -78,7 +79,8 @@ class Game:
                 new_coordinates = vehicle.speculate_new_position(steps)
                 if self.validate_move(vehicle, new_coordinates):
                     move = (vehicle, steps)
-                    self.possible_moves.add(move)
+                    # self.possible_moves.add(move)
+                    self.possible_moves.append(move)
 
     def is_finished(self):
         """

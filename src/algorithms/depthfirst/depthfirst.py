@@ -1,8 +1,11 @@
 import copy, sys
+# from sys import recursionlimit
 from src.algorithms.depthfirst.archive import Archive
 from src.heuristics.heuristics import is_exit_reachable
 from src.util import finish_game
 from src.load import load_game
+
+sys.setrecursionlimit(10**6)
 
 class Depthfirst:
     """
@@ -65,9 +68,6 @@ class Depthfirst:
                 return traversal_list
 
         return None
-            #### okay hoe verder
-
-#### ------ Verdelen over code
 
         # What we need:
         # Een lijst aan 'child' games, met ieder één van de
