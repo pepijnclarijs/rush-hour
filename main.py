@@ -50,6 +50,9 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     else:
         sys.exit('Cannot find algorithm')
 
+    if not results:
+        sys.exit('No results found..')
+
     # Calculate runtime
     s = time.time() - start_time
     seconds = s
@@ -88,19 +91,26 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     if algorithm == 'random' and state_unique == True:
         print(f"{(solved_times/iterations) * 100}% of the games was solved.") 
  
+
+    # Fix result saving name problems
+    heuristics = 'no_heuristics'
+    if state_unique or exit_reachable:
+        heuristics = 'heuristics'
+    if algorithm == 'bf':
+        algorithm = 'breadthfirst' 
+    elif algorithm == 'df':
+        algorithm = 'depthfirst'
+    elif algorithm == 'bb':  
+        algorithm = 'breachbound'
+    
     # Check best result
-    with open(f"data/results/random/no_heuristics/game#{game_number}/game{game_number}_best_run.csv", 'w+') as f:
+    with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_best_run.csv", 'w+') as f:
         best_stat = f.readline()
+        if not best_stat:
+            best_stat = float('inf')
 
-    # Overwrite if best result. Create if this is the first result.
-    first_result = True
-    if len(best_stat) != 0:
-        first_result = False
-    else:
-        best_stat = '0'
-
-    if int(best_stat) >= len(best_result) or first_result: #or int(best_stat) != len(best_restult):
-        with open(f"data/results/random/no_heuristics/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
+    if best_stat >= len(best_result):
+        with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([len(best_result)])
             writer.writerow([f"Runtime: {round(h)} hours, {round(m)} minutes and {round(s)} seconds"])
@@ -108,17 +118,17 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
             writer.writerow([f"Average moves: {sum(avg_moves) / len(avg_moves)}"])
             writer.writerow([f"Least moves: {len(best_result)}"])
             writer.writerow([f"Moves: {avg_moves}"])
+            writer.writerow([f"Heuristic is state unique enabled: {state_unique}"])
+            writer.writerow([f"Heuristic is exit reachable enabled: {exit_reachable}"])    
             writer.writerow(["car", "move"])
             writer.writerows(best_result)
 
     # Append results
-    with open(f"data/results/random/no_heuristics/game#{game_number}/game{game_number}_results.csv", 'a+', newline='') as f:
+    with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_results.csv", 'a+', newline='') as f:
         writer = csv.writer(f)
         if f.tell() == 0:
-            writer.writerow(['least', 'average', 'iterations', "runtime(sec)"])
-        writer.writerow([len(best_result), round(sum(avg_moves) / len(avg_moves)), iterations, round(seconds)])
-        #writer.writerow([f"{(solved_times / iterations) * 100}% of the games was solved."])  # TODO:
-
+            writer.writerow(['least', 'average', 'iterations', 'runtime(sec)', ' is state unique', 'is exit reachable'])
+        writer.writerow([len(best_result), round(sum(avg_moves) / len(avg_moves)), iterations, round(seconds), state_unique, exit_reachable])
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

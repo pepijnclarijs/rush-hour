@@ -81,8 +81,9 @@ def randomize(init_game, iterations, state_unique, exit_reachable, board_size, m
                 if is_exit_reachable(game):
                     last_move = finish_game(game)
                     moves.append(last_move)
-        print('Found exit!')
+                    
         if moves:
+            print('Found exit!')
             solved_cases[i] = moves
 
     return solved_cases

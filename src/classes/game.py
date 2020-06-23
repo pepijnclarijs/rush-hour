@@ -29,8 +29,6 @@ class Game:
         self.current_state = {}
         self.possible_moves = set()
         self.taken_boxes = []
-
-        # TEST Sjors
         self.moves = []
 
         # Initialize attributes.
