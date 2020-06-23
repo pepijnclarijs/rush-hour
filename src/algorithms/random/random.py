@@ -1,14 +1,11 @@
-import copy
-import random
+import copy, random
 
+from src.util import finish_game
 from src.heuristics.heuristics import is_exit_reachable
-
-
-# Start game
 from src.heuristics.heuristics import is_state_unique
 
 
-def randomize(init_game, iterations, board_size, max_tries=1000000):
+def randomize(init_game, iterations, state_unique, exit_reachable, board_size, max_tries):
     """
     Moves vehicles around at random until the game is solved.
 
@@ -24,13 +21,11 @@ def randomize(init_game, iterations, board_size, max_tries=1000000):
     """
     solved_cases = {}
     for i in range(iterations):
+        # Process counter
+        print(f'Processing... Iteration number: {i}')
+
         # Load game
         game = copy.deepcopy(init_game)
-
-        # print board while running
-        print("Current state:")
-        game.print_board()
-        print("")
 
         # Create a list to track the movements.
         moves = []
@@ -51,21 +46,22 @@ def randomize(init_game, iterations, board_size, max_tries=1000000):
             new_coordinates = random_vehicle.speculate_new_position(steps)
 
             # Heuristic: check if the movement results in a unique state.
-            speculated_game = copy.deepcopy(game)
-            vehicle_in_speculated_game = speculated_game.vehicles.get(random_vehicle.id)
-            speculated_game.move(vehicle_in_speculated_game, new_coordinates)
-            speculated_state = speculated_game.current_state
-            if not is_state_unique(seen_states, speculated_state):
-                tries_until_stuck += 1
-                if tries_until_stuck > 20:
-                    print("Got stuck :( " + str(i))
-                    moves = ["got stuck"]
-                    break
-                continue
-            tries_until_stuck = 0
+            if state_unique == True:
+                speculated_game = copy.deepcopy(game)
+                vehicle_in_speculated_game = speculated_game.vehicles.get(random_vehicle.id)
+                speculated_game.move(vehicle_in_speculated_game, new_coordinates)
+                speculated_state = speculated_game.current_state
+                if not is_state_unique(seen_states, speculated_state):
+                    tries_until_stuck += 1
+                    if tries_until_stuck > 20:
+                        print("Got stuck :( ")
+                        moves.clear() 
+                        break
+                    continue
+                tries_until_stuck = 0
 
-            # Save the state.
-            seen_states.append(speculated_state)
+                # Save the state.
+                seen_states.append(speculated_state)
 
             # Move the vehicle to the new position.
             game.move(random_vehicle, new_coordinates)
@@ -79,13 +75,14 @@ def randomize(init_game, iterations, board_size, max_tries=1000000):
             if tries > max_tries:
                 print("max tries exceeded")
                 break
-
-            # TODO: Add some argument to validate whether the below should be used or not.
+            
             # Heuristic: check if the red car can be moved to the exit.
-            # if is_exit_reachable(game):
-            #     last_move = finish_game(game)
-            #     moves.append(last_move)
-
-        solved_cases[i] = moves
+            if exit_reachable == True:
+                if is_exit_reachable(game):
+                    last_move = finish_game(game)
+                    moves.append(last_move)
+        print('Found exit!')
+        if moves:
+            solved_cases[i] = moves
 
     return solved_cases

@@ -1,18 +1,15 @@
+import argparse, csv, sys, time
+
 from src.algorithms.random import random
 from src.algorithms.breadthfirst import breadthfirst
 from src.algorithms.depthfirst import depthfirst, archive
 from src.algorithms.depthfirst.archive import Archive
-from src.algorithms.depthfirstbb import depthfirstbb, depthfirstbbr
+from src.algorithms.breachbound import breachbound
+from src.load import load_game
 from src.visualisation import visualise as vis
 
-from src.load import load_game
 
-import argparse
-import csv
-import time
-import sys
-
-def run(game_number, game_size, algorithm, iterations, depth, visualisation):
+def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterations, max_tries, depth, visualisation):
     """ command line arguments for game_number, board_size & iterations """
 
     if game_size > 0:
@@ -34,7 +31,7 @@ def run(game_number, game_size, algorithm, iterations, depth, visualisation):
     init_game = load_game(game_number, board_size)
 
     if algorithm == 'random':
-        results = random.randomize(init_game, iterations, board_size)
+        results = random.randomize(init_game, iterations, state_unique, exit_reachable, board_size, max_tries)
     elif algorithm == 'bf':
         results = breadthfirst.breadthfirst(init_game)
     elif algorithm == 'df':
@@ -48,15 +45,10 @@ def run(game_number, game_size, algorithm, iterations, depth, visualisation):
                 result_moves.reverse()
             results.append(result_moves)
             print(result_moves)
-    elif algorithm == 'dfbb':
-        results = depthfirstbb.depthfirstbb(init_game, depth)
-    elif algorithm == 'dfbbr':
-        results = depthfirstbbr.depthfirstbbr(init_game, depth)
+    elif algorithm == 'bb':
+        results = breachbound.breachbound(init_game, depth, exit_reachable, state_unique)
     else:
-        print("Error running algorithm")
-
-        print(results)
-        print(f"number of moves df: {len(results)}")
+        sys.exit('Cannot find algorithm')
 
     # Calculate runtime
     s = time.time() - start_time
@@ -68,37 +60,34 @@ def run(game_number, game_size, algorithm, iterations, depth, visualisation):
 
     # Get best result and average moves
     avg_moves = []
-    best_result = results[0] # TODO: uncomment later
-    # best_result = [] # TODO: del this
-    # for stupid in range(90000): # TODO del this for loop
-    #     best_result.append(stupid)
-    # solved_times = 0 # TODO: delete later. just for random + heuristic: unique state.
-    # for result in results:
-    #     # # TODO: delete later. just for random + heuristic: unique state.
-    #     # if len(results[result]) == 1:
-    #     #     continue
-    #     # solved_times += 1
-    #     # # ENDTODO
-    #
-    #     avg_moves.append(len(results[result]))
-    #     if len(results[result]) < len(best_result):
-    #         best_result = results[result]
-    #
-    # print(best_result)
-
+    best_result = results[0]
+    for result in results:
+        avg_moves.append(len(results[result]))
+        if len(results[result]) < len(best_result):
+            best_result = results[result]
+    
+    # Get solved times for random + heuristic: unique state
+    if algorithm == 'random' and state_unique == True:
+        solved_times = 0 
+        for result in results:
+            if len(results[result]) == 1:
+                continue
+            solved_times += 1
+        
     # Create visualisation
     if visualisation:
         game = load_game(game_number, board_size)
         vis.visualise(game, best_result, board_size)
 
     # Print results
-    print(f"Moves: {avg_moves}")
+    print(f"Amount of moves to reach exit per game: {avg_moves}")
     print(f"Runtime: {round(h)} hours, {round(m)} minutes and {round(s)} seconds")
     print(f"Iterations: {iterations}")
-    print(f"Average moves: {round(sum(avg_moves) / len(avg_moves))}")
-    print(f"Least moves: {len(best_result)}")
-    # print(f"{(solved_times/iterations) * 100}% of the games was solved.") # TODO: del later. just for random + heuristic: unique state.
-    #
+    print(f"Average moves to reach exit: {round(sum(avg_moves) / len(avg_moves))}")
+    print(f"Least moves to reach exit: {len(best_result)}")
+    if algorithm == 'random' and state_unique == True:
+        print(f"{(solved_times/iterations) * 100}% of the games was solved.") 
+ 
     # Check best result
     with open(f"data/results/random/no_heuristics/game#{game_number}/game{game_number}_best_run.csv", 'w+') as f:
         best_stat = f.readline()
@@ -135,10 +124,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-g', '--game_number', type=int, required=True, help='Choose game number')
     parser.add_argument('-s', '--size', type=int, required=False, default=-1, help='The width and height of the board')
-    parser.add_argument('-a', '--algorithm', type=str, choices=['random', 'bf', 'df','dfbb', 'dfbbr','dfbb2', 'dfbbr2'], required=True, help='Choose algorithm')
+    parser.add_argument('-a', '--algorithm', type=str, choices=['random', 'bf', 'df','bb'], required=True, help='Choose algorithm')
+    parser.add_argument('-e','--exit_reachable', action="store_false", help='Disable heuristic: exit_reachable')
+    parser.add_argument('-u','--state_unique', action="store_false", help='Disable heuristic: state_unique')    
     parser.add_argument('-i','--iterations', type=int, required=False, default=1, help='Enter amount of iterations')
+    parser.add_argument('-m','--max_runs', type=int, required=False, default=10000, help='Change max runs for random algorithm, default: 10000')
     parser.add_argument('-d','--depth', type=int, required=False, default=30, help='Enter depth')
     parser.add_argument('-v','--visualisation', action="store_true", help='Generate visualisation')
 
     args = parser.parse_args()
-    run(args.game_number, args.size, args.algorithm, args.iterations, args.depth, args.visualisation)
+    run(args.game_number, args.size, args.algorithm, args.exit_reachable, args.state_unique, args.iterations, args.max_runs, args.depth, args.visualisation)

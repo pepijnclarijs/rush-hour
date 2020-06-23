@@ -1,11 +1,11 @@
-import copy, random
+import copy
 
 from src.heuristics.heuristics import is_exit_reachable, is_state_unique
 from src.util import finish_game
 from src.load import load_game
 
 
-def depthfirstbbr(parent_node, depth):
+def breachbound(parent_node, depth, exit_reachable, state_unique):
     """
     Uses a branch and bound algorithm to solve a given game of Rush Hour.
     Args:
@@ -15,8 +15,8 @@ def depthfirstbbr(parent_node, depth):
         number of steps [('A', 2), ('B', -2)]. The list represents the movements that should be executed to solve the
         game.
     """
-    
-    best_sol_count = 100000
+
+    best_sol_count = float('inf')
     best_sol = {}
     seen_states = []
     stack = []
@@ -24,17 +24,13 @@ def depthfirstbbr(parent_node, depth):
     stack.append(parent_node)
     seen_states.append(parent_node)
 
-    while len(stack)>0:    
+    while len(stack)>0:
         # Get first from stack.
         state = stack.pop()
 
-        if len(state.moves) < best_sol_count and len(state.moves) < depth:   
-            # Randomize outcome
-            ps_move = list(state.possible_moves)
-            random.shuffle(ps_move)
-
+        if len(state.moves) < best_sol_count and len(state.moves) < depth:
             # Create all children notes
-            for move in ps_move:
+            for move in state.possible_moves:
                 child_game = copy.deepcopy(state)
 
                 # Get the move specifics.
@@ -46,25 +42,32 @@ def depthfirstbbr(parent_node, depth):
                 child_game.move(child_game.vehicles[vehicle.id], new_position)
 
                 # Heuristic: Check if the state is unique.
-                child_state = child_game.current_state
-                if not is_state_unique(seen_states, child_state):
-                    continue
+                if state_unique == True:
+                    if not is_state_unique(seen_states, child_game.current_state):
+                        continue
 
                 # Save the movements of the vehicles.
                 moved = (vehicle.id, steps)
                 child_game.moves.append(moved)
-                child_game.update_possible_moves()             
+                child_game.update_possible_moves()
                 seen_states.append(child_game)
                 stack.append(child_game)
 
                 # Heuristic: check if the boxes from the red car up until the exit are free.
-                if is_exit_reachable(child_game):
-                    last_move = finish_game(child_game)
-                    moved = (vehicle.id, steps)
-                    child_game.moves.append(moved)  
-                    best_sol[0] = child_game.moves
+                if exit_reachable == True:
+                    if is_exit_reachable(child_game):
+                        last_move = finish_game(child_game)
+                        moved = (vehicle.id, steps)
+                        child_game.moves.append(moved)
+                        best_sol[0] = child_game.moves
+                        best_sol_count = len(child_game.moves)
+                
+                else:
+                    if child_game.is_finished():
+                        last_move = finish_game(child_game)
+                        moved = (vehicle.id, steps)
+                        child_game.moves.append(moved)
+                        best_sol[0] = child_game.moves
+                        best_sol_count = len(child_game.moves)        
 
-                if child_game.is_finished():
-                    best_sol_count = len(child_game.moves)
-                    
     return best_sol
