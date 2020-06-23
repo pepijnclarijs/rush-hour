@@ -82,8 +82,8 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     print(results)
     if algorithm == 'random':
         first_result = iterations +1 - solved_times 
-        # best_result = results[first_result]
         
+        # best_result = results[first_result]
         # dit weg bovenstaand eregel uncomment
         best_result = []
         for i in range(9999):
@@ -160,7 +160,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-g', '--game_number', type=int, required=True, help='Choose game number')
     parser.add_argument('-s', '--size', type=int, required=False, default=-1, help='The width and height of the board')
-    parser.add_argument('-a', '--algorithm', type=str, choices=['random', 'bf', 'bffs', 'df','bb'], required=True, help='Choose algorithm')
+    parser.add_argument('-a', '--algorithm', type=str, choices=['r', 'bf', 'bffs', 'df','bb'], required=True, help='Choose algorithm')
     parser.add_argument('-e','--exit_reachable', action="store_false", help='Disable heuristic: exit_reachable')
     parser.add_argument('-u','--state_unique', action="store_false", help='Disable heuristic: state_unique')    
     parser.add_argument('-i','--iterations', type=int, required=False, default=1, help='Enter amount of iterations')
