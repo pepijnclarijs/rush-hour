@@ -6,8 +6,8 @@ def get_enclosed_boxes(box_1, box_2):
     Gets the boxes that are enclosed between box_1 and box_2, where a box is defined as a pair of coordinates
     representing a location on a 2D grid. box_1 and box_2 must be either in the same column or in the same row.
     Args:
-        box_1: Tuple of integers (i, j) representing the location of the first box.
-        box_2: Tuple of integers (i, j) representing the location of the second box.
+        box_1 (Tuple of ints): (i, j) representing the location of the first box.
+        box_2 (Tuple of ints): (i, j) representing the location of the second box.
     Returns:
         List of tuples containing integers [(i_1, j_1),(i_2, j_2)] that represent the enclosed boxes between box_1 and
         box_2.
@@ -81,6 +81,3 @@ def finish_game(game):
     game.move(red_car, game.board.finish_position)
 
     return last_move
-
-
-

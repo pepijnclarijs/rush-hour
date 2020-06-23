@@ -1,6 +1,3 @@
-# This src was taken and altered from Bas Terwijn's constructive algorithm series on youtube.
-# https://www.youtube.com/watch?v=NqSSrKDAE_U&list=PLJBtJTYGPSzIfEzXpszM8Ewsllwfa0d6T&index=9
-
 import copy
 import queue as q
 
@@ -14,11 +11,11 @@ def breadthfirst(initial_game):
     """
     Uses a breadth first algorithm to solve a given game of Rush Hour.
     Args:
-        board_size: Integer that represents the length and width of the board.
-        iterations: Integer that indicates the number of times the game should be solved.
+        initial_game (Game): Instance of the initial game.
     Returns:
-        List of tuples containing a string representing the id of a vehicle and an integer representing the number of
-        steps [('A', 2), ('B', -2)]. The list represents the movements that should be executed to solve the game.
+        Dict of int: List of tuples containing a string representing the id of a vehicle and an integer representing the
+        number of steps [('A', 2), ('B', -2)]. The list represents the movements that should be executed to solve the
+        game.
     """
     # Creat dict for solved case
     solved_cases = {}
@@ -46,8 +43,7 @@ def breadthfirst(initial_game):
         possible_moves = parent_game.possible_moves
         for move in possible_moves:
             # Get the move specifics.
-            vehicle = move[0]
-            steps = move[1]
+            vehicle, steps = move
             new_position = vehicle.speculate_new_position(steps)
 
             # Execute the move to create a child node.

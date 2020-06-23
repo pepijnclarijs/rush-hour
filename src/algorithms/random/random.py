@@ -39,38 +39,28 @@ def randomize(init_game, iterations, board_size, max_tries=1000000):
         tries_until_stuck = 0
 
         while not game.is_finished():
-
-            # Get a random number of steps.
-            # steps = 0
-            # while steps == 0:
-            #     steps = random.randint(-board_size + random_vehicle.size, board_size - random_vehicle.size + 1)
-            #
-            # # Speculate the new position of the vehicle.
-            # new_coordinates = random_vehicle.speculate_new_position(steps)
-
             # From the possible moves, pick a random move.
             random_move = random.choice(list(game.possible_moves))
             random_vehicle = random_move[0]
             steps = random_move[1]
             new_coordinates = random_vehicle.speculate_new_position(steps)
 
-            # # TODO: add argument to validate whether or not to use the heuristic below.
-            # # Heuristic: check if the movement results in a unique state.
-            # speculated_game = copy.deepcopy(game)
-            # vehicle_in_speculated_game = speculated_game.vehicles.get(random_vehicle.id)
-            # speculated_game.move(vehicle_in_speculated_game, new_coordinates)
-            # speculated_state = speculated_game.current_state
-            # if not is_state_unique(seen_states, speculated_state):
-            #     tries_until_stuck += 1
-            #     if tries_until_stuck > 20:
-            #         print("Got stuck :( " + str(i))
-            #         moves = ["got stuck"]
-            #         break
-            #     continue
-            # tries_until_stuck = 0
+            # Heuristic: check if the movement results in a unique state.
+            speculated_game = copy.deepcopy(game)
+            vehicle_in_speculated_game = speculated_game.vehicles.get(random_vehicle.id)
+            speculated_game.move(vehicle_in_speculated_game, new_coordinates)
+            speculated_state = speculated_game.current_state
+            if not is_state_unique(seen_states, speculated_state):
+                tries_until_stuck += 1
+                if tries_until_stuck > 20:
+                    print("Got stuck :( " + str(i))
+                    moves = ["got stuck"]
+                    break
+                continue
+            tries_until_stuck = 0
 
             # Save the state.
-            # seen_states.append(speculated_state)
+            seen_states.append(speculated_state)
 
             # Move the vehicle to the new position.
             game.move(random_vehicle, new_coordinates)

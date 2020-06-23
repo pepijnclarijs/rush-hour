@@ -1,0 +1,22 @@
+15
+"Runtime: 0 hours, 0 minutes and 18 seconds"
+Runs: 1
+Average moves: 15.0
+Least moves: 15
+Moves: [15]
+car,move
+C,-1
+X,-1
+A,-2
+B,-2
+H,-1
+D,-1
+G,-2
+F,2
+K,-2
+L,-3
+I,-3
+K,2
+F,-1
+H,3
+X,3
