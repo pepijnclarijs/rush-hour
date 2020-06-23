@@ -2,8 +2,9 @@ import copy
 import queue as q
 
 from src.heuristics.heuristics import is_exit_reachable, is_state_unique
-from src.util import finish_game, create_game_from_state
+from src.util import finish_game
 from src.classes.game import Game
+from src.algorithms.breadthfirst.breadthfirst_util import create_game_from_state
 
 
 def breadthfirst(initial_game):
