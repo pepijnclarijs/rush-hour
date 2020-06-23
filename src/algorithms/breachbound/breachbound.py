@@ -60,13 +60,13 @@ def breachbound(parent_node, depth, exit_reachable, state_unique):
                         child_game.moves.append(moved)
                         best_sol[0] = child_game.moves
                         best_sol_count = len(child_game.moves)
-                
+
                 else:
                     if child_game.is_finished():
                         last_move = finish_game(child_game)
                         moved = (vehicle.id, steps)
                         child_game.moves.append(moved)
                         best_sol[0] = child_game.moves
-                        best_sol_count = len(child_game.moves)        
+                        best_sol_count = len(child_game.moves)
 
     return best_sol
