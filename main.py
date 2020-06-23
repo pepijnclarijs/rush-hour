@@ -70,7 +70,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
 
     # Get solved times for random + heuristic: unique state
     if algorithm == 'random' and state_unique == True:
-        solved_times = 0 
+        solved_times = 0
         for result in results:
             if len(results[result]) == 1:
                 continue
@@ -107,8 +107,8 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     print(f"Average moves to reach exit: {round(sum(avg_moves) / len(avg_moves))}")
     print(f"Least moves to reach exit: {len(best_result)}")
     if algorithm == 'random' and state_unique == True:
-        print(f"{(solved_times/iterations) * 100}% of the games was solved.") 
- 
+        print(f"{(solved_times/iterations) * 100}% of the games was solved.")
+
 
     # Fix result saving name problems
     heuristics = 'no_heuristics'
@@ -120,9 +120,9 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
         algorithm = 'bestfirst' 
     elif algorithm == 'df':
         algorithm = 'depthfirst'
-    elif algorithm == 'bb':  
+    elif algorithm == 'bb':
         algorithm = 'breachbound'
-    
+
     # Check best result
     with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
         best_stat = f.readline()
@@ -139,7 +139,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
             writer.writerow([f"Least moves: {len(best_result)}"])
             writer.writerow([f"Moves: {avg_moves}"])
             writer.writerow([f"Heuristic is state unique enabled: {state_unique}"])
-            writer.writerow([f"Heuristic is exit reachable enabled: {exit_reachable}"])    
+            writer.writerow([f"Heuristic is exit reachable enabled: {exit_reachable}"])
             writer.writerow(["car", "move"])
             writer.writerows(best_result)
 
@@ -162,7 +162,7 @@ if __name__ == "__main__":
     parser.add_argument('-s', '--size', type=int, required=False, default=-1, help='The width and height of the board')
     parser.add_argument('-a', '--algorithm', type=str, choices=['r', 'bf', 'bffs', 'df','bb'], required=True, help='Choose algorithm')
     parser.add_argument('-e','--exit_reachable', action="store_false", help='Disable heuristic: exit_reachable')
-    parser.add_argument('-u','--state_unique', action="store_false", help='Disable heuristic: state_unique')    
+    parser.add_argument('-u','--state_unique', action="store_false", help='Disable heuristic: state_unique')
     parser.add_argument('-i','--iterations', type=int, required=False, default=1, help='Enter amount of iterations')
     parser.add_argument('-m','--max_runs', type=int, required=False, default=10000, help='Change max runs for random algorithm, default: 10000')
     parser.add_argument('-d','--depth', type=int, required=False, default=30, help='Enter depth')

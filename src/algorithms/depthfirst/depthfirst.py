@@ -31,10 +31,10 @@ class Depthfirst:
         self.game = game
         self.archive = archive
         self.max_depth = max_depth
-
-        print("Current state:")
-        game.print_board()
-        print("")
+        #
+        # print("Current state:")
+        # game.print_board()
+        # print("")
 
     def traverse_depth(self, depth):
         print(depth)
@@ -70,24 +70,13 @@ class Depthfirst:
 
         return None
 
-        # What we need:
         # Een lijst aan 'child' games, met ieder één van de
         # mogelijk uit te voeren moves.
-        # Aanmaken in de constructor
 
-        #
         #   Game -> mogelijke moves
         #   list game (deepcopy)
         #   vehicles
         #       speculated moves
-        #   validate move -> bool
-        #   move (veh, pos) -> game
-
-        # lijst mogelijke moves
-        #   vehicles
-        #       speculated moves
-        #   validate move
-        #       True: move to list
 
         # lijst games
         # length: mogelijke moves
