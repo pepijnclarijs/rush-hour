@@ -12,3 +12,7 @@ least,average,iterations,runtime(sec), is state unique,is exit reachable
 348,348,1,1,True,True
 253,405,5,7,True,True
 362,362,1,2,True,True
+160,160,1,1,True,True
+79,415,10,16,True,True
+79,149,5,2,True,True
+149,497,5,11,True,True
