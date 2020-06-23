@@ -31,14 +31,15 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     # Load game
     init_game = load_game(game_number, board_size)
 
-    if algorithm == 'random':
+    if algorithm == 'r':
         results, winning_game = random.randomize(init_game, iterations, state_unique, exit_reachable, board_size, max_tries)
     elif algorithm == 'bf':
         results = breadthfirst.breadthfirst(init_game)
     elif algorithm == 'bffs':
         with open(f"data/boards/game{game_number}_winning_state.csv", 'r') as f:
             reader = csv.reader(f)
-            winning_state = dict(reader)    
+            winning_state_t = dict(reader)    
+        print(winning_state_t)    
         winning_state = {'A': [(1, 1), (1, 2)], 'B': [(1, 3), (1, 4), (1, 5)], 'C': [(2, 1), (2, 2)], 'D': [(2, 4), (2, 5)], 'E': [(5, 4), (4, 4)], 'F': [(4, 1), (4, 2)], 'G': [(3, 3), (2, 3)], 'H': [(4, 5), (4, 6)], 'I': [(2, 6), (1, 6)], 'J': [(5, 5), (5, 6)], 'K': [(6, 1), (5, 1)], 'L': [(5, 3), (4, 3)], 'X': [(3, 5), (3, 6)]}    
         results = bestfirst.bestfirst(init_game, exit_reachable, state_unique, winning_state)        
     elif algorithm == 'df':
@@ -69,7 +70,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     s %= 60
 
     # Get solved times for random + heuristic: unique state
-    if algorithm == 'random' and state_unique == True:
+    if algorithm == 'r' and state_unique == True:
         solved_times = 0
         for result in results:
             if len(results[result]) == 1:
@@ -80,11 +81,11 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     avg_moves = []
 
     print(results)
-    if algorithm == 'random':
+    if algorithm == 'r':
         first_result = iterations +1 - solved_times 
         
         # best_result = results[first_result]
-        # dit weg bovenstaand eregel uncomment
+        # dit weg bovenstaande regel uncomment
         best_result = []
         for i in range(9999):
             best_result.append(i)
@@ -106,7 +107,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     print(f"Iterations: {iterations}")
     print(f"Average moves to reach exit: {round(sum(avg_moves) / len(avg_moves))}")
     print(f"Least moves to reach exit: {len(best_result)}")
-    if algorithm == 'random' and state_unique == True:
+    if algorithm == 'r' and state_unique == True:
         print(f"{(solved_times/iterations) * 100}% of the games was solved.")
 
 
@@ -114,6 +115,8 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     heuristics = 'no_heuristics'
     if state_unique or exit_reachable:
         heuristics = 'heuristics'
+    if algorithm == 'r':
+        algorithm = 'random'         
     if algorithm == 'bf':
         algorithm = 'breadthfirst' 
     if algorithm == 'bffs':
