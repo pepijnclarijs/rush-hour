@@ -2,10 +2,7 @@ from src.algorithms.random import random
 from src.algorithms.breadthfirst import breadthfirst
 from src.algorithms.depthfirst import depthfirst, archive
 from src.algorithms.depthfirst.archive import Archive
-from src.algorithms.depthfirstbb import depthfirstbb
-from src.algorithms.depthfirstbb import depthfirstbb2
-from src.algorithms.depthfirstbb import depthfirstbbr
-from src.algorithms.depthfirstbb import depthfirstbbr2
+from src.algorithms.depthfirstbb import depthfirstbb, depthfirstbbr
 from src.visualisation import visualise as vis
 
 from src.load import load_game
