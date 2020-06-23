@@ -38,9 +38,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     elif algorithm == 'bffs':
         with open(f"data/boards/game{game_number}_winning_state.csv", 'r') as f:
             reader = csv.reader(f)
-            winning_state_t = dict(reader)    
-        print(winning_state_t)    
-        winning_state = {'A': [(1, 1), (1, 2)], 'B': [(1, 3), (1, 4), (1, 5)], 'C': [(2, 1), (2, 2)], 'D': [(2, 4), (2, 5)], 'E': [(5, 4), (4, 4)], 'F': [(4, 1), (4, 2)], 'G': [(3, 3), (2, 3)], 'H': [(4, 5), (4, 6)], 'I': [(2, 6), (1, 6)], 'J': [(5, 5), (5, 6)], 'K': [(6, 1), (5, 1)], 'L': [(5, 3), (4, 3)], 'X': [(3, 5), (3, 6)]}    
+            winning_state = dict(reader)    
         results = bestfirst.bestfirst(init_game, exit_reachable, state_unique, winning_state)        
     elif algorithm == 'df':
         results = []
@@ -80,8 +78,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     # Get best result and average moves
     avg_moves = []
 
-    print(results)
-    if algorithm == 'r':
+    if algorithm == 'r' and state_unique == True:
         first_result = iterations +1 - solved_times 
         
         # best_result = results[first_result]
@@ -130,9 +127,9 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
         best_stat = f.readline()
     if best_stat == '':
-        best_stat = float('inf')
+        best_stat = 1000
 
-    if best_stat >= len(best_result):
+    if int(best_stat) >= len(best_result):
         with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([len(best_result)])

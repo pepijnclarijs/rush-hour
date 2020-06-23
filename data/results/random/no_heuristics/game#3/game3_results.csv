@@ -1,2 +1,5 @@
 least,average,iterations,runtime(sec)
 1136,17928,100,871
+9897,9897,1,6,False,False
+10001,10001,1,5,False,False
+4607,4607,1,2,False,False
