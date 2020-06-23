@@ -126,7 +126,7 @@ if __name__ == "__main__":
     parser.add_argument('-s', '--size', type=int, required=False, default=-1, help='The width and height of the board')
     parser.add_argument('-a', '--algorithm', type=str, choices=['random', 'bf', 'df','bb'], required=True, help='Choose algorithm')
     parser.add_argument('-e','--exit_reachable', action="store_false", help='Disable heuristic: exit_reachable')
-    parser.add_argument('-u','--state_unique', action="store_false", help='Disable heuristic: state_unique')    
+    parser.add_argument('-s','--state_unique', action="store_false", help='Disable heuristic: state_unique')    
     parser.add_argument('-i','--iterations', type=int, required=False, default=1, help='Enter amount of iterations')
     parser.add_argument('-m','--max_runs', type=int, required=False, default=10000, help='Change max runs for random algorithm, default: 10000')
     parser.add_argument('-d','--depth', type=int, required=False, default=30, help='Enter depth')
