@@ -13,8 +13,8 @@ def load_game(game_number, board_size):
         reader = csv.reader(f)
         next(reader)
         for id, orientation, row, col, length in reader:
-            coords = get_coords(orientation, int(row), (board_size + 1) - int(col), int(length))
-            vehicles[id] = Vehicle(id, coords)
+            coordinates = get_coordinates(orientation, int(row), (board_size + 1) - int(col), int(length))
+            vehicles[id] = Vehicle(id, coordinates)
 
     board = Board(board_size)
     game = Game(board, vehicles)
