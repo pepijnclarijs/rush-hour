@@ -27,6 +27,11 @@ def randomize(init_game, iterations, board_size, max_tries=1000000):
         # Load game
         game = copy.deepcopy(init_game)
 
+        # print board while running
+        print("Current state:")
+        game.print_board()
+        print("")
+
         # Create a list to track the movements.
         moves = []
 

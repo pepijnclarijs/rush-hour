@@ -29,7 +29,7 @@ class Game:
         self.current_state = {}
         self.possible_moves = set()
         self.taken_boxes = []
-        
+
         # TEST Sjors
         self.moves = []
 
@@ -159,9 +159,9 @@ class Game:
 
     def print_board(self):
         print_board = []
-        for i in range(self.board.length + 1):
+        for i in range(self.board.length):
             print_row = []
-            for j in range(self.board.length + 1):
+            for j in range(self.board.length):
                 print_row.append(" ")
             print_board.append(print_row)
 
