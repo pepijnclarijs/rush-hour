@@ -1,8 +1,6 @@
 # Utilities
 from src.classes.board import Board
 from src.classes.game import Game
-from src.classes.vehicle import Vehicle
-
 
 def get_enclosed_boxes(box_1, box_2):
     """
@@ -105,7 +103,7 @@ def create_game_from_state(state, board_size):
     for vehicle_id in state:
         vehicle = Vehicle(vehicle_id, state[vehicle_id])
         vehicles[vehicle_id] = vehicle
-t
+
     game = Game(board, vehicles)
 
     return game
