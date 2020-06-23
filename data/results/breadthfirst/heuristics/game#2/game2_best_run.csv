@@ -1,0 +1,24 @@
+15
+"Runtime: 0 hours, 0 minutes and 22 seconds"
+Iterations: 1
+Average moves: 15.0
+Least moves: 15
+Moves: [15]
+Heuristic is state unique enabled: True
+Heuristic is exit reachable enabled: True
+car,move
+A,-2
+B,-2
+C,-1
+D,-1
+G,-2
+H,-1
+F,2
+X,-2
+K,-2
+I,-3
+L,-3
+K,2
+F,-2
+H,3
+X,4

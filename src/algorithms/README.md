@@ -1,20 +1,21 @@
 ## algorithms folder
-1. random
+1. breachbound
 2. breadthfirst
 3. depthfirst
+4. depthfirstbb
+5. random
 
 To run the algorithms they get called on from the main.py
 
 ### random.py
+Random algorithm goes through all possible moves without soft constraints.
 
 ### breadthfirst.py
+Breadth First Search algorithm: Iterates over the entire depthlevel before proceding to the next to find a guaranteed best solution.
 
 ### depthfirst.py
-Iterations Rush Hour with a Depth First Search algorithm. It uses the initial board as the parent node
-and retains deepcoded copy's of the moves made to solve the game of Rush Hour with the first possible solution. 
+Depth First Search algorithm: Iterates over as deep as possible until it hits a dead end and backtracks to a previous unique state with multiple unused moves, that move to other unique states.  
 
+### depthfirstbb
 
-#### PUNCHLIST
-¿ wat doet random && hoe wordt het uitgevoerd?
-¿ wat doet breadthfirst && hoe wordt het uitgevoerd?
-¿ wat doet depthfirst && hoe wordt het uitgevoerd?
+### breachbound
