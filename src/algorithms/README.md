@@ -4,6 +4,7 @@
 3. depthfirst
 4. depthfirstbb
 5. random
+6. heuristics (seperate folder)
 
 To run the algorithms they get called on from the main.py
 
@@ -19,3 +20,9 @@ Depth First Search algorithm: Iterates over as deep as possible until it hits a 
 ### depthfirstbb
 
 ### breachbound
+
+### heuristics
+1. def is_exit_reachable(game)
+checks if the red car can be moved to the finish.
+2. move_trucks_first(game)
+checks if by preferring to move trucks instead of cars the game finishes in less moves. (non-operational)
