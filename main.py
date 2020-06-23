@@ -47,13 +47,9 @@ def run(game_number, game_size, algorithm, iterations, depth, visualisation):
         result_moves.reverse()
         results = {0: result_moves}
     elif algorithm == 'dfbb':
-        results = depthfirstbb.depthfirstbb(init_game, depth)  
-    elif algorithm == 'dfbb2':
-        results = depthfirstbb2.depthfirstbb2(init_game)      
+        results = depthfirstbb.depthfirstbb(init_game, depth)     
     elif algorithm == 'dfbbr':
-        results = depthfirstbbr.depthfirstbbr(init_game, depth)      
-    elif algorithm == 'dfbbr2':
-        results = depthfirstbbr2.depthfirstbbr2(init_game)  
+        results = depthfirstbbr.depthfirstbbr(init_game, depth)  
     else:
         print("Error running algorithm")
 

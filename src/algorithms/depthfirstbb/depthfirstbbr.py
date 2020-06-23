@@ -15,8 +15,9 @@ def depthfirstbbr(parent_node, depth):
         number of steps [('A', 2), ('B', -2)]. The list represents the movements that should be executed to solve the
         game.
     """
-    # Creat dict for solved case
-    solved_cases = {}
+    
+    best_sol_count = 100000
+    best_sol = {}
     seen_states = []
     stack = []
 
@@ -27,8 +28,7 @@ def depthfirstbbr(parent_node, depth):
         # Get first from stack.
         state = stack.pop()
 
-        if len(state.moves) < depth:   
-
+        if len(state.moves) < best_sol_count and len(state.moves) < depth:   
             # Randomize outcome
             ps_move = list(state.possible_moves)
             random.shuffle(ps_move)
@@ -62,9 +62,9 @@ def depthfirstbbr(parent_node, depth):
                     last_move = finish_game(child_game)
                     moved = (vehicle.id, steps)
                     child_game.moves.append(moved)  
-                    solved_cases[0] = child_game.moves
-                    
-                if child_game.is_finished():
-                    return solved_cases
+                    best_sol[0] = child_game.moves
 
-    return "No solved cases have been found :("
+                if child_game.is_finished():
+                    best_sol_count = len(child_game.moves)
+                    
+    return best_sol
