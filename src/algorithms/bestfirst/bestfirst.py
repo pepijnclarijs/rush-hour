@@ -2,9 +2,7 @@ import copy
 import queue as q
 
 from src.heuristics.heuristics import is_exit_reachable, is_state_unique
-from src.util import finish_game
-from src.algorithms.breadthfirst.breadthfirst_util import create_game_from_state
-from src.load import load_game
+from src.util import finish_game, create_game_from_state
 
 
 def bestfirst(initial_game, exit_reachable, state_unique, winning_state):
@@ -62,6 +60,7 @@ def bestfirst(initial_game, exit_reachable, state_unique, winning_state):
 
             # Otherwise, remember the state.
             seen_states.append(child_state)
+            print(f"Seen states: {len(seen_states)}")
 
             # Add new child node to queue.
             moves_until_state = copy.deepcopy(parent_node[1])
@@ -80,7 +79,7 @@ def bestfirst(initial_game, exit_reachable, state_unique, winning_state):
             if child_game.is_finished():
                 solved_cases, child_game.vehicles
 
-    return "No solved cases have been found :("
+    return {0: "No solved cases have been found :("}
 
 
 def calc_heuristic(state, winning_state):
