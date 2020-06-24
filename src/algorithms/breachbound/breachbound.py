@@ -30,7 +30,8 @@ def breachbound(initial_game, max_depth):
     board_size = initial_game.board.length
 
     while len(stack) > 0:
-        print(f"Number of passed nodes is: {len(seen_nodes)}")
+        if len(seen_nodes) % 1000 == 0:
+            print(f"Number of passed nodes: {len(seen_nodes)}")
 
         # Get first from queue.
         parent_node = stack.pop()
@@ -85,6 +86,7 @@ def breachbound(initial_game, max_depth):
             previous_case = moves_count
             best_solution = moves
     return_result = {0: best_solution}
+    print(f"Number of passed nodes: {len(seen_nodes)}")
     return return_result
 
 

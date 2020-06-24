@@ -61,7 +61,8 @@ def bestfirst(initial_game, exit_reachable, state_unique, winning_state):
 
             # Otherwise, remember the state.
             seen_states.append(child_state)
-            print(f"Seen states: {len(seen_states)}")
+            if len(seen_states) % 100 == 0:
+                print(f"Seen states: {len(seen_states)}")
 
             # Add new child node to queue.
             moves_until_state = copy.deepcopy(parent_node[1])
@@ -78,7 +79,8 @@ def bestfirst(initial_game, exit_reachable, state_unique, winning_state):
                 solved_cases[0] = moves
 
             if child_game.is_finished():
-                solved_cases, child_game.vehicles
+                print(f"Seen states: {len(seen_states)}")
+                return solved_cases
 
     return {0: "No solved cases have been found :("}
 

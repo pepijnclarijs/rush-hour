@@ -58,7 +58,9 @@ def breadthfirst(initial_game):
 
             # Otherwise, remember the state.
             seen_states.append(child_state)
-            print(f"Seen states: {len(seen_states)}")
+            
+            if len(seen_states) % 100 == 0:
+                print(f"Seen states: {len(seen_states)}")
 
             # Add new child node to queue.
             moves_until_state = copy.deepcopy(parent_node[1])
@@ -74,6 +76,7 @@ def breadthfirst(initial_game):
                 solved_cases[0] = moves
 
             if child_game.is_finished():
+                print(f"Seen states: {len(seen_states)}")
                 return solved_cases
 
     return "No solved cases have been found :("
