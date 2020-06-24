@@ -95,7 +95,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
         vis.visualise(game, best_result, board_size)
 
     # Print results
-    print(f"Amount of moves to reach exit per game: {avg_moves}")
+    print(f"Amount of moves to reach exit per finished game: {avg_moves}")
     print(f"Runtime: {round(h)} hours, {round(m)} minutes and {round(s)} seconds")
     print(f"Iterations: {iterations}")
     print(f"Average moves to reach exit: {round(sum(avg_moves) / len(avg_moves))}")
@@ -118,11 +118,14 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     elif algorithm == 'bb':
         algorithm = 'breachbound'
 
+    
     # Check best result
-    with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
+    with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_best_run.csv", 'r') as f:
         best_stat = f.readline()
+        if best_stat == '':
+            best_stat = max(results.values(), key=len)   
 
-    if int(best_stat) >= len(best_result):
+    if len(best_stat) >= len(best_result):
         with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([len(best_result)])
@@ -135,12 +138,13 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
             writer.writerow([f"Heuristic is exit reachable enabled: {exit_reachable}"])
             writer.writerow(["car", "move"])
             writer.writerows(best_result)
-
-        # Add winning state with least moves for best first
-        with open(f"data/boards/game{game_number}_winning_state.csv", 'w+', newline='') as f:    
-            for vehicle, position in winning_game.items():
-                writer = csv.writer(f)
-                writer.writerow([vehicle, position])
+            
+        if algorithm == 'random':
+            # Add winning state with least moves for best first
+            with open(f"data/boards/game{game_number}_winning_state.csv", 'w+', newline='') as f:    
+                for vehicle, position in winning_game.items():
+                    writer = csv.writer(f)
+                    writer.writerow([vehicle, position])
 
     # Append results
     with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_results.csv", 'a+', newline='') as f:

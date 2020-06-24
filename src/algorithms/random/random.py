@@ -73,7 +73,8 @@ def randomize(init_game, iterations, state_unique, exit_reachable, board_size, m
             # Do not try more than max_tries moves.
             tries += 1
             if tries > max_tries:
-                print("max tries exceeded")
+                print("Max tries exceeded")
+                moves.clear()
                 break
 
             # Heuristic: check if the red car can be moved to the exit.
