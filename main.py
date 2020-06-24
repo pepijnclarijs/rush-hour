@@ -52,7 +52,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
             results.append(result_moves)
             print(result_moves)
     elif algorithm == 'bb':
-        results = breachbound.breachbound(init_game, depth, exit_reachable, state_unique)
+        results = breachbound.breachbound(init_game, depth)
     else:
         sys.exit('Cannot find algorithm')
 
@@ -138,7 +138,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
             writer.writerow([f"Heuristic is exit reachable enabled: {exit_reachable}"])
             writer.writerow(["car", "move"])
             writer.writerows(best_result)
-            
+
         if algorithm == 'random':
             # Add winning state with least moves for best first
             with open(f"data/boards/game{game_number}_winning_state.csv", 'w+', newline='') as f:    
