@@ -5,7 +5,7 @@ from src.util import finish_game
 from src.algorithms.breadthfirst.breadthfirst_util import create_game_from_state
 
 
-def breachbound(initial_game, max_depth):
+def branchbound(initial_game, max_depth, max_tries):
     """
     Uses a breadth first algorithm to solve a given game of Rush Hour.
     Args:
@@ -28,10 +28,9 @@ def breachbound(initial_game, max_depth):
     stack = [initial_node]
     seen_nodes.append(initial_node)
     board_size = initial_game.board.length
-
+    case_number = 0
+    moves_to_win = []
     while len(stack) > 0:
-        print(f"Number of passed nodes is: {len(seen_nodes)}")
-
         # Get first from queue.
         parent_node = stack.pop()
 
@@ -42,6 +41,10 @@ def breachbound(initial_game, max_depth):
             # Create a game instance from the state.
             parent_state = parent_node[0]
             parent_game = create_game_from_state(parent_state, board_size)
+
+            # Skip states that are already finished.
+            if parent_game.is_finished():
+                continue
 
             # Loop over the possible moves in the state.
             possible_moves = parent_game.possible_moves
@@ -72,20 +75,27 @@ def breachbound(initial_game, max_depth):
                 # Heuristic: check if the boxes from the red car up until the exit are free.
                 if is_exit_reachable(child_game):
                     last_move = finish_game(child_game)
-                    moves = child_node[1]
-                    moves.append(last_move)
-                    solved_cases[0] = moves
+                    moves_to_win = child_node[1]
+                    moves_to_win.append(last_move)
 
-    # Get the best solution.
-    previous_case = 999999999
-    for case in solved_cases:
-        moves = solved_cases[case]
-        moves_count = len(moves)
-        if moves_count < previous_case:
-            previous_case = moves_count
-            best_solution = moves
-    return_result = {0: best_solution}
-    return return_result
+                if child_game.is_finished():
+                    if len(moves_to_win) > 0:
+                        solved_cases[case_number] = moves_to_win
+                        print(f"Solved cases: {len(solved_cases)}")
+                        moves_to_win = []
+                    else:
+                        solved_cases[case_number] = child_node[1]
+                        print(f"Solved cases: {len(solved_cases)}")
+
+                    case_number += 1
+
+                if case_number >= max_tries:
+                    return solved_cases
+
+    if len(solved_cases.values()) > 0:
+        return solved_cases
+
+    return {0: "No solved cases have been found :("}
 
 
 def is_shortest_route_to_state(seen_nodes, node):

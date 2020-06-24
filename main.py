@@ -5,7 +5,7 @@ from src.algorithms.breadthfirst import breadthfirst
 from src.algorithms.bestfirst import bestfirst
 from src.algorithms.depthfirst import depthfirst, archive
 from src.algorithms.depthfirst.archive import Archive
-from src.algorithms.breachbound import breachbound
+from src.algorithms.branchbound import branchbound
 from src.load import load_game
 from src.visualisation import visualise as vis
 from ast import literal_eval
@@ -55,7 +55,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
             results.append(result_moves)
             print(result_moves)
     elif algorithm == 'bb':
-        results = breachbound.breachbound(init_game, depth)
+        results = branchbound.branchbound(init_game, depth, max_tries)
     else:
         sys.exit('Cannot find algorithm')
 
@@ -98,7 +98,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
         vis.visualise(game, best_result, board_size)
 
     # Print results
-    print(f"Amount of moves to reach exit per finished game: {avg_moves}")
+    print(f"Number of moves to reach exit per finished game: {avg_moves}")
     print(f"Runtime: {round(h)} hours, {round(m)} minutes and {round(s)} seconds")
     print(f"Iterations: {iterations}")
     print(f"Average moves to reach exit: {round(sum(avg_moves) / len(avg_moves))}")
@@ -120,7 +120,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     elif algorithm == 'df':
         algorithm = 'depthfirst'
     elif algorithm == 'bb':
-        algorithm = 'breachbound'
+        algorithm = 'branchbound'
 
     # Check best result
     with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_best_run.csv", 'r') as f:
@@ -166,9 +166,9 @@ if __name__ == "__main__":
     parser.add_argument('-a', '--algorithm', type=str, choices=['r', 'bf', 'bffs', 'df','bb'], required=True, help='Choose algorithm. For bf, all heuristics are always used.')
     parser.add_argument('-e','--exit_reachable', action="store_false", help='Disable heuristic: exit_reachable')
     parser.add_argument('-u','--state_unique', action="store_false", help='Disable heuristic: state_unique')
-    parser.add_argument('-i','--iterations', type=int, required=False, default=1, help='Enter amount of iterations.')
+    parser.add_argument('-i','--iterations', type=int, required=False, default=1, help='Enter number of iterations.')
     parser.add_argument('-m','--max_runs', type=int, required=False, default=10000, help='Change max runs for random algorithm, default: 10000')
-    parser.add_argument('-d','--depth', type=int, required=False, default=30, help='Enter depth')
+    parser.add_argument('-d','--depth', type=int, required=False, default=100, help='Enter depth')
     parser.add_argument('-v','--visualisation', action="store_true", help='Generate visualisation')
 
     args = parser.parse_args()

@@ -6,7 +6,7 @@ from src.util import finish_game
 from src.algorithms.breadthfirst.breadthfirst_util import create_game_from_state
 
 
-def bestfirst(initial_game, exit_reachable, state_unique, winning_state, max_iterations):
+def bestfirst(initial_game, exit_reachable, state_unique, winning_state, max_tries):
     """
     Uses a best first algorithm to solve a given game of Rush Hour.
     Args:
@@ -93,7 +93,7 @@ def bestfirst(initial_game, exit_reachable, state_unique, winning_state, max_ite
 
                 case_number += 1
 
-            if case_number >= max_iterations:
+            if case_number >= max_tries:
                 return solved_cases
 
     if len(solved_cases.values()) > 0:
