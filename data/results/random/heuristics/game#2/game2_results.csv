@@ -66,11 +66,14 @@ least,average,iterations,runtime(sec), is state unique,is exit reachable
 185,185,1,0,True,True
 439,439,1,1,True,True
 41,398,100,98,True,True
-<<<<<<< HEAD
 392,392,1,1,True,True
-=======
 77,310,100,73,True,True
 75,339,100,130,True,True
 47,349,1000,1020,True,True
 55.900000000000006% of the games was solved
->>>>>>> 0fb38ca6aad753eca39079699b911e9be9cd2c86
+82,357,100,130,True,True
+55.00000000000001% of the games was solved
+98,325,100,120,True,True
+52.0% of the games was solved
+58,341,100,116,True,True
+60.0% of the games was solved

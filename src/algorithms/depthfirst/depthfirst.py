@@ -67,7 +67,7 @@ class Depthfirst:
         return None
 
 
-*** version of depthfirst.py that iterates over all nodes per level **
+""" version of depthfirst that iterates over all nodes per level """
     # def traverse_depth(self, depth):
     #     print(depth)
     #     if depth >= self.max_depth:
