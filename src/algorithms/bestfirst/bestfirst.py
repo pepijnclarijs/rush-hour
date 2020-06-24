@@ -6,7 +6,7 @@ from src.util import finish_game
 from src.algorithms.breadthfirst.breadthfirst_util import create_game_from_state
 
 
-def bestfirst(initial_game, exit_reachable, state_unique, winning_state):
+def bestfirst(initial_game, exit_reachable, state_unique, winning_state, max_iterations):
     """
     Uses a best first algorithm to solve a given game of Rush Hour.
     Args:
@@ -33,7 +33,8 @@ def bestfirst(initial_game, exit_reachable, state_unique, winning_state):
     queue.put((heuristic, [], initial_state))
     seen_states.append(initial_state)
     board_size = initial_game.board.length
-
+    case_number = 0
+    moves_to_win = []
     while not queue.empty():
         # Get first from queue.
         parent_node = copy.deepcopy(queue.get())
@@ -41,6 +42,10 @@ def bestfirst(initial_game, exit_reachable, state_unique, winning_state):
         # Create a game instance from the state
         parent_state = parent_node[2]
         parent_game = create_game_from_state(parent_state, board_size)
+
+        # Skip states that are already finished.
+        if parent_game.is_finished():
+            continue
 
         # Loop over the possible moves in the state.
         possible_moves = parent_game.possible_moves
@@ -62,7 +67,6 @@ def bestfirst(initial_game, exit_reachable, state_unique, winning_state):
 
             # Otherwise, remember the state.
             seen_states.append(child_state)
-            print(f"Seen states: {len(seen_states)}")
 
             # Add new child node to queue.
             moves_until_state = copy.deepcopy(parent_node[1])
@@ -75,14 +79,25 @@ def bestfirst(initial_game, exit_reachable, state_unique, winning_state):
                 # Heuristic: check if the boxes from the red car up until the exit are free.
                 if is_exit_reachable(child_game):
                     last_move = finish_game(child_game)
-                    moves = child_node[1]
-                    moves.append(last_move)
-                    solved_cases[0] = moves
-                    return solved_cases
+                    moves_to_win = child_node[1]
+                    moves_to_win.append(last_move)
 
             if child_game.is_finished():
-                solved_cases[0] = child_node[1]
+                if len(moves_to_win) > 0:
+                    solved_cases[case_number] = moves_to_win
+                    print(f"Solved cases: {len(solved_cases)}")
+                    moves_to_win = []
+                else:
+                    solved_cases[case_number] = child_node[1]
+                    print(f"Solved cases: {len(solved_cases)}")
+
+                case_number += 1
+
+            if case_number >= max_iterations:
                 return solved_cases
+
+    if len(solved_cases.values()) > 0:
+        return solved_cases
 
     return {0: "No solved cases have been found :("}
 

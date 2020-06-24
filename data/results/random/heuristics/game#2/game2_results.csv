@@ -68,3 +68,5 @@ least,average,iterations,runtime(sec), is state unique,is exit reachable
 41,398,100,98,True,True
 77,310,100,73,True,True
 75,339,100,130,True,True
+47,349,1000,1020,True,True
+55.900000000000006% of the games was solved

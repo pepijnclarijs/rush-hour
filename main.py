@@ -26,7 +26,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
 
     print(f"Playing game {game_number}, with board size {board_size}, for {iterations} iterations with {algorithm} algorithm")
 
-    # Set start time for performence measurements
+    # Set start time for performance measurements
     start_time = time.time()
 
     # Load game
@@ -42,7 +42,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
             winning_state = dict(reader)
             for keys in winning_state:
                 winning_state[keys] = literal_eval(winning_state[keys])
-        results = bestfirst.bestfirst(init_game, exit_reachable, state_unique, winning_state)        
+        results = bestfirst.bestfirst(init_game, exit_reachable, state_unique, winning_state, max_tries)
     elif algorithm == 'df':
         results = []
         for i in range(depth):
@@ -142,12 +142,12 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
             writer.writerow(["car", "move"])
             writer.writerows(best_result)
 
-    if algorithm == 'random':
-        # Add winning state for best first
-        with open(f"data/boards/game{game_number}_winning_state.csv", 'w+', newline='') as f:
-            for vehicle, position in winning_game.items():
-                writer = csv.writer(f)
-                writer.writerow([vehicle, position.position])
+        if algorithm == 'random':
+            # Add winning state for best first
+            with open(f"data/boards/game{game_number}_winning_state.csv", 'w+', newline='') as f:
+                for vehicle, position in winning_game.items():
+                    writer = csv.writer(f)
+                    writer.writerow([vehicle, position.position])
 
     # Append results
     with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_results.csv", 'a+', newline='') as f:
@@ -155,8 +155,8 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
         if f.tell() == 0:
             writer.writerow(['least', 'average', 'iterations', 'runtime(sec)', ' is state unique', 'is exit reachable'])
         writer.writerow([len(best_result), round(sum(avg_moves) / len(avg_moves)), iterations, round(seconds), state_unique, exit_reachable])
-        if algorithm == 'r' and state_unique:
-            writer.writerow(f"{percentage_solved}% of the games was solved")
+        if algorithm == 'random' and state_unique:
+            writer.writerow([f"{percentage_solved}% of the games was solved"])
 
 
 if __name__ == "__main__":
@@ -166,7 +166,7 @@ if __name__ == "__main__":
     parser.add_argument('-a', '--algorithm', type=str, choices=['r', 'bf', 'bffs', 'df','bb'], required=True, help='Choose algorithm. For bf, all heuristics are always used.')
     parser.add_argument('-e','--exit_reachable', action="store_false", help='Disable heuristic: exit_reachable')
     parser.add_argument('-u','--state_unique', action="store_false", help='Disable heuristic: state_unique')
-    parser.add_argument('-i','--iterations', type=int, required=False, default=1, help='Enter amount of iterations')
+    parser.add_argument('-i','--iterations', type=int, required=False, default=1, help='Enter amount of iterations.')
     parser.add_argument('-m','--max_runs', type=int, required=False, default=10000, help='Change max runs for random algorithm, default: 10000')
     parser.add_argument('-d','--depth', type=int, required=False, default=30, help='Enter depth')
     parser.add_argument('-v','--visualisation', action="store_true", help='Generate visualisation')
