@@ -38,19 +38,27 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     elif algorithm == 'bffs':
         with open(f"data/boards/game{game_number}_winning_state.csv", 'r') as f:
             reader = csv.reader(f)
-            winning_state = dict(reader)    
-        results = bestfirst.bestfirst(init_game, exit_reachable, state_unique, winning_state)        
+            winning_state = dict(reader)
+        results = bestfirst.bestfirst(init_game, exit_reachable, state_unique, winning_state)
     elif algorithm == 'df':
         results = []
-        for i in range(depth):
-            print(i)
-            archive = Archive()
-            rootnode = depthfirst.Depthfirst(None, init_game, archive, i)
-            result_moves = rootnode.traverse_depth(0)
-            if result_moves is not None:
-                result_moves.reverse()
+        archive = Archive()
+        rootnode = depthfirst.Depthfirst(None, init_game, archive)
+        result_moves = rootnode.traverse_depth()
+        if result_moves is not None:
+            result_moves.reverse()
             results.append(result_moves)
             print(result_moves)
+            print(len(result_moves))
+        # for i in range(depth):
+        #     print(i)
+        #     archive = Archive()
+        #     rootnode = depthfirst.Depthfirst(None, init_game, archive, i)
+        #     result_moves = rootnode.traverse_depth(0)
+        #     if result_moves is not None:
+        #         result_moves.reverse()
+        #     results.append(result_moves)
+        #     print(result_moves)
     elif algorithm == 'bb':
         results = breachbound.breachbound(init_game, depth)
     else:
@@ -88,7 +96,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
         avg_moves.append(len(results[result]))
         if len(results[result]) < len(best_result):
             best_result = results[result]
-        
+
     # Create visualisation
     if visualisation:
         game = load_game(game_number, board_size)
@@ -108,22 +116,22 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     if state_unique or exit_reachable:
         heuristics = 'heuristics'
     if algorithm == 'r':
-        algorithm = 'random'         
+        algorithm = 'random'
     if algorithm == 'bf':
-        algorithm = 'breadthfirst' 
+        algorithm = 'breadthfirst'
     if algorithm == 'bffs':
-        algorithm = 'bestfirst' 
+        algorithm = 'bestfirst'
     elif algorithm == 'df':
         algorithm = 'depthfirst'
     elif algorithm == 'bb':
         algorithm = 'breachbound'
 
-    
+
     # Check best result
     with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_best_run.csv", 'r') as f:
         best_stat = f.readline()
         if best_stat == '':
-            best_stat = max(results.values(), key=len)   
+            best_stat = max(results.values(), key=len)
 
     if len(best_stat) >= len(best_result):
         with open(f"data/results/{algorithm}/{heuristics}/game#{game_number}/game{game_number}_best_run.csv", 'w+', newline='') as f:
@@ -141,7 +149,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
 
         if algorithm == 'random':
             # Add winning state with least moves for best first
-            with open(f"data/boards/game{game_number}_winning_state.csv", 'w+', newline='') as f:    
+            with open(f"data/boards/game{game_number}_winning_state.csv", 'w+', newline='') as f:
                 for vehicle, position in winning_game.items():
                     writer = csv.writer(f)
                     writer.writerow([vehicle, position])

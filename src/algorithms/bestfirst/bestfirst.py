@@ -78,7 +78,7 @@ def bestfirst(initial_game, exit_reachable, state_unique, winning_state):
                 solved_cases[0] = moves
 
             if child_game.is_finished():
-                solved_cases, child_game.vehicles
+                return solved_cases
 
     return {0: "No solved cases have been found :("}
 
@@ -105,5 +105,3 @@ def calc_heuristic(state, winning_state):
     correct_vehicle_count = len(shared_items)
 
     return vehicle_count - correct_vehicle_count
-
-
