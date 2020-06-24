@@ -93,8 +93,9 @@ def bestfirst(initial_game, exit_reachable, state_unique, winning_state, max_tri
 
                 case_number += 1
 
-            if case_number >= max_tries:
-                return solved_cases
+            if max_tries > 0:
+                if case_number >= max_tries:
+                    return solved_cases
 
     if len(solved_cases.values()) > 0:
         return solved_cases

@@ -167,7 +167,7 @@ if __name__ == "__main__":
     parser.add_argument('-e','--exit_reachable', action="store_false", help='Disable heuristic: exit_reachable')
     parser.add_argument('-u','--state_unique', action="store_false", help='Disable heuristic: state_unique')
     parser.add_argument('-i','--iterations', type=int, required=False, default=1, help='Enter number of iterations.')
-    parser.add_argument('-m','--max_runs', type=int, required=False, default=10000, help='Change max runs for random algorithm, default: 10000')
+    parser.add_argument('-m','--max_runs', type=int, required=False, default=10000, help='Change max runs for random algorithm, default: 10000. Set to 0 if you want bb or bffs to search the entire state space up to a given depth')
     parser.add_argument('-d','--depth', type=int, required=False, default=100, help='Enter depth')
     parser.add_argument('-v','--visualisation', action="store_true", help='Generate visualisation')
 

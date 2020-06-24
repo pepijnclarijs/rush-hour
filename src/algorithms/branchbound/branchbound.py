@@ -89,6 +89,7 @@ def branchbound(initial_game, max_depth, max_tries):
 
                     case_number += 1
 
+            if max_tries > 0:
                 if case_number >= max_tries:
                     return solved_cases
 
