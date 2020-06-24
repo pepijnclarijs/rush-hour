@@ -16,8 +16,6 @@ class Game:
         current_state (dict of str: list of tuples of integers): Represents the current state that the game is in.
         possible_moves (set of tuples of Vehicle, integer): Represents the possible moves that can be done in the
                 current state of the game.
-        # TODO: Check if the taken_boxes attribute is still useful and if it is not better to use the current_state
-            at places where taken_boxes is currently used.
         taken_boxes (list of tuples of ints): Represents all the boxes that are currently taken on the board.
     """
 

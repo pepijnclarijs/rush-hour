@@ -54,10 +54,11 @@ def bestfirst(initial_game, exit_reachable, state_unique, winning_state):
             child_vehicle = child_game.vehicles.get(vehicle.id)
             child_game.move(child_vehicle, new_position)
 
-            # Heuristic: Check if the state is unique.
             child_state = child_game.current_state
-            if not is_state_unique(seen_states, child_state):
-                continue
+            if state_unique:
+                # Heuristic: Check if the state is unique.
+                if not is_state_unique(seen_states, child_state):
+                    continue
 
             # Otherwise, remember the state.
             seen_states.append(child_state)
@@ -70,15 +71,18 @@ def bestfirst(initial_game, exit_reachable, state_unique, winning_state):
             child_node = (child_heuristic, moves_until_state, child_state)
             queue.put(child_node)
 
-            # Heuristic: check if the boxes from the red car up until the exit are free.
-            if is_exit_reachable(child_game):
-                last_move = finish_game(child_game)
-                moves = child_node[1]
-                moves.append(last_move)
-                solved_cases[0] = moves
+            if exit_reachable:
+                # Heuristic: check if the boxes from the red car up until the exit are free.
+                if is_exit_reachable(child_game):
+                    last_move = finish_game(child_game)
+                    moves = child_node[1]
+                    moves.append(last_move)
+                    solved_cases[0] = moves
+                    return solved_cases
 
             if child_game.is_finished():
-                solved_cases, child_game.vehicles
+                solved_cases[0] = child_node[1]
+                return solved_cases
 
     return {0: "No solved cases have been found :("}
 
