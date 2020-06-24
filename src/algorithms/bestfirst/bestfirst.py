@@ -12,7 +12,7 @@ def bestfirst(initial_game, exit_reachable, state_unique, winning_state, max_ite
     Args:
         initial_game (Game): Instance of the initial game.
         exit_reachable (Bool): Indicates whether the is exit reachable heuristic should be used.
-        state_unique (Bool): Indicates whether the is state uniqe heuristic should be used.
+        state_unique (Bool): Indicates whether the is state unique heuristic should be used.
         winning_state (dict of str: list of tuple of int, int): The state of a board that is finished.
         max_iter (int): Max number of iterations.
     Returns:

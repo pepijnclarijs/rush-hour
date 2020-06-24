@@ -1,1 +1,4 @@
 least,average,iterations,runtime(sec)
+32,32,1,16,True,True
+32,40,100,23,True,True
+32,43,1000,101,True,True

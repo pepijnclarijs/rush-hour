@@ -11,6 +11,7 @@ def branchbound(initial_game, max_depth, max_iter):
     Args:
         initial_game (Game): The instance of the initial game.
         max_depth (int): The depth up until which should be searched.
+        max_iter (int): The maximum number of cases that should be solved before returning.
     Returns:
         List of tuples containing a string representing the id of a vehicle and an integer representing the number of
         steps [('A', 2), ('B', -2)]. The list represents the movements that should be executed to solve the game.
