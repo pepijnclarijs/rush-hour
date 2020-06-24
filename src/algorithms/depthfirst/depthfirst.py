@@ -34,7 +34,7 @@ class Depthfirst:
         # game.print_board()
         # print("")
 
-
+    # traverse the tree following the nodes depth first
     def traverse_depth(self):
         if is_exit_reachable(self.game):
             return_moves = []
@@ -43,11 +43,14 @@ class Depthfirst:
             return_moves.append(last_move)
             return return_moves
 
+        # if the parent or child_node is already in the archive do nothing
         if self.archive.game_state_in_archive(self.game.vehicles):
             return None
 
+        # add node to archive
         self.archive.add_board_state(copy.deepcopy(self.game.vehicles))
 
+        # move first possible move that is unique, not yet in archive
         for move in self.game.possible_moves:
             child_game = copy.deepcopy(self.game)
             (vehicle, steps) = move
@@ -62,6 +65,9 @@ class Depthfirst:
                 return traversal_list
 
         return None
+
+
+*** version of depthfirst.py that iterates over all nodes per level **
     # def traverse_depth(self, depth):
     #     print(depth)
     #     if depth >= self.max_depth:
@@ -93,18 +99,3 @@ class Depthfirst:
     #         if (traversal_list is not None):
     #             traversal_list.append((vehicle.id, steps))
     #             return traversal_list
-
-
-
-
-        # Een lijst aan 'child' games, met ieder één van de
-        # mogelijk uit te voeren moves.
-
-        #   Game -> mogelijke moves
-        #   list game (deepcopy)
-        #   vehicles
-        #       speculated moves
-
-        # lijst games
-        # length: mogelijke moves
-        # mogelijke move[i] uitvoeren op game[i]
