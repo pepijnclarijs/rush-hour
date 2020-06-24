@@ -12,14 +12,16 @@ To run the algorithms they get called on from the main.py
 Random algorithm goes through all possible moves without soft constraints.
 
 ### breadthfirst.py
-Breadth First Search algorithm: Iterates over the entire depthlevel before proceding to the next to find a guaranteed best solution.
+Breadth First Search algorithm: Iterates over the entire breadthlevel before proceding to the next depth to find a guaranteed best solution.
+
+### bestfirst.py
+Best First Search algorithm:  Iterates over the entire breadthlevel before proceding to the next depth. Sort the depths based on heuristics before proceeding to the next depth. Aventually finds a guaranteed best solution.
 
 ### depthfirst.py
 Depth First Search algorithm: Iterates over as deep as possible until it hits a dead end and backtracks to a previous unique state with multiple unused moves, that move to other unique states.  
 
-### depthfirstbb
-
 ### breachbound
+Breach and Bound algorithm:  Iterates over as deep as possible until it hits a dead end or reaches a previously set max depth (bound) and backtracks to a previous unique state with multiple unused moves, that move to other unique states.  
 
 ### heuristics
 1. def is_exit_reachable(game)
