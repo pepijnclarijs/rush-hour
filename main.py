@@ -45,15 +45,23 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
         results = bestfirst.bestfirst(init_game, exit_reachable, state_unique, winning_state, iterations)
     elif algorithm == 'df':
         results = []
-        for i in range(depth):
-            print(i)
-            archive = Archive()
-            rootnode = depthfirst.Depthfirst(None, init_game, archive, i)
-            result_moves = rootnode.traverse_depth(0)
-            if result_moves is not None:
-                result_moves.reverse()
+        archive = Archive()
+        rootnode = depthfirst.Depthfirst(None, init_game, archive)
+        result_moves = rootnode.traverse_depth()
+        if result_moves is not None:
+            result_moves.reverse()
             results.append(result_moves)
             print(result_moves)
+            print(len(result_moves))
+        # for i in range(depth):
+        #     print(i)
+        #     archive = Archive()
+        #     rootnode = depthfirst.Depthfirst(None, init_game, archive, i)
+        #     result_moves = rootnode.traverse_depth(0)
+        #     if result_moves is not None:
+        #         result_moves.reverse()
+        #     results.append(result_moves)
+        #     print(result_moves)
     elif algorithm == 'bb':
         results = branchbound.branchbound(init_game, depth, iterations)
     else:
@@ -91,7 +99,7 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
         avg_moves.append(len(results[result]))
         if len(results[result]) < len(best_result):
             best_result = results[result]
-        
+
     # Create visualisation
     if visualisation:
         game = load_game(game_number, board_size)
@@ -112,11 +120,11 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
     if state_unique or exit_reachable:
         heuristics = 'heuristics'
     if algorithm == 'r':
-        algorithm = 'random'         
+        algorithm = 'random'
     if algorithm == 'bf':
-        algorithm = 'breadthfirst' 
+        algorithm = 'breadthfirst'
     if algorithm == 'bffs':
-        algorithm = 'bestfirst' 
+        algorithm = 'bestfirst'
     elif algorithm == 'df':
         algorithm = 'depthfirst'
     elif algorithm == 'bb':
