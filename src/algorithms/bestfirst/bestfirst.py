@@ -86,9 +86,6 @@ def bestfirst(initial_game, exit_reachable, state_unique, winning_state, max_ite
                     moves_to_win.append(last_move)
 
             if child_game.is_finished():
-
-                return solved_cases
-
                 if len(moves_to_win) > 0:
                     solved_cases[case_number] = moves_to_win
                     print(f"Solved cases: {len(solved_cases)}")

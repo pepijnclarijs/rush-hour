@@ -10,3 +10,5 @@ least,average,iterations,runtime(sec)
 34,38,1000,6,True,True
 34,38,1000,6,True,True
 34,38,1000,6,True,True
+34,38,100,6,True,True
+34,38,3000,6,True,True
