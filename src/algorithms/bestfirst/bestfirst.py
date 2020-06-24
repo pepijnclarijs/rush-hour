@@ -6,12 +6,15 @@ from src.util import finish_game
 from src.algorithms.breadthfirst.breadthfirst_util import create_game_from_state
 
 
-def bestfirst(initial_game, exit_reachable, state_unique, winning_state, max_tries):
+def bestfirst(initial_game, exit_reachable, state_unique, winning_state, max_iter):
     """
     Uses a best first algorithm to solve a given game of Rush Hour.
     Args:
         initial_game (Game): Instance of the initial game.
+        exit_reachable (Bool): Indicates whether the is exit reachable heuristic should be used.
+        state_unique (Bool): Indicates whether the is state uniqe heuristic should be used.
         winning_state (dict of str: list of tuple of int, int): The state of a board that is finished.
+        max_iter (int): Max number of iterations.
     Returns:
         Dict of int: List of tuples containing a string representing the id of a vehicle and an integer representing the
         number of steps [('A', 2), ('B', -2)]. The list represents the movements that should be executed to solve the
@@ -93,8 +96,8 @@ def bestfirst(initial_game, exit_reachable, state_unique, winning_state, max_tri
 
                 case_number += 1
 
-            if max_tries > 0:
-                if case_number >= max_tries:
+            if max_iter > 0:
+                if case_number >= max_iter:
                     return solved_cases
 
     if len(solved_cases.values()) > 0:

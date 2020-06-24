@@ -5,7 +5,7 @@ from src.util import finish_game
 from src.algorithms.breadthfirst.breadthfirst_util import create_game_from_state
 
 
-def branchbound(initial_game, max_depth, max_tries):
+def branchbound(initial_game, max_depth, max_iter):
     """
     Uses a breadth first algorithm to solve a given game of Rush Hour.
     Args:
@@ -89,8 +89,8 @@ def branchbound(initial_game, max_depth, max_tries):
 
                     case_number += 1
 
-            if max_tries > 0:
-                if case_number >= max_tries:
+            if max_iter > 0:
+                if case_number >= max_iter:
                     return solved_cases
 
     if len(solved_cases.values()) > 0:
