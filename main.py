@@ -157,6 +157,8 @@ def run(game_number, game_size, algorithm, exit_reachable, state_unique, iterati
         writer.writerow([len(best_result), round(sum(avg_moves) / len(avg_moves)), iterations, round(seconds), state_unique, exit_reachable])
         if algorithm == 'random' and state_unique:
             writer.writerow([f"{percentage_solved}% of the games was solved"])
+        if algorithm == 'branchbound' or algorithm == 'depthfirst':
+            writer.writerow([f"Max depth was: {depth}"])
 
 
 if __name__ == "__main__":
