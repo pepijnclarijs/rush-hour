@@ -1,2 +1,4 @@
 least,average,iterations,runtime(sec)
 7830,7830,1,62,False,True
+7509,7509,1,193,True,True
+100.0% of the games was solved

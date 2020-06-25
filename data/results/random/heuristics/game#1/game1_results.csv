@@ -9,3 +9,15 @@ least,average,iterations,runtime(sec)
 4872,4872,1,2,False,True
 9076,9076,1,4,False,True
 79,141,100,23,True,True
+48,48,100,19,True,True
+169,184,50,13,True,True
+127,127,50,63,True,True
+216,216,30,8,True,True
+98,110,100,22,True,True
+3.0% of the games was solved
+48,134,1000,221,True,True
+2.4% of the games was solved
+62,90,100,31,True,True
+2.0% of the games was solved
+150,188,100,31,True,True
+3.0% of the games was solved

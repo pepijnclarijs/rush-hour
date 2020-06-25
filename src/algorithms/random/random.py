@@ -46,7 +46,7 @@ def randomize(init_game, iterations, state_unique, exit_reachable, board_size, m
             new_coordinates = random_vehicle.speculate_new_position(steps)
 
             # Heuristic: check if the movement results in a unique state.
-            if state_unique == True:
+            if state_unique:
                 speculated_game = copy.deepcopy(game)
                 vehicle_in_speculated_game = speculated_game.vehicles.get(random_vehicle.id)
                 speculated_game.move(vehicle_in_speculated_game, new_coordinates)
@@ -78,7 +78,7 @@ def randomize(init_game, iterations, state_unique, exit_reachable, board_size, m
                 break
 
             # Heuristic: check if the red car can be moved to the exit.
-            if exit_reachable == True:
+            if exit_reachable:
                 if is_exit_reachable(game):
                     last_move = finish_game(game)
                     moves.append(last_move)
